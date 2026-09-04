@@ -4,6 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>প্রো টিম জেনারেটর</title>
+    
+    <link rel="icon" href="logo.svg" type="image/svg+xml">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#4338CA">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Bengali:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -20,10 +27,12 @@
             --border-color: #E5E7EB;
         }
 
+        /* Mobile First Body */
         body { font-family: 'Noto Sans Bengali', sans-serif; background-color: var(--card-bg); margin: 0; padding: 0; color: var(--text-main); overflow-x: hidden; display: flex; flex-direction: column; min-height: 100vh; -webkit-tap-highlight-color: transparent; }
         
         .container { width: 100%; max-width: 100%; margin: 0; padding: 15px 20px; border-radius: 0; box-shadow: none; position: relative; flex: 1; box-sizing: border-box; display: flex; flex-direction: column; background: var(--card-bg); }
         
+        /* PC/Tablet View Overrides */
         @media (min-width: 992px) {
             body { background-color: var(--bg-color); padding: 20px; }
             .container { max-width: 1300px; width: 95%; margin: auto; background: var(--card-bg); padding: 40px; border-radius: 28px; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.1); min-height: calc(100vh - 40px); }
@@ -33,10 +42,12 @@
         .view.active { display: block; }
         @keyframes slideFade { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
         
+        /* Modern App Header with Logo Support */
         .header-section { display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; border-bottom: 1px solid #E5E7EB; padding-bottom: 15px; position: sticky; top: 0; background: var(--card-bg); z-index: 50; }
         @media (min-width: 992px) { .header-section { position: relative; z-index: 1; } }
         
-        h1 { color: var(--primary); margin: 0; font-size: 26px; font-weight: 800; letter-spacing: -0.5px; display: flex; align-items: center; gap: 8px; }
+        h1 { color: var(--primary); margin: 0; font-size: 26px; font-weight: 800; letter-spacing: -0.5px; display: flex; align-items: center; gap: 10px; }
+        .app-logo { width: 34px; height: 34px; border-radius: 8px; box-shadow: 0 4px 10px rgba(67, 56, 202, 0.2); }
         
         .menu-container { position: relative; display: inline-block; }
         .three-dots { cursor: pointer; font-size: 24px; color: var(--text-muted); padding: 8px 12px; border-radius: 12px; transition: 0.3s; background: #F3F4F6; }
@@ -50,6 +61,7 @@
         .menu-item.action-item { color: var(--primary); }
         .menu-item.history-item { color: var(--accent); background-color: #FFFBEB; }
         
+        /* Stylish Toggle Switch */
         .switch { position: relative; display: inline-block; width: 46px; height: 24px; }
         .switch input { opacity: 0; width: 0; height: 0; }
         .slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #D1D5DB; transition: .4s; border-radius: 34px; }
@@ -59,6 +71,7 @@
 
         h3 { color: var(--text-main); text-align: left; font-size: 20px; margin-top: 25px; margin-bottom: 12px; font-weight: 800; }
         
+        /* Native App Inputs */
         .input-group { margin-bottom: 20px; text-align: left; width: 100%; }
         label { font-weight: 600; display: block; margin-bottom: 8px; color: var(--text-main); font-size: 15px; }
         input[type="text"], input[type="number"], select { width: 100%; padding: 16px 15px; border: 1.5px solid var(--border-color); background: #FFFFFF; border-radius: 12px; box-sizing: border-box; font-size: 16px; transition: all 0.2s ease; color: var(--text-main); font-family: inherit; font-weight: 500; box-shadow: 0 1px 3px rgba(0,0,0,0.05); appearance: none; }
@@ -131,7 +144,7 @@
         @keyframes bounceText { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-5px); } }
         #spinDestination { color: #34D399; font-size: 22px; margin-top: 20px; min-height: 35px; font-weight: 800; z-index: 2; position: relative; text-shadow: 0 0 10px rgba(52, 211, 153, 0.5); }
         
-        /* 1. Realistic 3D Card */
+        /* Realistic Animations */
         .card-scene { perspective: 1000px; width: 95%; max-width: 400px; height: 120px; margin: 20px auto; z-index: 5; position: relative; }
         .card-object { width: 100%; height: 100%; position: relative; transition: transform cubic-bezier(0.175, 0.885, 0.32, 1.275); transform-style: preserve-3d; }
         .card-face { position: absolute; width: 100%; height: 100%; backface-visibility: hidden; display: flex; align-items: center; justify-content: center; border-radius: 16px; font-size: clamp(26px, 5vw, 36px); font-weight: 800; box-shadow: 0 15px 30px rgba(0,0,0,0.3); border: 4px solid #fff; padding: 10px; box-sizing: border-box; word-wrap: break-word; line-height: 1.2; text-align: center; }
@@ -140,48 +153,21 @@
         .card-pop { animation: popCard 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; }
         @keyframes popCard { 0% { transform: scale(1) rotateY(180deg); } 50% { transform: scale(1.1) rotateY(180deg); box-shadow: 0 25px 40px rgba(255,255,255,0.2); } 100% { transform: scale(1) rotateY(180deg); } }
 
-        /* 2. REALISTIC SLOT MACHINE (FIXED) */
-        .slot-machine { 
-            width: 95%; 
-            max-width: 400px; 
-            height: 120px; /* EXACT Content Height */
-            margin: 20px auto; 
-            background: #fff; 
-            border: 8px solid #1E293B; 
-            border-radius: 20px; 
-            overflow: hidden; 
-            position: relative; 
-            box-shadow: 0 15px 30px rgba(0,0,0,0.5), inset 0 25px 20px -15px rgba(0,0,0,0.4), inset 0 -25px 20px -15px rgba(0,0,0,0.4); 
-            z-index: 5; 
-            box-sizing: content-box; /* Crucial fix for height calculation */
-        }
-        .slot-overlay {
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(to bottom, rgba(0,0,0,0.5) 0%, rgba(255,255,255,0) 25%, rgba(255,255,255,0) 75%, rgba(0,0,0,0.5) 100%);
-            pointer-events: none; z-index: 10;
-        }
-        .slot-track { display: flex; flex-direction: column; width: 100%; position: relative; z-index: 5; }
-        .slot-item { 
-            height: 120px; 
-            min-height: 120px; /* Crucial for exact scrolling */
-            display: flex; align-items: center; justify-content: center; 
-            font-size: clamp(26px, 5vw, 36px); font-weight: 800; color: #9CA3AF; 
-            padding: 0 10px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; 
-            box-sizing: border-box; 
-        }
-        .slot-item.spinning { color: var(--text-main); filter: blur(1.5px); }
+        .slot-machine { width: 95%; max-width: 400px; height: 100px; margin: 20px auto; background: #fff; border: 8px solid #1E293B; border-radius: 20px; overflow: hidden; position: relative; box-shadow: 0 15px 30px rgba(0,0,0,0.5), inset 0 25px 20px -15px rgba(0,0,0,0.4), inset 0 -25px 20px -15px rgba(0,0,0,0.4); z-index: 5; box-sizing: border-box; }
+        .slot-track { display: flex; flex-direction: column; }
+        .slot-item { height: 100px; display: flex; align-items: center; justify-content: center; font-size: clamp(26px, 5vw, 36px); font-weight: 800; color: #9CA3AF; transition: 0.2s; padding: 0 10px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .slot-item.spinning { color: var(--text-main); filter: blur(1px); }
         .slot-item.winner { color: var(--primary); background: #EEF2FF; border-top: 2px solid var(--primary-light); border-bottom: 2px solid var(--primary-light); filter: blur(0); }
 
-        /* 3. Canvas Wheel */
-        .canvas-wheel-container { position: relative; width: 95%; max-width: 350px; aspect-ratio: 1 / 1; margin: 10px auto; z-index: 5; }
-        .canvas-wheel { width: 100%; height: 100%; border-radius: 50%; border: 8px solid #fff; box-shadow: 0 15px 30px rgba(0,0,0,0.4); background: #222; }
-        .wheel-pointer { position: absolute; top: -15px; left: 50%; transform: translateX(-50%); width: 0; height: 0; border-left: 15px solid transparent; border-right: 15px solid transparent; border-top: 35px solid #EF4444; z-index: 15; filter: drop-shadow(0 4px 5px rgba(0,0,0,0.5)); transform-origin: top center; transition: transform 0.1s; }
+        .wheel-container { position: relative; width: 240px; height: 240px; margin: 20px auto; display: flex; align-items: center; justify-content: center; z-index: 5; }
+        .wheel { width: 100%; height: 100%; border-radius: 50%; border: 8px solid #fff; box-shadow: 0 15px 30px rgba(0,0,0,0.4), inset 0 0 15px rgba(0,0,0,0.4); background: repeating-conic-gradient(from 0deg, #EF4444 0deg 30deg, #F59E0B 30deg 60deg, #10B981 60deg 90deg, #3B82F6 90deg 120deg, #8B5CF6 120deg 150deg, #EC4899 150deg 180deg); }
+        .wheel-center { position: absolute; width: 35px; height: 35px; background: #fff; border-radius: 50%; border: 5px solid #1E293B; box-shadow: 0 4px 10px rgba(0,0,0,0.3); z-index: 10; }
+        .wheel-pointer { position: absolute; top: -15px; left: 50%; transform: translateX(-50%); width: 0; height: 0; border-left: 15px solid transparent; border-right: 15px solid transparent; border-top: 30px solid #F87171; z-index: 15; filter: drop-shadow(0 4px 4px rgba(0,0,0,0.4)); transform-origin: top center; transition: transform 0.1s; }
         .pointer-bounce { animation: ptrBounce 0.2s infinite alternate; }
         @keyframes ptrBounce { from { transform: translateX(-50%) rotate(0deg); } to { transform: translateX(-50%) rotate(-15deg); } }
-        .wheel-center-dot { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 20%; height: 20%; background: radial-gradient(circle, #ffffff 0%, #e2e8f0 100%); border-radius: 50%; border: 6px solid #1E293B; z-index: 10; box-shadow: 0 4px 10px rgba(0,0,0,0.4); }
-        .wheel-result-popup { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%) scale(0.5); background: rgba(255,255,255,0.95); padding: 12px 20px; border-radius: 15px; font-weight: 800; font-size: clamp(20px, 4vw, 30px); max-width: 90%; text-align: center; box-shadow: 0 10px 25px rgba(0,0,0,0.3); z-index: 20; color: var(--primary); transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); opacity: 0; border: 3px solid var(--primary-light); pointer-events: none; }
-        .wheel-result-popup.show { opacity: 1; transform: translate(-50%, -50%) scale(1); }
-        .wheel-glowing { box-shadow: 0 0 30px #34D399 !important; border-color: #34D399 !important; }
+        
+        .wheel-text-overlay { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background: rgba(255,255,255,0.95); padding: 12px 20px; border-radius: 12px; font-weight: 800; font-size: 22px; max-width: 90%; text-align: center; box-shadow: 0 10px 25px rgba(0,0,0,0.3); z-index: 20; color: var(--primary); transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); opacity: 0; scale: 0.5; border: 2px solid var(--primary-light); }
+        .wheel-text-overlay.show { opacity: 1; scale: 1; }
 
         /* Team Grids */
         .spin-grid { display: flex; flex-wrap: wrap; gap: 15px; justify-content: center; width: 100%; }
@@ -193,7 +179,6 @@
         .spin-team h4 { margin: 0 0 15px 0; background: var(--text-main); color: white; padding: 10px; border-radius: 10px; font-size: 18px; font-weight: 800; }
         .spin-list { list-style: none; padding: 0; margin: 0; font-size: 16px; font-weight: 700; color: var(--text-main); }
         .spin-list li { padding: 10px; background: var(--bg-color); margin-bottom: 8px; border-radius: 8px; border: 1px solid var(--border-color); animation: popInList 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); display: flex; align-items: center; justify-content: center; gap: 8px; }
-        @keyframes popInList { 0% { transform: translateY(-15px) scale(0.9); opacity: 0; } 100% { transform: translateY(0) scale(1); opacity: 1; } }
 
         /* Confetti */
         .confetti { position: fixed; width: 10px; height: 10px; z-index: 9999; animation: fall linear forwards; opacity: 0; pointer-events: none; }
@@ -269,7 +254,10 @@
 
 <div class="container" id="mainContainer">
     <div class="header-section" id="mainHeader">
-        <h1>✨ প্রো টিম জেনারেটর</h1>
+        <h1>
+            <img src="logo.svg" alt="Logo" class="app-logo">
+            প্রো টিম জেনারেটর
+        </h1>
         <div class="menu-container">
             <div class="three-dots" onclick="toggleMenu()">&#8942;</div>
             <div id="dropdownMenu" class="menu-dropdown">
@@ -341,9 +329,9 @@
                 <div style="flex:1; min-width: 100%;">
                     <label>🎨 অ্যানিমেশনের ধরন:</label>
                     <select id="animationStyle">
-                        <option value="slot" selected>স্লট মেশিন (Casino Style)</option>
+                        <option value="wheel" selected>নামসহ ভাগ্যের চাকা (Ultra HD Wheel)</option>
                         <option value="card">ম্যাজিক কার্ড (3D Flip)</option>
-                        <option value="wheel">নামসহ ভাগ্যের চাকা (Ultra HD Wheel)</option>
+                        <option value="slot">স্লট মেশিন (Casino Style)</option>
                     </select>
                 </div>
                 <div style="flex:1; min-width: 100%;">
@@ -372,8 +360,7 @@
                 <div class="spinner-box">
                     <div class="spinner-title bounce-text">কার নাম উঠবে এবার?</div>
                     
-                    <div id="dynamicSpinnerBox" style="margin: 20px 0; width: 100%; display: flex; justify-content: center; align-items: center;">
-                        </div>
+                    <div id="dynamicSpinnerBox" style="margin: 10px 0; width: 100%; display: flex; justify-content: center; align-items: center;"></div>
                     
                     <div id="spinDestination">লটারি প্রস্তুত হচ্ছে...</div>
                 </div>
@@ -402,11 +389,10 @@
     </div>
 
     <div id="view-history" class="view">
-        <h2 style="color: var(--primary); font-size: 26px;">🕒 পূর্বের লটারি</h2>
-        <p style="color:var(--text-muted); font-size:15px; font-weight: 600;">ডিভাইসে সেভ থাকা ফলাফলগুলো দেখুন।</p>
+        <h2 style="color: var(--primary); font-size: 28px;">🕒 পূর্বের লটারি</h2>
+        <p style="color:var(--text-muted); font-size:16px; font-weight: 600;">ডিভাইসে সেভ থাকা ফলাফলগুলো দেখুন।</p>
         
-        <div id="historyContainer" class="vertical-container" style="margin-top: 25px;">
-            </div>
+        <div id="historyContainer" class="vertical-container" style="margin-top: 25px;"></div>
         
         <button class="btn-secondary" onclick="goHome()" style="margin-top:20px;">⬅️ মেইন মেনুতে ফেরত যান</button>
     </div>
@@ -424,7 +410,9 @@
         catch (err) {}
     }
     function releaseWakeLock() {
-        if (wakeLock !== null) wakeLock.release().then(() => { wakeLock = null; });
+        if (wakeLock !== null) {
+            wakeLock.release().then(() => { wakeLock = null; });
+        }
     }
 
     // --- Full Screen API for Projector ---
@@ -434,7 +422,7 @@
                 alert("ফুলস্ক্রিন সাপোর্ট করছে না!");
             });
         } else {
-            if (document.exitFullscreen) document.exitFullscreen();
+            if (document.exitFullscreen) { document.exitFullscreen(); }
         }
     }
 
@@ -819,9 +807,9 @@
         let animStyle = document.getElementById('animationStyle').value;
         let speedMode = document.getElementById('animationSpeed').value;
         
-        let speed = { spin: 1200, pause: 1000 };
-        if (speedMode === 'long') speed = { spin: 3000, pause: 1500 };
-        if (speedMode === 'short') speed = { spin: 600, pause: 500 };
+        let speed = { spin: 2000, pause: 1500 };
+        if (speedMode === 'long') speed = { spin: 4000, pause: 2000 };
+        if (speedMode === 'short') speed = { spin: 800, pause: 800 };
 
         let assignment = globalAssignments[index];
         let pNameStr = assignment.player.name + (assignment.player.isCaptain ? " 👑" : "");
@@ -833,47 +821,7 @@
         
         const dynamicBox = document.getElementById('dynamicSpinnerBox');
 
-        // ==== 1. REALISTIC SLOT MACHINE (FIXED) ====
-        if (animStyle === 'slot') {
-            let totalItems = speedMode === 'long' ? 35 : (speedMode === 'short' ? 12 : 20);
-            let itemsHtml = '';
-            for(let i=0; i<totalItems-1; i++) {
-                itemsHtml += `<div class="slot-item spinning">${allNames[Math.floor(Math.random() * allNames.length)]}</div>`;
-            }
-            itemsHtml += `<div class="slot-item winner">${pNameStr}</div>`;
-            
-            dynamicBox.innerHTML = `
-                <div class="slot-machine">
-                    <div class="slot-overlay"></div>
-                    <div class="slot-track" id="slotTrack">
-                        ${itemsHtml}
-                    </div>
-                </div>`;
-            
-            let track = document.getElementById('slotTrack');
-            
-            // Explicitly Reset First
-            track.style.transition = 'none';
-            track.style.transform = `translateY(0px)`;
-            
-            // Force browser reflow to register position 0
-            void track.offsetHeight;
-            
-            // Start Scroll
-            setTimeout(() => {
-                track.style.transition = `transform ${speed.spin}ms cubic-bezier(0.15, 0.85, 0.2, 1)`;
-                track.style.transform = `translateY(-${(totalItems-1) * 120}px)`; 
-            }, 30);
-            
-            animTimeout1 = setTimeout(() => {
-                if(!animActive) return;
-                // clear blur 
-                document.querySelectorAll('.slot-item.spinning').forEach(el => el.style.filter = 'blur(0)');
-                showDestination(assignment, pNameStr, speed, index);
-            }, speed.spin + 100);
-
-        // ==== 2. HD CANVAS WHEEL ====
-        } else if (animStyle === 'wheel') {
+        if (animStyle === 'wheel') {
             dynamicBox.innerHTML = `
                 <div class="canvas-wheel-container">
                     <div class="wheel-pointer" id="wheelPointer"></div>
@@ -921,7 +869,6 @@
                 }, speed.spin);
             }, 50);
 
-        // ==== 3. 3D CARD FLIP ====
         } else if (animStyle === 'card') {
             dynamicBox.innerHTML = `
                 <div class="card-scene">
@@ -952,6 +899,28 @@
                     showDestination(assignment, pNameStr, speed, index);
                 }, speed.spin);
             }, 50);
+
+        } else if (animStyle === 'slot') {
+            let totalItems = speedMode === 'long' ? 40 : (speedMode === 'short' ? 15 : 25);
+            let itemsHtml = '';
+            for(let i=0; i<totalItems-1; i++) {
+                itemsHtml += `<div class="slot-item spinning">${allNames[Math.floor(Math.random() * allNames.length)]}</div>`;
+            }
+            itemsHtml += `<div class="slot-item winner">${pNameStr}</div>`;
+            
+            dynamicBox.innerHTML = `<div class="slot-machine"><div class="slot-track" id="slotTrack">${itemsHtml}</div></div>`;
+            
+            let track = document.getElementById('slotTrack');
+            
+            setTimeout(() => {
+                track.style.transition = `transform ${speed.spin}ms cubic-bezier(0.1, 0.7, 0.1, 1)`;
+                track.style.transform = `translateY(-${(totalItems-1) * 120}px)`; 
+            }, 50);
+            
+            animTimeout1 = setTimeout(() => {
+                if(!animActive) return;
+                showDestination(assignment, pNameStr, speed, index);
+            }, speed.spin);
         }
     }
 
@@ -981,7 +950,6 @@
         renderResults(false);
     }
 
-    // --- Results, History Save & Print ---
     function saveToHistory() {
         let history = JSON.parse(localStorage.getItem('teamGenHistory')) || [];
         let newEntry = {
@@ -1098,7 +1066,6 @@
         }
     }
 
-    // --- FULL Backup & Restore ---
     function exportBackup() {
         let eqGroups = [];
         document.querySelectorAll('.player-row').forEach(row => {
