@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+    <defs>
+        <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#4338CA" />
+            <stop offset="100%" stop-color="#6366F1" />
+        </linearGradient>
+        <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#FDE68A" />
+            <stop offset="50%" stop-color="#F59E0B" />
+            <stop offset="100%" stop-color="#D97706" />
+        </linearGradient>
+        <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
+            <feDropShadow dx="0" dy="8" stdDeviation="6" flood-opacity="0.3"/>
+        </filter>
+    </defs>
+    
+    <rect width="200" height="200" rx="45" fill="url(#bgGrad)" filter="url(#shadow)"/>
+    
+    <path d="M70 150 h60 v15 h-60 z" fill="url(#goldGrad)"/>
+    <path d="M90 120 h20 v30 h-20 z" fill="url(#goldGrad)"/>
+    
+    <path d="M60 55 h80 c0 35 -15 65 -40 65 c-25 0 -40 -30 -40 -65 z" fill="url(#goldGrad)"/>
+    
+    <path d="M60 65 c-25 0 -25 35 0 35" fill="none" stroke="url(#goldGrad)" stroke-width="10" stroke-linecap="round"/>
+    <path d="M140 65 c25 0 25 35 0 35" fill="none" stroke="url(#goldGrad)" stroke-width="10" stroke-linecap="round"/>
+    
+    <path d="M100 75 l6 14 h14 l-11 9 5 15 -14 -10 -14 10 5 -15 -11 -9 h14 z" fill="#FFFFFF" filter="url(#shadow)"/>
+</svg>

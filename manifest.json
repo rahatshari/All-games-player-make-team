@@ -1,0 +1,17 @@
+{
+  "name": "প্রো টিম জেনারেটর",
+  "short_name": "টিম জেনারেটর",
+  "description": "লটারির মাধ্যমে নিরপেক্ষ টিম তৈরি করার প্রফেশনাল অ্যাপ, ডেভেলপ করেছেন রাহাত শরীফ।",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#EEF2FF",
+  "theme_color": "#4338CA",
+  "icons": [
+    {
+      "src": "logo.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
