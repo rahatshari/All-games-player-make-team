@@ -4,26 +4,70 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>প্রো টিম জেনারেটর</title>
+    
+    <!-- App Logo & Manifest Links -->
+    <link rel="icon" href="logo.svg" type="image/svg+xml">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#4338CA">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+    <!-- Premium Google Font -->
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Bengali:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary: #4F46E5;
+            --primary: #4338CA;
             --primary-light: #6366F1;
-            --secondary: #10B981;
-            --secondary-light: #34D399;
+            --secondary: #059669;
+            --secondary-light: #10B981;
             --accent: #F59E0B;
             --danger: #EF4444;
-            --bg-color: #FFFFFF;
+            --bg-color: #EEF2FF;
+            --card-bg: #FFFFFF;
             --input-bg: #F3F4F6;
             --text-main: #111827;
             --text-muted: #4B5563;
             --border-color: #E5E7EB;
         }
 
-        /* 100% Native Mobile App Feel */
-        body { font-family: 'Noto Sans Bengali', sans-serif; background-color: var(--bg-color); margin: 0; padding: 0; color: var(--text-main); overflow-x: hidden; display: flex; flex-direction: column; min-height: 100vh; -webkit-tap-highlight-color: transparent; }
+        /* =========================================
+           ১. Pull-to-Refresh Disabled Here
+           ========================================= */
+        html, body { 
+            font-family: 'Noto Sans Bengali', sans-serif; 
+            background-color: var(--card-bg); 
+            margin: 0; 
+            padding: 0; 
+            color: var(--text-main); 
+            overflow: hidden; /* বডির ডিফল্ট স্ক্রলিং বন্ধ */
+            display: flex; 
+            flex-direction: column; 
+            height: 100vh; 
+            height: 100dvh;
+            -webkit-tap-highlight-color: transparent; 
+            overscroll-behavior-y: none; /* ব্রাউজারের রিফ্রেশ বাউন্স বন্ধ */
+        }
         
-        .container { width: 100%; max-width: 100%; margin: 0; padding: 15px 20px; border-radius: 0; box-shadow: none; position: relative; flex: 1; box-sizing: border-box; display: flex; flex-direction: column; background: var(--bg-color); }
+        .container { 
+            width: 100%; 
+            max-width: 100%; 
+            margin: 0; 
+            padding: 15px 20px; 
+            border-radius: 0; 
+            box-shadow: none; 
+            position: relative; 
+            flex: 1; 
+            box-sizing: border-box; 
+            display: flex; 
+            flex-direction: column; 
+            background: var(--card-bg); 
+            
+            /* ভেতরের স্ক্রল পারফেক্ট রাখার জন্য */
+            overflow-y: auto; 
+            overflow-x: hidden;
+            overscroll-behavior-y: contain; 
+            -webkit-overflow-scrolling: touch;
+        }
         
         /* PC/Tablet View Overrides */
         @media (min-width: 992px) {
@@ -36,7 +80,7 @@
         @keyframes slideFade { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
         
         /* App Header */
-        .header-section { display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; border-bottom: 1px solid var(--border-color); padding-bottom: 15px; position: sticky; top: 0; background: var(--bg-color); z-index: 50; }
+        .header-section { display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; border-bottom: 1px solid var(--border-color); padding-bottom: 15px; position: sticky; top: 0; background: var(--card-bg); z-index: 50; }
         @media (min-width: 992px) { .header-section { position: relative; z-index: 1; } }
         
         h1 { color: var(--primary); margin: 0; font-size: 24px; font-weight: 800; letter-spacing: -0.5px; display: flex; align-items: center; gap: 8px; }
@@ -148,7 +192,7 @@
         .spinner-title { font-size: 20px; color: #E0E7FF; margin-bottom: 20px; font-weight: 700; z-index: 2; position: relative; }
         #spinDestination { color: var(--secondary-light); font-size: 24px; margin-top: 20px; min-height: 35px; font-weight: 800; z-index: 2; position: relative; }
 
-        /* FIXED CANVAS WHEEL - Responsive explicitly */
+        /* HD CANVAS WHEEL - Perfectly Sized */
         .canvas-wheel-container { position: relative; width: 280px; height: 280px; margin: 20px auto; z-index: 5; }
         @media (min-width: 380px) { .canvas-wheel-container { width: 320px; height: 320px; } }
         @media (min-width: 768px) { .canvas-wheel-container { width: 360px; height: 360px; } }
@@ -169,15 +213,18 @@
         .card-object { width: 100%; height: 100%; position: relative; transition: transform cubic-bezier(0.175, 0.885, 0.32, 1.275); transform-style: preserve-3d; }
         .card-face { position: absolute; width: 100%; height: 100%; backface-visibility: hidden; display: flex; align-items: center; justify-content: center; border-radius: 16px; font-size: clamp(24px, 5vw, 32px); font-weight: 800; box-shadow: 0 10px 25px rgba(0,0,0,0.3); border: 4px solid #fff; padding: 10px; box-sizing: border-box; text-align: center; line-height: 1.3; word-wrap: break-word; }
         .card-front { background: linear-gradient(135deg, var(--accent) 0%, var(--danger) 100%); color: white; }
+        .card-front-content { border: 2px dashed rgba(255,255,255,0.4); border-radius: 12px; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; }
         .card-back { background: #fff; color: var(--primary); transform: rotateY(180deg); }
+        .card-back-content { border: 3px solid var(--accent); border-radius: 12px; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; }
         .card-pop { animation: popCard 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; }
         @keyframes popCard { 0% { transform: scale(1) rotateY(180deg); } 50% { transform: scale(1.1) rotateY(180deg); box-shadow: 0 20px 40px rgba(255,255,255,0.2); } 100% { transform: scale(1) rotateY(180deg); } }
 
-        .slot-machine { width: 95%; max-width: 400px; height: 120px; margin: 20px auto; background: #fff; border: 8px solid #1E293B; border-radius: 20px; overflow: hidden; position: relative; box-shadow: 0 15px 30px rgba(0,0,0,0.5), inset 0 20px 15px -10px rgba(0,0,0,0.4), inset 0 -20px 15px -10px rgba(0,0,0,0.4); z-index: 5; box-sizing: content-box; }
-        .slot-track { display: flex; flex-direction: column; position: relative; z-index: 5; }
-        .slot-item { height: 120px; min-height: 120px; display: flex; align-items: center; justify-content: center; font-size: clamp(24px, 5vw, 32px); font-weight: 800; color: #9CA3AF; padding: 0 10px; box-sizing: border-box; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-        .slot-item.spinning { color: var(--text-main); filter: blur(1px); }
-        .slot-item.winner { color: var(--primary); background: var(--bg-color); border-top: 2px solid var(--primary-light); border-bottom: 2px solid var(--primary-light); filter: blur(0); font-size: clamp(26px, 6vw, 36px); }
+        .slot-machine { width: 95%; max-width: 400px; height: 120px; margin: 20px auto; background: #fff; border: 8px solid #1E293B; border-radius: 20px; overflow: hidden; position: relative; box-shadow: 0 15px 30px rgba(0,0,0,0.5), inset 0 25px 20px -15px rgba(0,0,0,0.4), inset 0 -25px 20px -15px rgba(0,0,0,0.4); z-index: 5; box-sizing: content-box; }
+        .slot-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(to bottom, rgba(0,0,0,0.5) 0%, rgba(255,255,255,0) 25%, rgba(255,255,255,0) 75%, rgba(0,0,0,0.5) 100%); pointer-events: none; z-index: 10; }
+        .slot-track { display: flex; flex-direction: column; width: 100%; position: relative; z-index: 5; }
+        .slot-item { height: 120px; min-height: 120px; display: flex; align-items: center; justify-content: center; font-size: clamp(26px, 5vw, 36px); font-weight: 800; color: #9CA3AF; padding: 0 10px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; box-sizing: border-box; }
+        .slot-item.spinning { color: var(--text-main); filter: blur(1.5px); }
+        .slot-item.winner { color: var(--primary); background: #EEF2FF; border-top: 2px solid var(--primary-light); border-bottom: 2px solid var(--primary-light); filter: blur(0); }
 
         /* Team Grids */
         .spin-grid { display: flex; flex-wrap: wrap; gap: 15px; justify-content: center; width: 100%; }
@@ -197,10 +244,10 @@
 
         /* Modern Results Display */
         .teams-container { display: flex; flex-wrap: wrap; gap: 20px; margin-top: 20px; justify-content: center; width: 100%; }
-        .team-box { background: #fff; border: 1px solid var(--border-color); border-radius: 20px; width: 100%; box-shadow: 0 4px 10px rgba(0,0,0,0.03); overflow: hidden; transition: 0.3s; box-sizing: border-box; }
+        .team-box { background: #fff; border: 1px solid var(--border-color); border-radius: 20px; width: 100%; box-shadow: 0 4px 15px rgba(0,0,0,0.03); overflow: hidden; transition: 0.3s; box-sizing: border-box; }
         @media (min-width: 576px) { .team-box { width: calc(50% - 20px); } }
         @media (min-width: 992px) { .team-box { width: calc(33.333% - 20px); } }
-        .team-box:hover { box-shadow: 0 10px 20px rgba(0,0,0,0.08); transform: translateY(-3px); border-color: var(--primary-light); }
+        .team-box:hover { box-shadow: 0 12px 25px rgba(0,0,0,0.08); transform: translateY(-3px); border-color: var(--primary-light); }
         
         .team-title { background: var(--text-main); color: white; margin: 0; padding: 18px 20px; font-size: 20px; font-weight: 800; display: flex; justify-content: space-between; align-items: center; }
         .player-count { background: rgba(255,255,255,0.2); color: #fff; font-size: 14px; padding: 4px 12px; border-radius: 12px; font-weight: 700; }
@@ -230,29 +277,22 @@
 
         /* PRINT CSS FIX */
         #restoreFile { display: none; }
-
         @media print {
             body { background: white; margin: 0; padding: 0; font-family: 'Noto Sans Bengali', sans-serif; display: block; }
             body * { visibility: hidden; }
-            
             #printArea, #printArea * { visibility: visible; }
             #printArea { position: absolute; left: 0; top: 0; width: 100%; text-align: center; }
-            
             #printHeader { font-size: 24pt !important; margin-bottom: 20px !important; color: #000 !important; border-bottom: 2px solid #000; display: inline-block; padding-bottom: 5px; font-weight: 800; }
-            
             .teams-container { display: flex !important; flex-wrap: wrap !important; justify-content: flex-start !important; gap: 15px !important; margin-top: 10px !important; }
             .team-box { border: 1.5px solid #000 !important; box-shadow: none !important; border-radius: 8px !important; margin-bottom: 10px !important; width: calc(50% - 15px) !important; box-sizing: border-box !important; break-inside: avoid !important; page-break-inside: avoid !important; }
-            
             .team-title { background: #F3F4F6 !important; color: #000 !important; border-bottom: 1.5px solid #000 !important; padding: 8px 12px !important; font-size: 14pt !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
             .player-count { color: #000 !important; border: 1px solid #000 !important; background: #fff !important; font-size: 10pt !important; padding: 2px 6px !important; }
             .player-list { padding: 8px !important; }
             .player-list li { font-size: 12pt !important; padding: 6px 4px !important; border-bottom: 1px solid #E5E7EB !important; color: #000 !important; }
             .player-serial { border: none !important; margin-right: 8px !important; width: auto !important; height: auto !important; }
             .captain-tag { border: 1px solid #000 !important; color: #000 !important; background: #fff !important; }
-            
             .app-footer { visibility: visible !important; display: block !important; position: fixed; bottom: 0; left: 0; width: 100%; text-align: center; border-top: 1px solid #000; padding-top: 10px; font-size: 12pt !important; background: white; z-index: 9999; margin: 0; }
             .app-footer * { visibility: visible !important; color: #000 !important; background: transparent !important; text-decoration: none; }
-            
             .page-break-mode .teams-container { display: block !important; }
             .page-break-mode .team-box { width: 100% !important; max-width: 600px !important; margin: 0 auto 30px auto !important; page-break-after: always !important; }
             .page-break-mode .team-box:last-child { page-break-after: auto !important; }
@@ -262,13 +302,11 @@
 <body>
 
 <div class="container" id="mainContainer">
+    <!-- Header -->
     <div class="header-section" id="mainHeader">
         <h1>
-            <svg xmlns="http://www.w3.org/2000/svg" class="app-logo" viewBox="0 0 200 200">
-                <defs><linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#4338CA" /><stop offset="100%" stop-color="#6366F1" /></linearGradient><linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#FDE68A" /><stop offset="50%" stop-color="#F59E0B" /><stop offset="100%" stop-color="#D97706" /></linearGradient><filter id="shadow" x="-10%" y="-10%" width="120%" height="120%"><feDropShadow dx="0" dy="8" stdDeviation="6" flood-opacity="0.3"/></filter></defs>
-                <rect width="200" height="200" rx="45" fill="url(#bgGrad)" filter="url(#shadow)"/><path d="M70 150 h60 v15 h-60 z" fill="url(#goldGrad)"/><path d="M90 120 h20 v30 h-20 z" fill="url(#goldGrad)"/><path d="M60 55 h80 c0 35 -15 65 -40 65 c-25 0 -40 -30 -40 -65 z" fill="url(#goldGrad)"/><path d="M60 65 c-25 0 -25 35 0 35" fill="none" stroke="url(#goldGrad)" stroke-width="10" stroke-linecap="round"/><path d="M140 65 c25 0 25 35 0 35" fill="none" stroke="url(#goldGrad)" stroke-width="10" stroke-linecap="round"/><path d="M100 75 l6 14 h14 l-11 9 5 15 -14 -10 -14 10 5 -15 -11 -9 h14 z" fill="#FFFFFF" filter="url(#shadow)"/>
-            </svg>
-            টিম জেনারেটর
+            <img src="logo.svg" alt="Logo" class="app-logo">
+            প্রো টিম জেনারেটর
         </h1>
         <div class="menu-container">
             <div class="three-dots" onclick="toggleMenu()">&#8942;</div>
@@ -278,15 +316,15 @@
                 <div class="menu-item action-item" onclick="document.getElementById('restoreFile').click()">📤 ডেটা রিস্টোর (Load)</div>
                 <input type="file" id="restoreFile" accept=".json" onchange="importBackup(event)">
                 <div style="border-top: 1px solid var(--border-color); margin: 5px 0;"></div>
-                <div class="menu-item">
+                <div class="menu-item" onclick="event.stopPropagation();">
                     <span>ক্যাপ্টেন মোড</span>
                     <label class="switch"><input type="checkbox" id="toggleCaptains" onchange="toggleSections()"><span class="slider"></span></label>
                 </div>
-                <div class="menu-item">
+                <div class="menu-item" onclick="event.stopPropagation();">
                     <span>সমকক্ষ মোড</span>
                     <label class="switch"><input type="checkbox" id="toggleEquivalent" checked onchange="toggleSections()"><span class="slider"></span></label>
                 </div>
-                <div class="menu-item">
+                <div class="menu-item" onclick="event.stopPropagation();">
                     <span>র‍্যান্ডম মোড</span>
                     <label class="switch"><input type="checkbox" id="toggleRandom" onchange="toggleSections()"><span class="slider"></span></label>
                 </div>
@@ -294,6 +332,7 @@
         </div>
     </div>
 
+    <!-- VIEW 1: Setup Team Count & Name -->
     <div id="view-step1" class="view active">
         <div class="input-group">
             <label>টুর্নামেন্ট বা ইভেন্টের নাম (ঐচ্ছিক):</label>
@@ -307,13 +346,14 @@
         <button class="btn-primary" onclick="goToStep2()">পরবর্তী ধাপ ➡️</button>
     </div>
 
+    <!-- VIEW 2: Data Input & Setup -->
     <div id="view-step2" class="view">
         <h3 style="margin-top:0;">টিমের নাম দিন (বাধ্যতামূলক)</h3>
         <div id="teamNamesContainer" class="vertical-container"></div>
 
         <div id="captainsSection">
             <h3 style="margin-top:0;">টিমের ক্যাপ্টেন সিলেক্ট করুন</h3>
-            <p style="font-size:15px; margin-top:-5px; color:var(--text-muted); margin-bottom: 15px;">প্রতিটি টিমের জন্য একজন করে ক্যাপ্টেনের নাম দিন।</p>
+            <p style="font-size:14px; margin-top:-5px; color:var(--text-muted); margin-bottom: 15px;">প্রতিটি টিমের জন্য একজন করে ক্যাপ্টেনের নাম দিন।</p>
             <div id="captainsContainer" class="vertical-container"></div>
         </div>
 
@@ -335,6 +375,7 @@
             <div id="randomPlayersList" class="added-players-list"></div>
         </div>
 
+        <!-- Animation Settings -->
         <div class="animation-settings">
             <h4 style="margin-top:0; margin-bottom: 20px; color:var(--primary); font-size:18px;">⚙️ লটারি ও অ্যানিমেশন সেটিংস</h4>
             <div style="display:flex; flex-wrap: wrap; gap:15px;">
@@ -361,6 +402,7 @@
         <button class="btn-primary" onclick="startGeneration()">টিম লটারি শুরু করুন 🎲</button>
     </div>
 
+    <!-- VIEW 3: Detailed Dynamic Spin Animation -->
     <div id="view-spin" class="view">
         <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; margin-bottom: 20px;">
             <div id="spinTournamentTitle" class="tourney-title-display" style="margin-bottom: 0;"></div>
@@ -376,13 +418,13 @@
                 </div>
                 <button class="btn-secondary" onclick="skipAnimation()" style="background: #FEF2F2; color: var(--danger); border-color: #FECDD3; width: 100%;">⏭️ স্কিপ অ্যানিমেশন</button>
             </div>
-            
             <div class="teams-side">
                 <div id="spinGrid" class="spin-grid"></div>
             </div>
         </div>
     </div>
 
+    <!-- VIEW 4: Results & Print -->
     <div id="view-results" class="view">
         <h2 style="color:var(--secondary-light); font-size: 26px; margin-bottom: 25px; font-weight: 800; text-align: center;">🎉 টিম তৈরি সম্পন্ন!</h2>
         
@@ -398,18 +440,18 @@
         </div>
     </div>
 
+    <!-- VIEW 5: History -->
     <div id="view-history" class="view">
         <h2 style="color: var(--primary); font-size: 26px;">🕒 পূর্বের লটারি</h2>
         <p style="color:var(--text-muted); font-size:16px; font-weight: 600;">ডিভাইসে সেভ থাকা ফলাফলগুলো দেখুন।</p>
-        
         <div id="historyContainer" class="vertical-container" style="margin-top: 25px;"></div>
-        
         <button class="btn-secondary" onclick="goHome()" style="margin-top:20px;">⬅️ মেইন মেনুতে ফেরত যান</button>
     </div>
-</div>
-
-<div class="app-footer">
-    App Created by <a href="https://www.facebook.com/rahatsharif504" target="_blank" id="fbLink">রাহাত শরীফ</a>
+    
+    <!-- App Footer Credit inside container so it scrolls nicely -->
+    <div class="app-footer">
+        App Created by <a href="https://www.facebook.com/rahatsharif504" target="_blank" id="fbLink">রাহাত শরীফ</a>
+    </div>
 </div>
 
 <script>
@@ -455,6 +497,9 @@
     let animTimeout1 = null;
     let animTimeout2 = null;
     let animInterval = null;
+    
+    // 2. BACK BUTTON SUPPORT FOR MENU
+    let isMenuOpen = false;
 
     function createConfetti() {
         const colors = ['#EF4444', '#F59E0B', '#10B981', '#3B82F6', '#8B5CF6', '#EC4899'];
@@ -498,6 +543,12 @@
         }
     }
 
+    // --- History API & Navigation ---
+    function getCurrentViewId() {
+        const active = document.querySelector('.view.active');
+        return active ? active.id : 'view-step1';
+    }
+
     function navigate(viewId) {
         document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
         document.getElementById(viewId).classList.add('active');
@@ -507,31 +558,61 @@
         else mainHeader.style.display = 'flex';
         
         history.pushState({ view: viewId }, "", "#" + viewId);
-        window.scrollTo(0, 0); 
+        document.querySelector('.container').scrollTo(0, 0); 
     }
     
+    // POPSTATE for View and Menu handling
     window.addEventListener('popstate', function(e) {
-        if (animActive) skipAnimation();
-        if (e.state && e.state.view) {
-            document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
-            document.getElementById(e.state.view).classList.add('active');
-            const mainHeader = document.getElementById('mainHeader');
-            if (e.state.view === 'view-spin') mainHeader.style.display = 'none';
-            else mainHeader.style.display = 'flex';
-        } else {
-            document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
-            document.getElementById('view-step1').classList.add('active');
-            document.getElementById('mainHeader').style.display = 'flex';
+        const menu = document.getElementById('dropdownMenu');
+        
+        if (isMenuOpen) {
+            menu.classList.remove('show');
+            isMenuOpen = false;
+            // Allow state processing so if we hit back, we actually go to previous view
         }
+
+        if (animActive) skipAnimation();
+
+        let targetView = 'view-step1';
+        if (e.state && e.state.view) {
+            targetView = e.state.view;
+        } else if (e.state && e.state.modal === 'menu') {
+            menu.classList.add('show');
+            isMenuOpen = true;
+            return;
+        }
+
+        document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+        let vEl = document.getElementById(targetView);
+        if(vEl) vEl.classList.add('active');
+        
+        const mainHeader = document.getElementById('mainHeader');
+        if (targetView === 'view-spin') mainHeader.style.display = 'none';
+        else mainHeader.style.display = 'flex';
     });
 
-    function toggleMenu() { document.getElementById('dropdownMenu').classList.toggle('show'); }
-    window.onclick = function(event) {
-        if (!event.target.matches('.three-dots')) {
-            document.querySelectorAll('.menu-dropdown').forEach(m => m.classList.remove('show'));
+    // OPEN MENU WITH HISTORY
+    function toggleMenu() { 
+        const menu = document.getElementById('dropdownMenu');
+        if (isMenuOpen) {
+            history.back(); 
+        } else {
+            menu.classList.add('show');
+            isMenuOpen = true;
+            history.pushState({ modal: 'menu', view: getCurrentViewId() }, "", "#menu");
         }
     }
     
+    window.onclick = function(event) {
+        if (!event.target.matches('.three-dots') && !event.target.closest('.menu-dropdown')) {
+            if (isMenuOpen) { history.back(); }
+        }
+    }
+    
+    function closeMenuSafely() {
+        if (isMenuOpen) { history.back(); }
+    }
+
     function toggleSections() {
         const showCap = document.getElementById('toggleCaptains').checked;
         const showEq = document.getElementById('toggleEquivalent').checked;
@@ -597,7 +678,7 @@
         if (name) {
             let currentNames = getAllCurrentNames();
             if(currentNames.includes(name.toLowerCase())) {
-                alert(`"${name}" নামটি ইতিমধ্যে ব্যবহার করা হয়েছে! একই প্লেয়ার দুইবার যোগ করা যাবে না।`);
+                alert(`⚠️ অ্যালার্ট!\n\n"${name}" নামটি ইতিমধ্যে ব্যবহার করা হয়েছে! একই প্লেয়ার দুইবার যোগ করা যাবে না।`);
                 return;
             }
             randomPlayersArray.push(name);
@@ -664,7 +745,7 @@
         }
 
         if(foundDup) {
-            alert(`⚠️ অ্যালার্ট!\n\n"${duplicateName}" নামটি একাধিকবার ব্যবহার করা হয়েছে। দয়া করে ডুপ্লিকেট নাম মুছে ফেলুন।`);
+            alert(`⚠️ ডুপ্লিকেট অ্যালার্ট!\n\n"${duplicateName}" নামটি একাধিকবার ব্যবহার করা হয়েছে। দয়া করে ডুপ্লিকেট নাম মুছে ফেলুন।`);
             return true;
         }
         return false;
@@ -788,7 +869,6 @@
 
     function setupSpinView() {
         requestWakeLock(); 
-        
         document.getElementById('spinTournamentTitle').innerHTML = `🏆 ${globalTournamentName} 🏆`;
         const grid = document.getElementById('spinGrid');
         grid.innerHTML = '';
@@ -830,7 +910,6 @@
         
         const dynamicBox = document.getElementById('dynamicSpinnerBox');
 
-        // ==== 1. ULTRA HD CANVAS WHEEL ====
         if (animStyle === 'wheel') {
             dynamicBox.innerHTML = `
                 <div class="canvas-wheel-container">
@@ -879,13 +958,12 @@
                 }, speed.spin);
             }, 50);
 
-        // ==== 2. 3D CARD FLIP ====
         } else if (animStyle === 'card') {
             dynamicBox.innerHTML = `
                 <div class="card-scene">
                     <div class="card-object" id="cardObj">
-                        <div class="card-face card-front">লটারি হচ্ছে...</div>
-                        <div class="card-face card-back" id="cardBackText">???</div>
+                        <div class="card-face card-front"><div style="border: 2px dashed rgba(255,255,255,0.4); border-radius: 12px; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center;">লটারি হচ্ছে...</div></div>
+                        <div class="card-face card-back"><div id="cardBackText" style="border: 3px solid var(--accent); border-radius: 12px; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center;">???</div></div>
                     </div>
                 </div>`;
             let cardObj = document.getElementById('cardObj');
@@ -911,7 +989,6 @@
                 }, speed.spin);
             }, 50);
 
-        // ==== 3. REALISTIC SLOT MACHINE ====
         } else if (animStyle === 'slot') {
             let totalItems = speedMode === 'long' ? 35 : (speedMode === 'short' ? 12 : 20);
             let itemsHtml = '';
@@ -920,19 +997,30 @@
             }
             itemsHtml += `<div class="slot-item winner">${pNameStr}</div>`;
             
-            dynamicBox.innerHTML = `<div class="slot-machine"><div class="slot-track" id="slotTrack">${itemsHtml}</div></div>`;
+            dynamicBox.innerHTML = `
+                <div class="slot-machine">
+                    <div class="slot-overlay"></div>
+                    <div class="slot-track" id="slotTrack">
+                        ${itemsHtml}
+                    </div>
+                </div>`;
             
             let track = document.getElementById('slotTrack');
             
+            track.style.transition = 'none';
+            track.style.transform = `translateY(0px)`;
+            void track.offsetHeight;
+            
             setTimeout(() => {
-                track.style.transition = `transform ${speed.spin}ms cubic-bezier(0.1, 0.7, 0.1, 1)`;
+                track.style.transition = `transform ${speed.spin}ms cubic-bezier(0.15, 0.85, 0.2, 1)`;
                 track.style.transform = `translateY(-${(totalItems-1) * 120}px)`; 
-            }, 50);
+            }, 30);
             
             animTimeout1 = setTimeout(() => {
                 if(!animActive) return;
+                document.querySelectorAll('.slot-item.spinning').forEach(el => el.style.filter = 'blur(0)');
                 showDestination(assignment, pNameStr, speed, index);
-            }, speed.spin);
+            }, speed.spin + 100);
         }
     }
 
@@ -962,7 +1050,6 @@
         renderResults(false);
     }
 
-    // --- Results, History Save & Print ---
     function saveToHistory() {
         let history = JSON.parse(localStorage.getItem('teamGenHistory')) || [];
         let newEntry = {
@@ -1033,15 +1120,22 @@
     function goHome() { navigate('view-step1'); }
 
     function showHistory() {
-        toggleMenu();
-        let history = JSON.parse(localStorage.getItem('teamGenHistory')) || [];
+        if(isMenuOpen) {
+            history.replaceState({ view: 'view-history' }, "", "#view-history");
+            document.getElementById('dropdownMenu').classList.remove('show');
+            isMenuOpen = false;
+        } else {
+            history.pushState({ view: 'view-history' }, "", "#view-history");
+        }
+
+        let historyList = JSON.parse(localStorage.getItem('teamGenHistory')) || [];
         let container = document.getElementById('historyContainer');
         container.innerHTML = '';
         
-        if (history.length === 0) {
+        if (historyList.length === 0) {
             container.innerHTML = '<p style="color:var(--text-muted); font-size:18px;">কোনো হিস্ট্রি পাওয়া যায়নি।</p>';
         } else {
-            history.forEach((item, index) => {
+            historyList.forEach((item, index) => {
                 let card = document.createElement('div');
                 card.className = 'history-card';
                 card.innerHTML = `
@@ -1057,12 +1151,16 @@
                 container.appendChild(card);
             });
         }
-        navigate('view-history');
+        
+        document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+        document.getElementById('view-history').classList.add('active');
+        document.getElementById('mainHeader').style.display = 'flex';
+        document.querySelector('.container').scrollTo(0, 0);
     }
 
     function loadHistoryItem(index) {
-        let history = JSON.parse(localStorage.getItem('teamGenHistory')) || [];
-        let item = history[index];
+        let historyList = JSON.parse(localStorage.getItem('teamGenHistory')) || [];
+        let item = historyList[index];
         globalTournamentName = item.tournamentName;
         generatedTeams = item.teams;
         globalTeamNames = item.teamNames;
@@ -1072,15 +1170,37 @@
 
     function deleteHistoryItem(index) {
         if(confirm("আপনি কি নিশ্চিত যে এটি মুছে ফেলতে চান?")) {
-            let history = JSON.parse(localStorage.getItem('teamGenHistory')) || [];
-            history.splice(index, 1);
-            localStorage.setItem('teamGenHistory', JSON.stringify(history));
-            showHistory(); 
+            let historyList = JSON.parse(localStorage.getItem('teamGenHistory')) || [];
+            historyList.splice(index, 1);
+            localStorage.setItem('teamGenHistory', JSON.stringify(historyList));
+            
+            let container = document.getElementById('historyContainer');
+            container.innerHTML = '';
+            if (historyList.length === 0) {
+                container.innerHTML = '<p style="color:var(--text-muted); font-size:18px;">কোনো হিস্ট্রি পাওয়া যায়নি।</p>';
+            } else {
+                historyList.forEach((item, i) => {
+                    let card = document.createElement('div');
+                    card.className = 'history-card';
+                    card.innerHTML = `
+                        <div class="history-info">
+                            <h4>${toBengaliNum(i + 1)}. ${item.tournamentName}</h4>
+                            <p>তারিখ: ${toBengaliNum(item.date)} • মোট টিম: ${toBengaliNum(item.teamNames.length)} টি</p>
+                        </div>
+                        <div class="history-actions">
+                            <button class="btn-success" style="width:auto; margin:0;" onclick="loadHistoryItem(${i})">দেখুন</button>
+                            <button class="btn-secondary" style="width:auto; margin:0; color:var(--danger); border-color:#FECDD3; background:#FFE4E6;" onclick="deleteHistoryItem(${i})">মুছুন</button>
+                        </div>
+                    `;
+                    container.appendChild(card);
+                });
+            }
         }
     }
 
-    // --- FULL Backup & Restore ---
     function exportBackup() {
+        closeMenuSafely(); 
+
         let eqGroups = [];
         document.querySelectorAll('.player-row').forEach(row => {
             let group = [];
@@ -1123,11 +1243,12 @@
         a.download = `Team_Full_Backup_${new Date().getTime()}.json`;
         a.click();
         URL.revokeObjectURL(url);
-        toggleMenu();
-        alert("ফুল ডেটা বেকাপ (ডাউনলোড) সফল হয়েছে!");
+        
+        setTimeout(() => { alert("ফুল ডেটা বেকাপ (ডাউনলোড) সফল হয়েছে!"); }, 300);
     }
 
     function importBackup(event) {
+        closeMenuSafely();
         const file = event.target.files[0];
         if (!file) return;
         const reader = new FileReader();
@@ -1187,10 +1308,10 @@
             } catch (error) { alert("সঠিক JSON ফাইল নির্বাচন করুন।"); }
         };
         reader.readAsText(file);
-        toggleMenu();
         event.target.value = '';
     }
     
+    // Initial Load Setup
     history.replaceState({ view: 'view-step1' }, "", "#view-step1");
 </script>
 
