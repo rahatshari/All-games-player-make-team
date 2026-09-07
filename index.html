@@ -30,22 +30,20 @@
             --border-color: #E5E7EB;
         }
 
-        /* =========================================
-           ১. Pull-to-Refresh Disabled Here
-           ========================================= */
+        /* 1. Pull-to-Refresh Disabled Here */
         html, body { 
             font-family: 'Noto Sans Bengali', sans-serif; 
             background-color: var(--card-bg); 
             margin: 0; 
             padding: 0; 
             color: var(--text-main); 
-            overflow: hidden; /* বডির ডিফল্ট স্ক্রলিং বন্ধ */
+            overflow: hidden; 
             display: flex; 
             flex-direction: column; 
             height: 100vh; 
             height: 100dvh;
             -webkit-tap-highlight-color: transparent; 
-            overscroll-behavior-y: none; /* ব্রাউজারের রিফ্রেশ বাউন্স বন্ধ */
+            overscroll-behavior-y: none; 
         }
         
         .container { 
@@ -61,8 +59,6 @@
             display: flex; 
             flex-direction: column; 
             background: var(--card-bg); 
-            
-            /* ভেতরের স্ক্রল পারফেক্ট রাখার জন্য */
             overflow-y: auto; 
             overflow-x: hidden;
             overscroll-behavior-y: contain; 
@@ -143,7 +139,7 @@
         
         @media (min-width: 768px) {
             .btn-success, .btn-secondary { width: auto; }
-            .input-group, .btn-primary { max-width: 800px; margin-left: auto; margin-right: auto; }
+            .input-group, .btn-primary { max-width: 800px; margin-left: auto; margin-right: auto; display: flex; }
         }
 
         /* Layouts & Sections */
@@ -171,9 +167,7 @@
         .player-chip .number { background-color: var(--primary); color: white; border-radius: 50%; width: 22px; height: 22px; display: inline-flex; justify-content: center; align-items: center; font-size: 12px; margin-right: 8px; }
         .player-chip .remove { color: var(--danger); cursor: pointer; font-size: 20px; margin-left: 8px; padding: 0 5px; }
 
-        /* =========================================
-           PROJECTOR / PC VIEW SPLIT LAYOUT
-           ========================================= */
+        /* PROJECTOR / PC VIEW SPLIT LAYOUT */
         .spin-layout-wrapper { display: flex; flex-direction: column; gap: 20px; }
         .spinner-side { width: 100%; }
         .teams-side { width: 100%; }
@@ -189,10 +183,19 @@
         @media (min-width: 768px) { .tourney-title-display { font-size: 32px; width: auto; text-align: left; } }
         
         .spinner-box { background: linear-gradient(135deg, #0F172A 0%, #1E1B4B 100%); color: white; padding: 40px 15px; border-radius: 24px; text-align: center; margin-bottom: 20px; box-shadow: 0 20px 40px rgba(15, 23, 42, 0.4); position: relative; overflow: hidden; width: 100%; box-sizing: border-box; display: flex; flex-direction: column; align-items: center; }
+        .spinner-box::before { content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: radial-gradient(circle, rgba(99, 102, 241, 0.15) 0%, transparent 60%); animation: pulseBg 4s infinite alternate; }
+        @keyframes pulseBg { 0% { transform: scale(0.8); opacity: 0.5; } 100% { transform: scale(1.2); opacity: 1; } }
+
         .spinner-title { font-size: 20px; color: #E0E7FF; margin-bottom: 20px; font-weight: 700; z-index: 2; position: relative; }
+        .bounce-text { animation: bounceText 1s infinite; display: inline-block; }
+        @keyframes bounceText { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-5px); } }
         #spinDestination { color: var(--secondary-light); font-size: 24px; margin-top: 20px; min-height: 35px; font-weight: 800; z-index: 2; position: relative; }
 
-        /* HD CANVAS WHEEL - Perfectly Sized */
+        /* =========================================
+           ULTRA HD ANIMATIONS RESTORED
+           ========================================= */
+        
+        /* 1. HD CANVAS WHEEL */
         .canvas-wheel-container { position: relative; width: 280px; height: 280px; margin: 20px auto; z-index: 5; }
         @media (min-width: 380px) { .canvas-wheel-container { width: 320px; height: 320px; } }
         @media (min-width: 768px) { .canvas-wheel-container { width: 360px; height: 360px; } }
@@ -208,7 +211,7 @@
         .wheel-result-popup.show { opacity: 1; transform: translate(-50%, -50%) scale(1); }
         .wheel-glowing { box-shadow: 0 0 30px var(--secondary-light) !important; border-color: var(--secondary-light) !important; }
 
-        /* Card and Slot Animations Fixes */
+        /* 2. HD 3D CARD */
         .card-scene { perspective: 1000px; width: 95%; max-width: 400px; height: 140px; margin: 20px auto; z-index: 5; position: relative; }
         .card-object { width: 100%; height: 100%; position: relative; transition: transform cubic-bezier(0.175, 0.885, 0.32, 1.275); transform-style: preserve-3d; }
         .card-face { position: absolute; width: 100%; height: 100%; backface-visibility: hidden; display: flex; align-items: center; justify-content: center; border-radius: 16px; font-size: clamp(24px, 5vw, 32px); font-weight: 800; box-shadow: 0 10px 25px rgba(0,0,0,0.3); border: 4px solid #fff; padding: 10px; box-sizing: border-box; text-align: center; line-height: 1.3; word-wrap: break-word; }
@@ -219,7 +222,8 @@
         .card-pop { animation: popCard 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; }
         @keyframes popCard { 0% { transform: scale(1) rotateY(180deg); } 50% { transform: scale(1.1) rotateY(180deg); box-shadow: 0 20px 40px rgba(255,255,255,0.2); } 100% { transform: scale(1) rotateY(180deg); } }
 
-        .slot-machine { width: 95%; max-width: 400px; height: 120px; margin: 20px auto; background: #fff; border: 8px solid #1E293B; border-radius: 20px; overflow: hidden; position: relative; box-shadow: 0 15px 30px rgba(0,0,0,0.5), inset 0 25px 20px -15px rgba(0,0,0,0.4), inset 0 -25px 20px -15px rgba(0,0,0,0.4); z-index: 5; box-sizing: content-box; }
+        /* 3. HD SLOT MACHINE */
+        .slot-machine { width: 95%; max-width: 400px; height: 120px; margin: 20px auto; background: #fff; border: 8px solid #1E293B; border-radius: 20px; overflow: hidden; position: relative; box-shadow: 0 15px 30px rgba(0,0,0,0.5), inset 0 20px 15px -10px rgba(0,0,0,0.4), inset 0 -20px 15px -10px rgba(0,0,0,0.4); z-index: 5; box-sizing: content-box; }
         .slot-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(to bottom, rgba(0,0,0,0.5) 0%, rgba(255,255,255,0) 25%, rgba(255,255,255,0) 75%, rgba(0,0,0,0.5) 100%); pointer-events: none; z-index: 10; }
         .slot-track { display: flex; flex-direction: column; width: 100%; position: relative; z-index: 5; }
         .slot-item { height: 120px; min-height: 120px; display: flex; align-items: center; justify-content: center; font-size: clamp(26px, 5vw, 36px); font-weight: 800; color: #9CA3AF; padding: 0 10px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; box-sizing: border-box; }
@@ -252,16 +256,16 @@
         .team-title { background: var(--text-main); color: white; margin: 0; padding: 18px 20px; font-size: 20px; font-weight: 800; display: flex; justify-content: space-between; align-items: center; }
         .player-count { background: rgba(255,255,255,0.2); color: #fff; font-size: 14px; padding: 4px 12px; border-radius: 12px; font-weight: 700; }
         .player-list { list-style: none; padding: 15px; margin: 0; text-align: left; }
-        .player-list li { padding: 14px 10px; border-bottom: 1px solid var(--bg-color); font-size: 17px; font-weight: 700; color: var(--text-main); display: flex; align-items: center; }
+        .player-list li { padding: 14px 10px; border-bottom: 1px solid var(--border-color); font-size: 17px; font-weight: 700; color: var(--text-main); display: flex; align-items: center; }
         .player-list li:last-child { border-bottom: none; }
         .player-serial { background: var(--input-bg); color: var(--text-muted); width: 28px; height: 28px; display: inline-flex; justify-content: center; align-items: center; border-radius: 50%; margin-right: 12px; font-size: 14px; font-weight: 800; border: 1px solid var(--border-color); flex-shrink: 0; }
         .captain-tag { background: var(--accent); color: #fff; font-size: 12px; padding: 4px 8px; border-radius: 6px; margin-left: auto; font-weight: bold; }
         
-        .print-actions { display: flex; gap: 15px; justify-content: center; margin-top: 30px; flex-wrap: wrap; width: 100%; }
+        .print-actions { display: flex; gap: 15px; justify-content: center; margin-top: 40px; flex-wrap: wrap; width: 100%; }
         .print-actions button { width: 100%; }
         @media (min-width: 768px) { .print-actions button { width: auto; } }
 
-        /* App Footer for Credit */
+        /* App Footer */
         .app-footer { text-align: center; margin-top: auto; padding-top: 25px; border-top: 1px solid var(--border-color); color: var(--text-muted); font-size: 15px; font-weight: 600; padding-bottom: 25px; width: 100%; background: transparent; }
         .app-footer a { color: var(--primary); text-decoration: none; font-weight: 800; transition: 0.3s; padding: 6px 12px; background: var(--bg-color); border-radius: 8px; display: inline-block; margin-top: 5px; }
         @media (min-width: 768px) { .app-footer a { margin-top: 0; margin-left: 5px; } }
@@ -269,33 +273,77 @@
 
         /* History View */
         .history-card { background: #fff; border: 1px solid var(--border-color); border-radius: 16px; padding: 20px; margin-bottom: 15px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 6px rgba(0,0,0,0.02); text-align: left; transition: 0.3s; flex-wrap: wrap; gap: 15px; }
+        .history-card:hover { border-color: var(--primary-light); box-shadow: 0 10px 20px rgba(0,0,0,0.06); transform: translateY(-2px); }
         .history-info h4 { margin: 0 0 8px 0; color: var(--text-main); font-size: 18px; font-weight: 800; }
-        .history-info p { margin: 0; color: var(--text-muted); font-size: 15px; font-weight: 600; }
+        .history-info p { margin: 0; color: var(--text-muted); font-size: 15px; font-weight: 500; }
         .history-actions { display: flex; gap: 10px; width: 100%; }
         @media (min-width: 576px) { .history-actions { width: auto; } }
         .history-actions button { flex: 1; padding: 10px 15px; font-size: 14px; border-radius: 10px; margin: 0; }
 
-        /* PRINT CSS FIX */
+        /* =========================================
+           PRINT CSS FIX (Perfect Full List Print)
+           ========================================= */
+        #printHeader { display: none; }
         #restoreFile { display: none; }
+
         @media print {
-            body { background: white; margin: 0; padding: 0; font-family: 'Noto Sans Bengali', sans-serif; display: block; }
-            body * { visibility: hidden; }
-            #printArea, #printArea * { visibility: visible; }
-            #printArea { position: absolute; left: 0; top: 0; width: 100%; text-align: center; }
-            #printHeader { font-size: 24pt !important; margin-bottom: 20px !important; color: #000 !important; border-bottom: 2px solid #000; display: inline-block; padding-bottom: 5px; font-weight: 800; }
-            .teams-container { display: flex !important; flex-wrap: wrap !important; justify-content: flex-start !important; gap: 15px !important; margin-top: 10px !important; }
-            .team-box { border: 1.5px solid #000 !important; box-shadow: none !important; border-radius: 8px !important; margin-bottom: 10px !important; width: calc(50% - 15px) !important; box-sizing: border-box !important; break-inside: avoid !important; page-break-inside: avoid !important; }
+            html, body { 
+                background: white !important; 
+                margin: 0 !important; 
+                padding: 0 !important; 
+                font-family: 'Noto Sans Bengali', sans-serif !important; 
+                display: block !important; 
+                height: auto !important; 
+                overflow: visible !important; 
+            }
+            
+            .container { 
+                display: block !important; 
+                height: auto !important; 
+                overflow: visible !important; 
+                box-shadow: none !important; 
+                border: none !important; 
+                padding: 0 !important; 
+                margin: 0 !important; 
+                max-width: 100% !important; 
+            }
+            
+            #mainHeader, .print-actions, .app-footer, .animation-settings, .input-group, button { 
+                display: none !important; 
+            }
+            
+            .view { display: none !important; }
+            #view-results { display: block !important; }
+            
+            #view-results > h2:first-of-type { display: none !important; }
+            
+            #printHeader { 
+                display: block !important; 
+                font-size: 24pt !important; 
+                margin-bottom: 20px !important; 
+                color: #000 !important; 
+                border-bottom: 2px solid #000; 
+                padding-bottom: 5px; 
+                font-weight: 800; 
+                text-align: center; 
+            }
+            
+            #printArea { display: block !important; position: static !important; width: 100% !important; }
+            
+            .teams-container { display: flex !important; flex-wrap: wrap !important; justify-content: space-between !important; gap: 15px !important; margin-top: 10px !important; }
+            
+            .team-box { border: 1.5px solid #000 !important; box-shadow: none !important; border-radius: 8px !important; margin-bottom: 10px !important; width: calc(50% - 10px) !important; box-sizing: border-box !important; break-inside: avoid !important; page-break-inside: avoid !important; }
+            
             .team-title { background: #F3F4F6 !important; color: #000 !important; border-bottom: 1.5px solid #000 !important; padding: 8px 12px !important; font-size: 14pt !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
             .player-count { color: #000 !important; border: 1px solid #000 !important; background: #fff !important; font-size: 10pt !important; padding: 2px 6px !important; }
             .player-list { padding: 8px !important; }
             .player-list li { font-size: 12pt !important; padding: 6px 4px !important; border-bottom: 1px solid #E5E7EB !important; color: #000 !important; }
-            .player-serial { border: none !important; margin-right: 8px !important; width: auto !important; height: auto !important; }
+            .player-serial { border: none !important; margin-right: 8px !important; width: auto !important; height: auto !important; background: transparent !important; }
             .captain-tag { border: 1px solid #000 !important; color: #000 !important; background: #fff !important; }
-            .app-footer { visibility: visible !important; display: block !important; position: fixed; bottom: 0; left: 0; width: 100%; text-align: center; border-top: 1px solid #000; padding-top: 10px; font-size: 12pt !important; background: white; z-index: 9999; margin: 0; }
-            .app-footer * { visibility: visible !important; color: #000 !important; background: transparent !important; text-decoration: none; }
+            
             .page-break-mode .teams-container { display: block !important; }
-            .page-break-mode .team-box { width: 100% !important; max-width: 600px !important; margin: 0 auto 30px auto !important; page-break-after: always !important; }
-            .page-break-mode .team-box:last-child { page-break-after: auto !important; }
+            .page-break-mode .team-box { width: 100% !important; max-width: none !important; margin: 0 0 30px 0 !important; page-break-after: always !important; break-after: page !important; }
+            .page-break-mode .team-box:last-child { page-break-after: auto !important; break-after: auto !important; }
         }
     </style>
 </head>
@@ -305,8 +353,11 @@
     <!-- Header -->
     <div class="header-section" id="mainHeader">
         <h1>
-            <img src="logo.svg" alt="Logo" class="app-logo">
-            প্রো টিম জেনারেটর
+            <svg xmlns="http://www.w3.org/2000/svg" class="app-logo" viewBox="0 0 200 200">
+                <defs><linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#4338CA" /><stop offset="100%" stop-color="#6366F1" /></linearGradient><linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#FDE68A" /><stop offset="50%" stop-color="#F59E0B" /><stop offset="100%" stop-color="#D97706" /></linearGradient><filter id="shadow" x="-10%" y="-10%" width="120%" height="120%"><feDropShadow dx="0" dy="8" stdDeviation="6" flood-opacity="0.3"/></filter></defs>
+                <rect width="200" height="200" rx="45" fill="url(#bgGrad)" filter="url(#shadow)"/><path d="M70 150 h60 v15 h-60 z" fill="url(#goldGrad)"/><path d="M90 120 h20 v30 h-20 z" fill="url(#goldGrad)"/><path d="M60 55 h80 c0 35 -15 65 -40 65 c-25 0 -40 -30 -40 -65 z" fill="url(#goldGrad)"/><path d="M60 65 c-25 0 -25 35 0 35" fill="none" stroke="url(#goldGrad)" stroke-width="10" stroke-linecap="round"/><path d="M140 65 c25 0 25 35 0 35" fill="none" stroke="url(#goldGrad)" stroke-width="10" stroke-linecap="round"/><path d="M100 75 l6 14 h14 l-11 9 5 15 -14 -10 -14 10 5 -15 -11 -9 h14 z" fill="#FFFFFF" filter="url(#shadow)"/>
+            </svg>
+            টিম জেনারেটর
         </h1>
         <div class="menu-container">
             <div class="three-dots" onclick="toggleMenu()">&#8942;</div>
@@ -383,7 +434,7 @@
                     <label>🎨 অ্যানিমেশনের ধরন:</label>
                     <select id="animationStyle">
                         <option value="wheel" selected>নামসহ ভাগ্যের চাকা (Ultra HD Wheel)</option>
-                        <option value="card">ম্যাজিক কার্ড (3D Flip)</option>
+                        <option value="card">ম্যাজিক কার্ড (Ultra HD 3D)</option>
                         <option value="slot">স্লট মেশিন (Casino Style)</option>
                     </select>
                 </div>
@@ -413,11 +464,14 @@
             <div class="spinner-side">
                 <div class="spinner-box">
                     <div class="spinner-title bounce-text">কার নাম উঠবে এবার?</div>
+                    
                     <div id="dynamicSpinnerBox" style="margin: 10px 0; width: 100%; display: flex; justify-content: center; align-items: center;"></div>
+                    
                     <div id="spinDestination">লটারি প্রস্তুত হচ্ছে...</div>
                 </div>
                 <button class="btn-secondary" onclick="skipAnimation()" style="background: #FEF2F2; color: var(--danger); border-color: #FECDD3; width: 100%;">⏭️ স্কিপ অ্যানিমেশন</button>
             </div>
+            
             <div class="teams-side">
                 <div id="spinGrid" class="spin-grid"></div>
             </div>
@@ -429,7 +483,7 @@
         <h2 style="color:var(--secondary-light); font-size: 26px; margin-bottom: 25px; font-weight: 800; text-align: center;">🎉 টিম তৈরি সম্পন্ন!</h2>
         
         <div id="printArea">
-            <h2 style="display:none;" id="printHeader"></h2>
+            <h2 id="printHeader"></h2>
             <div id="resultArea" class="teams-container"></div>
         </div>
 
@@ -443,12 +497,14 @@
     <!-- VIEW 5: History -->
     <div id="view-history" class="view">
         <h2 style="color: var(--primary); font-size: 26px;">🕒 পূর্বের লটারি</h2>
-        <p style="color:var(--text-muted); font-size:16px; font-weight: 600;">ডিভাইসে সেভ থাকা ফলাফলগুলো দেখুন।</p>
+        <p style="color:var(--text-muted); font-size:15px; font-weight: 600;">ডিভাইসে সেভ থাকা ফলাফলগুলো দেখুন।</p>
+        
         <div id="historyContainer" class="vertical-container" style="margin-top: 25px;"></div>
+        
         <button class="btn-secondary" onclick="goHome()" style="margin-top:20px;">⬅️ মেইন মেনুতে ফেরত যান</button>
     </div>
     
-    <!-- App Footer Credit inside container so it scrolls nicely -->
+    <!-- App Footer Credit -->
     <div class="app-footer">
         App Created by <a href="https://www.facebook.com/rahatsharif504" target="_blank" id="fbLink">রাহাত শরীফ</a>
     </div>
@@ -473,7 +529,6 @@
         }
     }
 
-    // --- Number Converters ---
     const enToBn = {'0':'০', '1':'১', '2':'২', '3':'৩', '4':'৪', '5':'৫', '6':'৬', '7':'৭', '8':'৮', '9':'৯'};
     const bnToEn = {'০':'0', '১':'1', '২':'2', '৩':'3', '৪':'4', '৫':'5', '৬':'6', '৭':'7', '৮':'8', '৯':'9'};
 
@@ -498,7 +553,7 @@
     let animTimeout2 = null;
     let animInterval = null;
     
-    // 2. BACK BUTTON SUPPORT FOR MENU
+    // BACK BUTTON LOGIC FOR MENU
     let isMenuOpen = false;
 
     function createConfetti() {
@@ -543,7 +598,7 @@
         }
     }
 
-    // --- History API & Navigation ---
+    // Navigation and History API Logic
     function getCurrentViewId() {
         const active = document.querySelector('.view.active');
         return active ? active.id : 'view-step1';
@@ -561,14 +616,15 @@
         document.querySelector('.container').scrollTo(0, 0); 
     }
     
-    // POPSTATE for View and Menu handling
+    // HISTORY API: Popstate to catch hardware back button
     window.addEventListener('popstate', function(e) {
         const menu = document.getElementById('dropdownMenu');
         
+        // If menu is open, Back button just closes the menu
         if (isMenuOpen) {
             menu.classList.remove('show');
             isMenuOpen = false;
-            // Allow state processing so if we hit back, we actually go to previous view
+            return; 
         }
 
         if (animActive) skipAnimation();
@@ -591,7 +647,6 @@
         else mainHeader.style.display = 'flex';
     });
 
-    // OPEN MENU WITH HISTORY
     function toggleMenu() { 
         const menu = document.getElementById('dropdownMenu');
         if (isMenuOpen) {
@@ -724,7 +779,6 @@
                 }
             }
         }
-
         if (!foundDup && document.getElementById('toggleEquivalent').checked) {
             let eqInputs = document.querySelectorAll('.eq-player-input');
             for(let i = 0; i < eqInputs.length; i++) {
@@ -735,7 +789,6 @@
                 }
             }
         }
-
         if (!foundDup && document.getElementById('toggleRandom').checked) {
             for(let i = 0; i < randomPlayersArray.length; i++) {
                 let val = randomPlayersArray[i];
@@ -743,7 +796,6 @@
                 allNames.push(val.toLowerCase());
             }
         }
-
         if(foundDup) {
             alert(`⚠️ ডুপ্লিকেট অ্যালার্ট!\n\n"${duplicateName}" নামটি একাধিকবার ব্যবহার করা হয়েছে। দয়া করে ডুপ্লিকেট নাম মুছে ফেলুন।`);
             return true;
@@ -962,8 +1014,8 @@
             dynamicBox.innerHTML = `
                 <div class="card-scene">
                     <div class="card-object" id="cardObj">
-                        <div class="card-face card-front"><div style="border: 2px dashed rgba(255,255,255,0.4); border-radius: 12px; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center;">লটারি হচ্ছে...</div></div>
-                        <div class="card-face card-back"><div id="cardBackText" style="border: 3px solid var(--accent); border-radius: 12px; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center;">???</div></div>
+                        <div class="card-face card-front"><div class="card-front-content">লটারি হচ্ছে...</div></div>
+                        <div class="card-face card-back"><div class="card-back-content" id="cardBackText">???</div></div>
                     </div>
                 </div>`;
             let cardObj = document.getElementById('cardObj');
@@ -1098,11 +1150,11 @@
         navigate('view-results');
     }
 
+    // PERFECT PRINT FUNCTION (NO BLANK PAGES)
     function printData(mode) {
         let printArea = document.getElementById('printArea');
         let printHeader = document.getElementById('printHeader');
         printHeader.innerHTML = `🏆 ${globalTournamentName} 🏆`;
-        printHeader.style.display = 'block';
         
         if (mode === 'single') {
             printArea.classList.add('page-break-mode');
@@ -1112,8 +1164,6 @@
         
         setTimeout(() => {
             window.print();
-            printHeader.style.display = 'none';
-            printArea.classList.remove('page-break-mode');
         }, 100);
     }
 
