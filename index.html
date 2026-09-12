@@ -30,7 +30,7 @@
             --border-color: #E5E7EB;
         }
 
-        /* 1. Pull-to-Refresh Disabled Here */
+        /* 1. Pull-to-Refresh Disabled & Native Feel */
         html, body { 
             font-family: 'Noto Sans Bengali', sans-serif; 
             background-color: var(--card-bg); 
@@ -103,30 +103,16 @@
 
         h3 { color: var(--text-main); text-align: left; font-size: 20px; margin-top: 25px; margin-bottom: 15px; font-weight: 700; }
         
-        /* PERFECT NATIVE APP INPUTS */
+        /* NATIVE APP INPUTS */
         .input-group { margin-bottom: 20px; text-align: left; width: 100%; }
         label { font-weight: 700; display: block; margin-bottom: 8px; color: var(--text-main); font-size: 16px; }
         
-        input[type="text"], input[type="number"], select { 
-            width: 100%; 
-            padding: 16px 18px; 
-            border: 1px solid transparent; 
-            background: var(--input-bg); 
-            border-radius: 14px; 
-            box-sizing: border-box; 
-            font-size: 17px; 
-            transition: all 0.2s ease; 
-            color: var(--text-main); 
-            font-family: inherit; 
-            font-weight: 600;
-            appearance: none;
-        }
+        input[type="text"], input[type="number"], select { width: 100%; padding: 16px 18px; border: 1px solid transparent; background: var(--input-bg); border-radius: 14px; box-sizing: border-box; font-size: 17px; transition: all 0.2s ease; color: var(--text-main); font-family: inherit; font-weight: 600; appearance: none; }
         input[type="text"]:focus, select:focus { border-color: var(--primary); background: #FFFFFF; outline: none; box-shadow: 0 4px 12px rgba(79, 70, 229, 0.1); }
         input::placeholder { color: #9CA3AF; font-weight: 500; }
-        
         .tournament-input { font-size: 20px !important; font-weight: 800 !important; color: var(--primary) !important; background: #EEF2FF !important; border: 1px solid #C7D2FE !important; }
 
-        /* NATIVE BUTTONS */
+        /* BUTTONS */
         button { font-family: inherit; border: none; cursor: pointer; transition: all 0.2s ease; display: inline-flex; align-items: center; justify-content: center; gap: 8px; box-sizing: border-box; font-weight: 700; }
         .btn-primary { background: var(--primary); color: white; padding: 18px 20px; font-size: 18px; border-radius: 16px; width: 100%; margin-top: 15px; box-shadow: 0 6px 15px rgba(67, 56, 202, 0.3); }
         .btn-primary:active { transform: scale(0.97); background: var(--primary-light); }
@@ -137,21 +123,17 @@
         .btn-secondary { background-color: var(--input-bg); color: var(--text-main); padding: 16px 20px; font-size: 16px; border-radius: 14px; width: 100%; }
         .btn-secondary:active { background-color: #E5E7EB; }
         
-        @media (min-width: 768px) {
-            .btn-success, .btn-secondary { width: auto; }
-            .input-group, .btn-primary { max-width: 800px; margin-left: auto; margin-right: auto; display: flex; }
-        }
+        .btn-fixture { background: linear-gradient(135deg, #F59E0B 0%, #D97706 100%); color: white; padding: 18px 20px; font-size: 18px; border-radius: 16px; width: 100%; margin-top: 15px; box-shadow: 0 6px 15px rgba(245, 158, 11, 0.3); }
+        .btn-fixture:active { transform: scale(0.97); }
 
-        /* Layouts & Sections */
+        @media (min-width: 768px) { .btn-success, .btn-secondary, .btn-fixture { width: auto; } .input-group, .btn-primary, .btn-fixture { max-width: 800px; margin-left: auto; margin-right: auto; display: flex; } }
+
+        /* Sections */
         .vertical-container { display: flex; flex-direction: column; gap: 15px; margin-bottom: 20px; }
         .player-row { display: flex; flex-direction: column; gap: 12px; background: #FFFFFF; padding: 20px 15px; border-radius: 16px; border: 1px solid #D1D5DB; box-shadow: 0 2px 5px rgba(0,0,0,0.02); }
         .row-badge { background: #374151; color: white; padding: 6px 14px; border-radius: 8px; font-size: 14px; font-weight: bold; align-self: flex-start; margin-bottom: 5px; }
         
-        @media (min-width: 992px) {
-            .player-row { flex-direction: row; flex-wrap: wrap; align-items: center; }
-            .row-badge { width: 100%; margin-bottom: 10px; }
-            .eq-player-input { flex: 1; min-width: 200px; }
-        }
+        @media (min-width: 992px) { .player-row { flex-direction: row; flex-wrap: wrap; align-items: center; } .row-badge { width: 100%; margin-bottom: 10px; } .eq-player-input { flex: 1; min-width: 200px; } }
         
         #captainsSection { display: none; background: #FFFBEB; padding: 20px 15px; border-radius: 16px; border: 1px solid #FDE68A; margin-bottom: 20px; }
         #randomPlayerSection { display: none; background: #ECFDF5; padding: 20px 15px; border-radius: 16px; border: 1px solid #A7F3D0; margin-bottom: 20px; }
@@ -191,27 +173,19 @@
         @keyframes bounceText { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-5px); } }
         #spinDestination { color: var(--secondary-light); font-size: 24px; margin-top: 20px; min-height: 35px; font-weight: 800; z-index: 2; position: relative; }
 
-        /* =========================================
-           ULTRA HD ANIMATIONS RESTORED
-           ========================================= */
-        
-        /* 1. HD CANVAS WHEEL */
+        /* ULTRA HD ANIMATIONS RESTORED */
         .canvas-wheel-container { position: relative; width: 280px; height: 280px; margin: 20px auto; z-index: 5; }
         @media (min-width: 380px) { .canvas-wheel-container { width: 320px; height: 320px; } }
         @media (min-width: 768px) { .canvas-wheel-container { width: 360px; height: 360px; } }
-        
         .canvas-wheel { width: 100%; height: 100%; border-radius: 50%; border: 6px solid #fff; box-shadow: 0 10px 30px rgba(0,0,0,0.5); background: #222; display: block; }
         .wheel-center-dot { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 22%; height: 22%; background: radial-gradient(circle, #ffffff 0%, #e2e8f0 100%); border-radius: 50%; border: 5px solid #1E293B; z-index: 10; box-shadow: 0 4px 10px rgba(0,0,0,0.3); }
         .wheel-pointer { position: absolute; top: -15px; left: 50%; transform: translateX(-50%); width: 0; height: 0; border-left: 15px solid transparent; border-right: 15px solid transparent; border-top: 30px solid #EF4444; z-index: 15; filter: drop-shadow(0 4px 4px rgba(0,0,0,0.5)); transform-origin: top center; }
-        
         .pointer-bounce { animation: ptrBounce 0.2s infinite alternate; }
         @keyframes ptrBounce { from { transform: translateX(-50%) rotate(0deg); } to { transform: translateX(-50%) rotate(-15deg); } }
-        
         .wheel-result-popup { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%) scale(0.5); background: rgba(255,255,255,0.95); padding: 12px 25px; border-radius: 16px; font-weight: 800; font-size: clamp(22px, 5vw, 32px); max-width: 90%; text-align: center; box-shadow: 0 10px 25px rgba(0,0,0,0.4); z-index: 20; color: var(--primary); transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); opacity: 0; border: 3px solid var(--primary-light); pointer-events: none; }
         .wheel-result-popup.show { opacity: 1; transform: translate(-50%, -50%) scale(1); }
         .wheel-glowing { box-shadow: 0 0 30px var(--secondary-light) !important; border-color: var(--secondary-light) !important; }
 
-        /* 2. HD 3D CARD */
         .card-scene { perspective: 1000px; width: 95%; max-width: 400px; height: 140px; margin: 20px auto; z-index: 5; position: relative; }
         .card-object { width: 100%; height: 100%; position: relative; transition: transform cubic-bezier(0.175, 0.885, 0.32, 1.275); transform-style: preserve-3d; }
         .card-face { position: absolute; width: 100%; height: 100%; backface-visibility: hidden; display: flex; align-items: center; justify-content: center; border-radius: 16px; font-size: clamp(24px, 5vw, 32px); font-weight: 800; box-shadow: 0 10px 25px rgba(0,0,0,0.3); border: 4px solid #fff; padding: 10px; box-sizing: border-box; text-align: center; line-height: 1.3; word-wrap: break-word; }
@@ -222,7 +196,6 @@
         .card-pop { animation: popCard 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; }
         @keyframes popCard { 0% { transform: scale(1) rotateY(180deg); } 50% { transform: scale(1.1) rotateY(180deg); box-shadow: 0 20px 40px rgba(255,255,255,0.2); } 100% { transform: scale(1) rotateY(180deg); } }
 
-        /* 3. HD SLOT MACHINE */
         .slot-machine { width: 95%; max-width: 400px; height: 120px; margin: 20px auto; background: #fff; border: 8px solid #1E293B; border-radius: 20px; overflow: hidden; position: relative; box-shadow: 0 15px 30px rgba(0,0,0,0.5), inset 0 20px 15px -10px rgba(0,0,0,0.4), inset 0 -20px 15px -10px rgba(0,0,0,0.4); z-index: 5; box-sizing: content-box; }
         .slot-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(to bottom, rgba(0,0,0,0.5) 0%, rgba(255,255,255,0) 25%, rgba(255,255,255,0) 75%, rgba(0,0,0,0.5) 100%); pointer-events: none; z-index: 10; }
         .slot-track { display: flex; flex-direction: column; width: 100%; position: relative; z-index: 5; }
@@ -242,7 +215,6 @@
         .spin-list li { padding: 10px; background: var(--input-bg); margin-bottom: 8px; border-radius: 10px; animation: popInList 0.3s ease; display: flex; align-items: center; justify-content: center; gap: 8px; border: 1px solid transparent; }
         @keyframes popInList { 0% { transform: translateY(-10px) scale(0.95); opacity: 0; } 100% { transform: translateY(0) scale(1); opacity: 1; } }
 
-        /* Confetti */
         .confetti { position: fixed; width: 10px; height: 10px; z-index: 9999; animation: fall linear forwards; opacity: 0; pointer-events: none; }
         @keyframes fall { 0% { transform: translateY(-100px) rotate(0deg); opacity: 1; } 100% { transform: translateY(100vh) rotate(720deg); opacity: 0; } }
 
@@ -253,7 +225,7 @@
         @media (min-width: 992px) { .team-box { width: calc(33.333% - 20px); } }
         .team-box:hover { box-shadow: 0 12px 25px rgba(0,0,0,0.08); transform: translateY(-3px); border-color: var(--primary-light); }
         
-        .team-title { background: var(--text-main); color: white; margin: 0; padding: 18px 20px; font-size: 20px; font-weight: 800; display: flex; justify-content: space-between; align-items: center; }
+        .team-title { background: var(--text-main); color: white; margin: 0; padding: 16px 20px; font-size: 20px; font-weight: 800; display: flex; justify-content: space-between; align-items: center; }
         .player-count { background: rgba(255,255,255,0.2); color: #fff; font-size: 14px; padding: 4px 12px; border-radius: 12px; font-weight: 700; }
         .player-list { list-style: none; padding: 15px; margin: 0; text-align: left; }
         .player-list li { padding: 14px 10px; border-bottom: 1px solid var(--border-color); font-size: 17px; font-weight: 700; color: var(--text-main); display: flex; align-items: center; }
@@ -265,7 +237,43 @@
         .print-actions button { width: 100%; }
         @media (min-width: 768px) { .print-actions button { width: auto; } }
 
-        /* App Footer */
+        /* Fixture Styles */
+        .fixture-controls { display: flex; gap: 10px; margin-bottom: 25px; justify-content: center; background: var(--input-bg); padding: 8px; border-radius: 16px; max-width: 800px; margin-left: auto; margin-right: auto; }
+        .fixture-controls button { flex: 1; padding: 14px 10px; font-size: 16px; border-radius: 12px; margin: 0; background: transparent; color: var(--text-muted); box-shadow: none; }
+        .fixture-controls button.active { background: var(--card-bg); color: var(--primary); box-shadow: 0 4px 10px rgba(0,0,0,0.05); font-weight: 800; }
+        
+        .match-card { display: flex; align-items: center; justify-content: space-between; background: #fff; border-radius: 16px; padding: 20px; margin-bottom: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.04); border: 1px solid var(--border-color); position: relative; overflow: hidden; transition: 0.3s; max-width: 800px; margin-left: auto; margin-right: auto; }
+        .match-card:hover { border-color: var(--primary-light); transform: translateY(-2px); box-shadow: 0 8px 20px rgba(67, 56, 202, 0.1); }
+        .match-team { flex: 1; text-align: center; font-size: 18px; font-weight: 800; color: var(--text-main); }
+        .match-team.team-a { color: var(--primary); }
+        .match-team.team-b { color: var(--danger); }
+        .vs-badge { background: linear-gradient(135deg, #1F2937 0%, #111827 100%); color: #fff; font-size: 14px; font-weight: 900; padding: 8px 12px; border-radius: 10px; font-style: italic; letter-spacing: 1px; box-shadow: 0 4px 10px rgba(0,0,0,0.2); margin: 0 15px; flex-shrink: 0; }
+        .round-title { font-size: 20px; font-weight: 800; color: var(--secondary); margin: 30px auto 15px auto; text-align: center; border-bottom: 2px dashed #A7F3D0; padding-bottom: 10px; max-width: 800px; }
+
+        /* Premium Schedule Card */
+        .schedule-card { background: #fff; border: 1px solid var(--border-color); border-radius: 16px; padding: 20px; margin: 0 auto 25px auto; max-width: 800px; box-shadow: 0 4px 15px rgba(0,0,0,0.03); }
+        .schedule-header { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 18px; color: var(--primary); margin-bottom: 15px; border-bottom: 2px dashed #E5E7EB; padding-bottom: 10px; }
+        .quick-times { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 15px; }
+        .quick-times button { background: var(--bg-color); color: var(--primary); font-size: 14px; padding: 8px 15px; border-radius: 20px; box-shadow: none; font-weight: 700; flex: 1; min-width: max-content; margin:0; }
+        .quick-times button:active { background: var(--primary); color: white; }
+
+        /* SMART LANDSCAPE MODE FIX */
+        @media (max-height: 600px) and (orientation: landscape) {
+            .header-section { margin-bottom: 10px; padding-bottom: 5px; }
+            h1 { font-size: 20px; }
+            .app-logo { width: 24px; height: 24px; }
+            .spin-layout-wrapper { flex-direction: row; align-items: flex-start; }
+            .spinner-side { flex: 0 0 50%; max-width: 350px; position: sticky; top: 10px; }
+            .teams-side { flex: 1; }
+            .spinner-box { padding: 15px 10px; margin-bottom: 10px; }
+            .canvas-wheel-container { width: 180px; height: 180px; margin: 5px auto; }
+            .card-scene { height: 100px; max-width: 250px; margin: 10px auto; }
+            .slot-machine { height: 80px; max-width: 250px; margin: 10px auto; }
+            .slot-item { height: 80px; min-height: 80px; font-size: 20px; }
+            .tourney-title-display { font-size: 20px; margin-bottom: 10px; }
+        }
+
+        /* App Footer for Credit */
         .app-footer { text-align: center; margin-top: auto; padding-top: 25px; border-top: 1px solid var(--border-color); color: var(--text-muted); font-size: 15px; font-weight: 600; padding-bottom: 25px; width: 100%; background: transparent; }
         .app-footer a { color: var(--primary); text-decoration: none; font-weight: 800; transition: 0.3s; padding: 6px 12px; background: var(--bg-color); border-radius: 8px; display: inline-block; margin-top: 5px; }
         @media (min-width: 768px) { .app-footer a { margin-top: 0; margin-left: 5px; } }
@@ -280,60 +288,29 @@
         @media (min-width: 576px) { .history-actions { width: auto; } }
         .history-actions button { flex: 1; padding: 10px 15px; font-size: 14px; border-radius: 10px; margin: 0; }
 
-        /* =========================================
-           PRINT CSS FIX (Perfect Full List Print)
-           ========================================= */
-        #printHeader { display: none; }
+        /* PRINT CSS FIX */
         #restoreFile { display: none; }
-
         @media print {
-            html, body { 
-                background: white !important; 
-                margin: 0 !important; 
-                padding: 0 !important; 
-                font-family: 'Noto Sans Bengali', sans-serif !important; 
-                display: block !important; 
-                height: auto !important; 
-                overflow: visible !important; 
-            }
-            
-            .container { 
-                display: block !important; 
-                height: auto !important; 
-                overflow: visible !important; 
-                box-shadow: none !important; 
-                border: none !important; 
-                padding: 0 !important; 
-                margin: 0 !important; 
-                max-width: 100% !important; 
-            }
-            
-            #mainHeader, .print-actions, .app-footer, .animation-settings, .input-group, button { 
-                display: none !important; 
-            }
-            
+            body { background: white !important; margin: 0 !important; padding: 0 !important; font-family: 'Noto Sans Bengali', sans-serif !important; display: block !important; height: auto !important; overflow: visible !important; }
+            body * { visibility: hidden; }
+            .container { display: block !important; height: auto !important; overflow: visible !important; box-shadow: none !important; border: none !important; padding: 0 !important; margin: 0 !important; max-width: 100% !important; }
+            #mainHeader, .print-actions, .app-footer, .animation-settings, .input-group, button, .fixture-controls, .schedule-card { display: none !important; }
             .view { display: none !important; }
-            #view-results { display: block !important; }
             
-            #view-results > h2:first-of-type { display: none !important; }
+            #view-results.active { display: block !important; }
+            #view-fixtures.active { display: block !important; }
             
-            #printHeader { 
-                display: block !important; 
-                font-size: 24pt !important; 
-                margin-bottom: 20px !important; 
-                color: #000 !important; 
-                border-bottom: 2px solid #000; 
-                padding-bottom: 5px; 
-                font-weight: 800; 
-                text-align: center; 
-            }
+            #view-results > h2:first-of-type, #view-fixtures > h2:first-of-type { display: none !important; }
             
-            #printArea { display: block !important; position: static !important; width: 100% !important; }
+            #printHeader, #printHeaderFixture { display: block !important; font-size: 24pt !important; margin-bottom: 10px !important; color: #000 !important; border-bottom: 2px solid #000; padding-bottom: 5px; font-weight: 800; text-align: center; visibility: visible !important; }
+            #displayMatchTime { color: #d90429 !important; font-size: 16pt !important; text-align: center; margin-bottom: 20px !important; visibility: visible !important; display: block !important; }
             
+            #printArea, #fixturePrintArea { display: block !important; position: static !important; width: 100% !important; visibility: visible !important; }
+            #printArea *, #fixturePrintArea * { visibility: visible !important; }
+            
+            /* Team Grids Print */
             .teams-container { display: flex !important; flex-wrap: wrap !important; justify-content: space-between !important; gap: 15px !important; margin-top: 10px !important; }
-            
             .team-box { border: 1.5px solid #000 !important; box-shadow: none !important; border-radius: 8px !important; margin-bottom: 10px !important; width: calc(50% - 10px) !important; box-sizing: border-box !important; break-inside: avoid !important; page-break-inside: avoid !important; }
-            
             .team-title { background: #F3F4F6 !important; color: #000 !important; border-bottom: 1.5px solid #000 !important; padding: 8px 12px !important; font-size: 14pt !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
             .player-count { color: #000 !important; border: 1px solid #000 !important; background: #fff !important; font-size: 10pt !important; padding: 2px 6px !important; }
             .player-list { padding: 8px !important; }
@@ -341,6 +318,12 @@
             .player-serial { border: none !important; margin-right: 8px !important; width: auto !important; height: auto !important; background: transparent !important; }
             .captain-tag { border: 1px solid #000 !important; color: #000 !important; background: #fff !important; }
             
+            /* Fixture Print */
+            .match-card { border: 1.5px solid #000 !important; box-shadow: none !important; padding: 12px !important; margin-bottom: 10px !important; break-inside: avoid !important; page-break-inside: avoid !important; border-radius: 8px !important; display: flex !important; align-items: center !important;}
+            .match-team { font-size: 14pt !important; font-weight: bold !important; color: #000 !important; }
+            .vs-badge { color: #000 !important; background: #fff !important; border: 1px solid #000 !important; box-shadow: none !important; }
+            .round-title { color: #000 !important; border-bottom: 1px solid #000 !important; page-break-after: avoid !important; font-size: 18pt !important; }
+
             .page-break-mode .teams-container { display: block !important; }
             .page-break-mode .team-box { width: 100% !important; max-width: none !important; margin: 0 0 30px 0 !important; page-break-after: always !important; break-after: page !important; }
             .page-break-mode .team-box:last-child { page-break-after: auto !important; break-after: auto !important; }
@@ -464,9 +447,7 @@
             <div class="spinner-side">
                 <div class="spinner-box">
                     <div class="spinner-title bounce-text">কার নাম উঠবে এবার?</div>
-                    
                     <div id="dynamicSpinnerBox" style="margin: 10px 0; width: 100%; display: flex; justify-content: center; align-items: center;"></div>
-                    
                     <div id="spinDestination">লটারি প্রস্তুত হচ্ছে...</div>
                 </div>
                 <button class="btn-secondary" onclick="skipAnimation()" style="background: #FEF2F2; color: var(--danger); border-color: #FECDD3; width: 100%;">⏭️ স্কিপ অ্যানিমেশন</button>
@@ -488,9 +469,49 @@
         </div>
 
         <div class="print-actions">
+            <!-- FIXTURE BUTTON -->
+            <button class="btn-fixture" onclick="openFixtures()">⚔️ ম্যাচ ফিক্সচার তৈরি করুন</button>
+            
             <button class="btn-primary" onclick="printData('all')">📄 এক পেজে সব টিম প্রিন্ট</button>
             <button class="btn-primary" onclick="printData('single')" style="background: linear-gradient(135deg, #F59E0B 0%, #D97706 100%); box-shadow: 0 10px 25px rgba(245, 158, 11, 0.2);">📑 আলাদা পেজে প্রিন্ট</button>
             <button class="btn-secondary" onclick="goHome()" style="background: #F3F4F6; border:1px solid #D1D5DB;">🏠 নতুন শুরু করুন</button>
+        </div>
+    </div>
+
+    <!-- VIEW 6: MATCH FIXTURES -->
+    <div id="view-fixtures" class="view">
+        <h2 style="color:var(--primary); font-size: 26px; margin-bottom: 20px; font-weight: 800; text-align: center;">⚔️ ম্যাচ ফিক্সচার</h2>
+        
+        <div class="schedule-card">
+            <div class="schedule-header">
+                <span style="font-size: 22px;">⏱️</span>
+                <span>ম্যাচের সময়সূচি সেট করুন</span>
+            </div>
+            <input type="text" id="matchTimeInput" placeholder="যেমন: ১২ই সেপ্টেম্বর ২০২৬, বিকাল ৪:০০ টা" oninput="updateMatchTime()" style="border-color: #D1D5DB;">
+            
+            <div class="quick-times">
+                <button onclick="setQuickTime('আজ বিকাল ৪:০০ টা')">আজ বিকাল ৪টা</button>
+                <button onclick="setQuickTime('আজ রাত ৮:০০ টা')">আজ রাত ৮টা</button>
+                <button onclick="setQuickTime('আগামীকাল বিকাল ৩:৩০ মিনিট')">আগামীকাল</button>
+                <button onclick="setQuickTime('শুক্রবার, সকাল ৯:০০ টা')">শুক্রবার সকালে</button>
+            </div>
+        </div>
+
+        <div class="fixture-controls">
+            <button id="btnKnockout" class="active" onclick="generateFixture('knockout')">নকআউট (Knockout)</button>
+            <button id="btnLeague" onclick="generateFixture('league')">লিগ (League)</button>
+        </div>
+
+        <div id="fixturePrintArea">
+            <h2 id="printHeaderFixture" style="display:none;"></h2>
+            <div id="displayMatchTime" style="text-align: center; color: var(--danger); font-weight: bold; font-size: 18px; margin-bottom: 15px; display: none;"></div>
+            
+            <div id="fixtureResultArea"></div>
+        </div>
+
+        <div class="print-actions">
+            <button class="btn-primary" onclick="printFixtureData()">📄 ফিক্সচার প্রিন্ট করুন</button>
+            <button class="btn-secondary" onclick="navigate('view-results')" style="background: #F3F4F6; border:1px solid #D1D5DB;">⬅️ টিম লিস্টে ফিরে যান</button>
         </div>
     </div>
 
@@ -503,8 +524,8 @@
         
         <button class="btn-secondary" onclick="goHome()" style="margin-top:20px;">⬅️ মেইন মেনুতে ফেরত যান</button>
     </div>
-    
-    <!-- App Footer Credit -->
+
+    <!-- App Footer -->
     <div class="app-footer">
         App Created by <a href="https://www.facebook.com/rahatsharif504" target="_blank" id="fbLink">রাহাত শরীফ</a>
     </div>
@@ -548,13 +569,30 @@
     let globalAssignments = [];
     let globalTournamentName = "টিম লটারি / টুর্নামেন্ট";
     
+    let savedFixtures = { knockout: "", league: "" };
+    let currentFixtureType = 'knockout';
+
     let animActive = false;
     let animTimeout1 = null;
     let animTimeout2 = null;
     let animInterval = null;
-    
-    // BACK BUTTON LOGIC FOR MENU
     let isMenuOpen = false;
+
+    function setQuickTime(timeText) {
+        document.getElementById('matchTimeInput').value = timeText;
+        updateMatchTime();
+    }
+
+    function updateMatchTime() {
+        let timeVal = document.getElementById('matchTimeInput').value.trim();
+        let displayEl = document.getElementById('displayMatchTime');
+        if(timeVal) {
+            displayEl.innerHTML = `🗓️ সময়সূচি: ${timeVal}`;
+            displayEl.style.display = 'block';
+        } else {
+            displayEl.style.display = 'none';
+        }
+    }
 
     function createConfetti() {
         const colors = ['#EF4444', '#F59E0B', '#10B981', '#3B82F6', '#8B5CF6', '#EC4899'];
@@ -598,7 +636,6 @@
         }
     }
 
-    // Navigation and History API Logic
     function getCurrentViewId() {
         const active = document.querySelector('.view.active');
         return active ? active.id : 'view-step1';
@@ -616,11 +653,8 @@
         document.querySelector('.container').scrollTo(0, 0); 
     }
     
-    // HISTORY API: Popstate to catch hardware back button
     window.addEventListener('popstate', function(e) {
         const menu = document.getElementById('dropdownMenu');
-        
-        // If menu is open, Back button just closes the menu
         if (isMenuOpen) {
             menu.classList.remove('show');
             isMenuOpen = false;
@@ -779,6 +813,7 @@
                 }
             }
         }
+
         if (!foundDup && document.getElementById('toggleEquivalent').checked) {
             let eqInputs = document.querySelectorAll('.eq-player-input');
             for(let i = 0; i < eqInputs.length; i++) {
@@ -789,6 +824,7 @@
                 }
             }
         }
+
         if (!foundDup && document.getElementById('toggleRandom').checked) {
             for(let i = 0; i < randomPlayersArray.length; i++) {
                 let val = randomPlayersArray[i];
@@ -796,6 +832,7 @@
                 allNames.push(val.toLowerCase());
             }
         }
+
         if(foundDup) {
             alert(`⚠️ ডুপ্লিকেট অ্যালার্ট!\n\n"${duplicateName}" নামটি একাধিকবার ব্যবহার করা হয়েছে। দয়া করে ডুপ্লিকেট নাম মুছে ফেলুন।`);
             return true;
@@ -803,6 +840,7 @@
         return false;
     }
 
+    // --- NEW: ROUND-ROBIN DISTRIBUTION ALGORITHM ---
     function startGeneration() {
         globalTeamNames = [];
         let valid = true;
@@ -819,6 +857,7 @@
         globalAssignments = [];
         let hasPlayers = false;
 
+        // 1. Assign Captains First (If any)
         if (document.getElementById('toggleCaptains').checked) {
             for (let i = 1; i <= numberOfTeams; i++) {
                 let cap = document.getElementById(`capName_${i}`).value.trim();
@@ -831,29 +870,43 @@
             }
         }
 
+        // 2. Round-Robin Distribution for Equivalent Groups
         if (document.getElementById('toggleEquivalent').checked) {
             document.querySelectorAll('.player-row').forEach(row => {
                 let rowPlayers = [];
                 row.querySelectorAll('.eq-player-input').forEach(inp => {
                     if (inp.value.trim()) { rowPlayers.push({name: inp.value.trim(), isCaptain: false}); hasPlayers = true; }
                 });
+                // Shuffle players in this group
                 rowPlayers = shuffleArray(rowPlayers);
+                
+                // Shuffle the team indices to ensure random starting team for each group
                 let indices = shuffleArray(Array.from({length: numberOfTeams}, (_, i) => i));
+                
+                // Distribute 1 by 1
                 for (let j = 0; j < rowPlayers.length; j++) {
-                    finalTeams[indices[j]].push(rowPlayers[j]);
-                    globalAssignments.push({ player: rowPlayers[j], targetTeam: indices[j] });
+                    let targetTeamIndex = indices[j % numberOfTeams]; // Modulo ensures it loops back if players > teams
+                    finalTeams[targetTeamIndex].push(rowPlayers[j]);
+                    globalAssignments.push({ player: rowPlayers[j], targetTeam: targetTeamIndex });
                 }
             });
         }
 
+        // 3. Round-Robin Distribution for Random Players
         if (document.getElementById('toggleRandom').checked && randomPlayersArray.length > 0) {
             hasPlayers = true;
-            let shuffled = shuffleArray([...randomPlayersArray]);
-            shuffled.forEach(playerName => {
+            let shuffledRandoms = shuffleArray([...randomPlayersArray]);
+            
+            shuffledRandoms.forEach(playerName => {
                 let pObj = {name: playerName, isCaptain: false};
+                
+                // Find teams with the minimum number of players to ensure fairness
                 let minSize = Math.min(...finalTeams.map(t => t.length));
                 let eligibles = finalTeams.map((t, idx) => ({size: t.length, idx})).filter(t => t.size === minSize);
+                
+                // Pick a random team from those with the minimum players
                 let chosen = eligibles[Math.floor(Math.random() * eligibles.length)].idx;
+                
                 finalTeams[chosen].push(pObj);
                 globalAssignments.push({ player: pObj, targetTeam: chosen });
             });
@@ -862,12 +915,13 @@
         if (!hasPlayers) { alert("টিম তৈরি করার জন্য অন্তত কিছু প্লেয়ার দিন!"); return; }
         
         generatedTeams = finalTeams;
+        savedFixtures = { knockout: "", league: "" };
         
         let speedSettings = document.getElementById('animationSpeed').value;
         if (speedSettings === 'skip') {
             renderResults(false); 
         } else {
-            globalAssignments = shuffleArray(globalAssignments);
+            // DO NOT shuffle globalAssignments here, keep the round-robin order intact
             setupSpinView();
         }
     }
@@ -954,7 +1008,9 @@
 
         let assignment = globalAssignments[index];
         let pNameStr = assignment.player.name + (assignment.player.isCaptain ? " 👑" : "");
-        let allNames = globalAssignments.map(a => a.player.name);
+        
+        // Ensure the wheel only shows players who haven't been sorted yet to add realism
+        let remainingNames = globalAssignments.slice(index).map(a => a.player.name);
         
         document.querySelectorAll('.spin-team').forEach(el => el.classList.remove('team-highlight'));
         document.getElementById('spinDestination').innerHTML = "কোথায় যাবে? 🤔";
@@ -975,11 +1031,11 @@
             let pointer = document.getElementById('wheelPointer');
             let popup = document.getElementById('wheelPopup');
             
-            drawCanvasWheel('canvasWheel', allNames);
+            drawCanvasWheel('canvasWheel', remainingNames);
 
-            let numSlices = allNames.length;
+            let numSlices = remainingNames.length;
             let sliceDeg = 360 / numSlices;
-            let winnerIndex = allNames.indexOf(assignment.player.name); 
+            let winnerIndex = remainingNames.indexOf(assignment.player.name); 
             if(winnerIndex === -1) winnerIndex = 0;
             
             let centerAngle = (winnerIndex * sliceDeg) + (sliceDeg / 2);
@@ -1029,7 +1085,7 @@
                 cardObj.style.transform = `rotateY(${targetRotation}deg)`;
                 
                 animInterval = setInterval(() => {
-                    backText.innerText = allNames[Math.floor(Math.random() * allNames.length)];
+                    backText.innerText = remainingNames[Math.floor(Math.random() * remainingNames.length)];
                 }, 60);
 
                 animTimeout1 = setTimeout(() => {
@@ -1045,7 +1101,7 @@
             let totalItems = speedMode === 'long' ? 35 : (speedMode === 'short' ? 12 : 20);
             let itemsHtml = '';
             for(let i=0; i<totalItems-1; i++) {
-                itemsHtml += `<div class="slot-item spinning">${allNames[Math.floor(Math.random() * allNames.length)]}</div>`;
+                itemsHtml += `<div class="slot-item spinning">${remainingNames[Math.floor(Math.random() * remainingNames.length)]}</div>`;
             }
             itemsHtml += `<div class="slot-item winner">${pNameStr}</div>`;
             
@@ -1150,21 +1206,84 @@
         navigate('view-results');
     }
 
-    // PERFECT PRINT FUNCTION (NO BLANK PAGES)
+    // --- FIXTURE GENERATOR ---
+    function openFixtures() {
+        navigate('view-fixtures');
+        generateFixture('knockout');
+    }
+
+    function generateFixture(type) {
+        document.getElementById('btnKnockout').className = (type === 'knockout') ? 'active' : '';
+        document.getElementById('btnLeague').className = (type === 'league') ? 'active' : '';
+        
+        const area = document.getElementById('fixtureResultArea');
+        currentFixtureType = type;
+
+        if (savedFixtures[type]) {
+            area.innerHTML = savedFixtures[type];
+            return;
+        }
+
+        let teams = [...globalTeamNames];
+        let html = '';
+
+        if (type === 'knockout') {
+            teams = shuffleArray(teams);
+            html += `<div class="round-title">নকআউট পর্ব (Knockout)</div>`;
+            for(let i=0; i<teams.length; i+=2) {
+                if(i+1 < teams.length) {
+                    html += `<div class="match-card"><div class="match-team team-a">${teams[i]}</div><div class="vs-badge">VS</div><div class="match-team team-b">${teams[i+1]}</div></div>`;
+                } else {
+                    html += `<div class="match-card"><div class="match-team team-a">${teams[i]}</div><div class="vs-badge" style="background:#059669;">BYE</div><div class="match-team" style="color:var(--text-muted); font-size:14px;">সরাসরি পরবর্তী রাউন্ডে</div></div>`;
+                }
+            }
+        } else {
+            if (teams.length % 2 !== 0) teams.push("BYE_TEAM");
+            let numRounds = teams.length - 1;
+            let half = teams.length / 2;
+
+            for(let round=0; round<numRounds; round++) {
+                let roundHtml = `<div class="round-title">রাউন্ড ${toBengaliNum(round+1)}</div>`;
+                
+                for(let i=0; i<half; i++) {
+                    let teamA = teams[i];
+                    let teamB = teams[teams.length - 1 - i];
+                    
+                    if (teamA !== "BYE_TEAM" && teamB !== "BYE_TEAM") {
+                        roundHtml += `<div class="match-card"><div class="match-team team-a">${teamA}</div><div class="vs-badge">VS</div><div class="match-team team-b">${teamB}</div></div>`;
+                    } else {
+                        let playingTeam = teamA !== "BYE_TEAM" ? teamA : teamB;
+                        roundHtml += `<div class="match-card" style="opacity:0.8;"><div class="match-team team-a">${playingTeam}</div><div class="vs-badge" style="background:#F59E0B;">BYE</div><div class="match-team" style="color:var(--text-muted); font-size:14px;">এই রাউন্ডে বিশ্রাম</div></div>`;
+                    }
+                }
+                html += roundHtml;
+                teams.splice(1, 0, teams.pop());
+            }
+        }
+
+        savedFixtures[type] = html;
+        area.innerHTML = html;
+    }
+
+    // PRINT TEAM LIST
     function printData(mode) {
         let printArea = document.getElementById('printArea');
         let printHeader = document.getElementById('printHeader');
         printHeader.innerHTML = `🏆 ${globalTournamentName} 🏆`;
         
-        if (mode === 'single') {
-            printArea.classList.add('page-break-mode');
-        } else {
-            printArea.classList.remove('page-break-mode');
-        }
+        if (mode === 'single') printArea.classList.add('page-break-mode');
+        else printArea.classList.remove('page-break-mode');
         
-        setTimeout(() => {
-            window.print();
-        }, 100);
+        setTimeout(() => { window.print(); }, 100);
+    }
+
+    // PRINT FIXTURES WITH DATE AND TIME
+    function printFixtureData() {
+        let printHeader = document.getElementById('printHeaderFixture');
+        let typeName = currentFixtureType === 'knockout' ? "নকআউট ফিক্সচার" : "লিগ ফিক্সচার";
+        printHeader.innerHTML = `🏆 ${globalTournamentName} - ${typeName} 🏆`;
+        
+        setTimeout(() => { window.print(); }, 100);
     }
 
     function goHome() { navigate('view-step1'); }
@@ -1215,6 +1334,8 @@
         generatedTeams = item.teams;
         globalTeamNames = item.teamNames;
         numberOfTeams = item.teams.length;
+        
+        savedFixtures = { knockout: "", league: "" };
         renderResults(true); 
     }
 
