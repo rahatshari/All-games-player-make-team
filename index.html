@@ -30,7 +30,7 @@
             --border-color: #E5E7EB;
         }
 
-        /* 1. Pull-to-Refresh Disabled & Native Feel */
+        /* Pull-to-Refresh Disabled & Native Feel */
         html, body { 
             font-family: 'Noto Sans Bengali', sans-serif; 
             background-color: var(--card-bg); 
@@ -128,18 +128,16 @@
 
         @media (min-width: 768px) { .btn-success, .btn-secondary, .btn-fixture { width: auto; } .input-group, .btn-primary, .btn-fixture { max-width: 800px; margin-left: auto; margin-right: auto; display: flex; } }
 
-        /* Sections */
         .vertical-container { display: flex; flex-direction: column; gap: 15px; margin-bottom: 20px; }
         .player-row { display: flex; flex-direction: column; gap: 12px; background: #FFFFFF; padding: 20px 15px; border-radius: 16px; border: 1px solid #D1D5DB; box-shadow: 0 2px 5px rgba(0,0,0,0.02); }
         .row-badge { background: #374151; color: white; padding: 6px 14px; border-radius: 8px; font-size: 14px; font-weight: bold; align-self: flex-start; margin-bottom: 5px; }
         
         @media (min-width: 992px) { .player-row { flex-direction: row; flex-wrap: wrap; align-items: center; } .row-badge { width: 100%; margin-bottom: 10px; } .eq-player-input { flex: 1; min-width: 200px; } }
         
-        #captainsSection { display: none; background: #FFFBEB; padding: 20px 15px; border-radius: 16px; border: 1px solid #FDE68A; margin-bottom: 20px; }
+        #captainsSection { display: block; background: #FFFBEB; padding: 20px 15px; border-radius: 16px; border: 1px solid #FDE68A; margin-bottom: 20px; }
         #randomPlayerSection { display: none; background: #ECFDF5; padding: 20px 15px; border-radius: 16px; border: 1px solid #A7F3D0; margin-bottom: 20px; }
         .animation-settings { background: #F5F3FF; padding: 20px 15px; border-radius: 16px; border: 1px solid #C7D2FE; margin-top: 25px; text-align: left; }
         
-        /* Chips */
         .add-player-container { display: flex; flex-direction: column; gap: 10px; margin-bottom: 15px; width: 100%; }
         @media (min-width: 768px) { .add-player-container { flex-direction: row; } .add-player-container input { flex: 1; } .add-player-container button { width: auto; margin: 0; } }
         .add-player-container button { background: var(--accent); color: white; border-radius: 14px; padding: 16px 20px; font-size: 17px; width: 100%; box-shadow: 0 4px 10px rgba(245, 158, 11, 0.2); }
@@ -149,7 +147,6 @@
         .player-chip .number { background-color: var(--primary); color: white; border-radius: 50%; width: 22px; height: 22px; display: inline-flex; justify-content: center; align-items: center; font-size: 12px; margin-right: 8px; }
         .player-chip .remove { color: var(--danger); cursor: pointer; font-size: 20px; margin-left: 8px; padding: 0 5px; }
 
-        /* PROJECTOR / PC VIEW SPLIT LAYOUT */
         .spin-layout-wrapper { display: flex; flex-direction: column; gap: 20px; }
         .spinner-side { width: 100%; }
         .teams-side { width: 100%; }
@@ -173,7 +170,7 @@
         @keyframes bounceText { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-5px); } }
         #spinDestination { color: var(--secondary-light); font-size: 24px; margin-top: 20px; min-height: 35px; font-weight: 800; z-index: 2; position: relative; }
 
-        /* ULTRA HD ANIMATIONS RESTORED */
+        /* ULTRA HD ANIMATIONS */
         .canvas-wheel-container { position: relative; width: 280px; height: 280px; margin: 20px auto; z-index: 5; }
         @media (min-width: 380px) { .canvas-wheel-container { width: 320px; height: 320px; } }
         @media (min-width: 768px) { .canvas-wheel-container { width: 360px; height: 360px; } }
@@ -182,6 +179,7 @@
         .wheel-pointer { position: absolute; top: -15px; left: 50%; transform: translateX(-50%); width: 0; height: 0; border-left: 15px solid transparent; border-right: 15px solid transparent; border-top: 30px solid #EF4444; z-index: 15; filter: drop-shadow(0 4px 4px rgba(0,0,0,0.5)); transform-origin: top center; }
         .pointer-bounce { animation: ptrBounce 0.2s infinite alternate; }
         @keyframes ptrBounce { from { transform: translateX(-50%) rotate(0deg); } to { transform: translateX(-50%) rotate(-15deg); } }
+        
         .wheel-result-popup { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%) scale(0.5); background: rgba(255,255,255,0.95); padding: 12px 25px; border-radius: 16px; font-weight: 800; font-size: clamp(22px, 5vw, 32px); max-width: 90%; text-align: center; box-shadow: 0 10px 25px rgba(0,0,0,0.4); z-index: 20; color: var(--primary); transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); opacity: 0; border: 3px solid var(--primary-light); pointer-events: none; }
         .wheel-result-popup.show { opacity: 1; transform: translate(-50%, -50%) scale(1); }
         .wheel-glowing { box-shadow: 0 0 30px var(--secondary-light) !important; border-color: var(--secondary-light) !important; }
@@ -196,7 +194,7 @@
         .card-pop { animation: popCard 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; }
         @keyframes popCard { 0% { transform: scale(1) rotateY(180deg); } 50% { transform: scale(1.1) rotateY(180deg); box-shadow: 0 20px 40px rgba(255,255,255,0.2); } 100% { transform: scale(1) rotateY(180deg); } }
 
-        .slot-machine { width: 95%; max-width: 400px; height: 120px; margin: 20px auto; background: #fff; border: 8px solid #1E293B; border-radius: 20px; overflow: hidden; position: relative; box-shadow: 0 15px 30px rgba(0,0,0,0.5), inset 0 20px 15px -10px rgba(0,0,0,0.4), inset 0 -20px 15px -10px rgba(0,0,0,0.4); z-index: 5; box-sizing: content-box; }
+        .slot-machine { width: 95%; max-width: 400px; height: 120px; margin: 20px auto; background: #fff; border: 8px solid #1E293B; border-radius: 20px; overflow: hidden; position: relative; box-shadow: 0 15px 30px rgba(0,0,0,0.5), inset 0 25px 20px -15px rgba(0,0,0,0.4), inset 0 -25px 20px -15px rgba(0,0,0,0.4); z-index: 5; box-sizing: content-box; }
         .slot-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(to bottom, rgba(0,0,0,0.5) 0%, rgba(255,255,255,0) 25%, rgba(255,255,255,0) 75%, rgba(0,0,0,0.5) 100%); pointer-events: none; z-index: 10; }
         .slot-track { display: flex; flex-direction: column; width: 100%; position: relative; z-index: 5; }
         .slot-item { height: 120px; min-height: 120px; display: flex; align-items: center; justify-content: center; font-size: clamp(26px, 5vw, 36px); font-weight: 800; color: #9CA3AF; padding: 0 10px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; box-sizing: border-box; }
@@ -233,7 +231,7 @@
         .player-serial { background: var(--input-bg); color: var(--text-muted); width: 28px; height: 28px; display: inline-flex; justify-content: center; align-items: center; border-radius: 50%; margin-right: 12px; font-size: 14px; font-weight: 800; border: 1px solid var(--border-color); flex-shrink: 0; }
         .captain-tag { background: var(--accent); color: #fff; font-size: 12px; padding: 4px 8px; border-radius: 6px; margin-left: auto; font-weight: bold; }
         
-        .print-actions { display: flex; gap: 15px; justify-content: center; margin-top: 40px; flex-wrap: wrap; width: 100%; }
+        .print-actions { display: flex; gap: 15px; justify-content: center; margin-top: 30px; flex-wrap: wrap; width: 100%; }
         .print-actions button { width: 100%; }
         @media (min-width: 768px) { .print-actions button { width: auto; } }
 
@@ -250,14 +248,14 @@
         .vs-badge { background: linear-gradient(135deg, #1F2937 0%, #111827 100%); color: #fff; font-size: 14px; font-weight: 900; padding: 8px 12px; border-radius: 10px; font-style: italic; letter-spacing: 1px; box-shadow: 0 4px 10px rgba(0,0,0,0.2); margin: 0 15px; flex-shrink: 0; }
         .round-title { font-size: 20px; font-weight: 800; color: var(--secondary); margin: 30px auto 15px auto; text-align: center; border-bottom: 2px dashed #A7F3D0; padding-bottom: 10px; max-width: 800px; }
 
-        /* Premium Schedule Card */
+        /* Schedule Card for Smart Dates */
         .schedule-card { background: #fff; border: 1px solid var(--border-color); border-radius: 16px; padding: 20px; margin: 0 auto 25px auto; max-width: 800px; box-shadow: 0 4px 15px rgba(0,0,0,0.03); }
         .schedule-header { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 18px; color: var(--primary); margin-bottom: 15px; border-bottom: 2px dashed #E5E7EB; padding-bottom: 10px; }
-        .quick-times { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 15px; }
-        .quick-times button { background: var(--bg-color); color: var(--primary); font-size: 14px; padding: 8px 15px; border-radius: 20px; box-shadow: none; font-weight: 700; flex: 1; min-width: max-content; margin:0; }
-        .quick-times button:active { background: var(--primary); color: white; }
+        .time-inputs-container { display: flex; gap: 15px; flex-direction: column; }
+        @media (min-width: 576px) { .time-inputs-container { flex-direction: row; } }
+        .schedule-card input { border: 1px solid #D1D5DB; background: #fff; }
 
-        /* SMART LANDSCAPE MODE FIX */
+        /* Smart Landscape Mode */
         @media (max-height: 600px) and (orientation: landscape) {
             .header-section { margin-bottom: 10px; padding-bottom: 5px; }
             h1 { font-size: 20px; }
@@ -273,7 +271,7 @@
             .tourney-title-display { font-size: 20px; margin-bottom: 10px; }
         }
 
-        /* App Footer for Credit */
+        /* App Footer */
         .app-footer { text-align: center; margin-top: auto; padding-top: 25px; border-top: 1px solid var(--border-color); color: var(--text-muted); font-size: 15px; font-weight: 600; padding-bottom: 25px; width: 100%; background: transparent; }
         .app-footer a { color: var(--primary); text-decoration: none; font-weight: 800; transition: 0.3s; padding: 6px 12px; background: var(--bg-color); border-radius: 8px; display: inline-block; margin-top: 5px; }
         @media (min-width: 768px) { .app-footer a { margin-top: 0; margin-left: 5px; } }
@@ -309,13 +307,13 @@
             #printArea *, #fixturePrintArea * { visibility: visible !important; }
             
             /* Team Grids Print */
-            .teams-container { display: flex !important; flex-wrap: wrap !important; justify-content: space-between !important; gap: 15px !important; margin-top: 10px !important; }
-            .team-box { border: 1.5px solid #000 !important; box-shadow: none !important; border-radius: 8px !important; margin-bottom: 10px !important; width: calc(50% - 10px) !important; box-sizing: border-box !important; break-inside: avoid !important; page-break-inside: avoid !important; }
+            .teams-container { display: flex !important; flex-wrap: wrap !important; justify-content: flex-start !important; gap: 15px !important; margin-top: 10px !important; }
+            .team-box { border: 1.5px solid #000 !important; box-shadow: none !important; border-radius: 8px !important; margin-bottom: 10px !important; width: calc(50% - 15px) !important; box-sizing: border-box !important; break-inside: avoid !important; page-break-inside: avoid !important; }
             .team-title { background: #F3F4F6 !important; color: #000 !important; border-bottom: 1.5px solid #000 !important; padding: 8px 12px !important; font-size: 14pt !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
             .player-count { color: #000 !important; border: 1px solid #000 !important; background: #fff !important; font-size: 10pt !important; padding: 2px 6px !important; }
             .player-list { padding: 8px !important; }
             .player-list li { font-size: 12pt !important; padding: 6px 4px !important; border-bottom: 1px solid #E5E7EB !important; color: #000 !important; }
-            .player-serial { border: none !important; margin-right: 8px !important; width: auto !important; height: auto !important; background: transparent !important; }
+            .player-serial { border: none !important; margin-right: 8px !important; width: auto !important; height: auto !important; }
             .captain-tag { border: 1px solid #000 !important; color: #000 !important; background: #fff !important; }
             
             /* Fixture Print */
@@ -325,8 +323,11 @@
             .round-title { color: #000 !important; border-bottom: 1px solid #000 !important; page-break-after: avoid !important; font-size: 18pt !important; }
 
             .page-break-mode .teams-container { display: block !important; }
-            .page-break-mode .team-box { width: 100% !important; max-width: none !important; margin: 0 0 30px 0 !important; page-break-after: always !important; break-after: page !important; }
-            .page-break-mode .team-box:last-child { page-break-after: auto !important; break-after: auto !important; }
+            .page-break-mode .team-box { width: 100% !important; max-width: 600px !important; margin: 0 auto 30px auto !important; page-break-after: always !important; }
+            .page-break-mode .team-box:last-child { page-break-after: auto !important; }
+            
+            .app-footer { visibility: visible !important; display: block !important; position: fixed; bottom: 0; left: 0; width: 100%; text-align: center; border-top: 1px solid #000; padding-top: 10px; font-size: 12pt !important; background: white; z-index: 9999; margin: 0; }
+            .app-footer * { visibility: visible !important; color: #000 !important; background: transparent !important; text-decoration: none; }
         }
     </style>
 </head>
@@ -346,13 +347,13 @@
             <div class="three-dots" onclick="toggleMenu()">&#8942;</div>
             <div id="dropdownMenu" class="menu-dropdown">
                 <div class="menu-item history-item" onclick="showHistory()">🕒 পূর্বের লটারি (History)</div>
-                <div class="menu-item action-item" onclick="exportBackup()">📥 সকল ডেটা বেকাপ (Save)</div>
+                <div class="menu-item action-item" onclick="exportBackupData()">📥 সকল ডেটা বেকাপ (Save)</div>
                 <div class="menu-item action-item" onclick="document.getElementById('restoreFile').click()">📤 ডেটা রিস্টোর (Load)</div>
-                <input type="file" id="restoreFile" accept=".json" onchange="importBackup(event)">
+                <input type="file" id="restoreFile" accept=".json" onchange="importBackupData(event)">
                 <div style="border-top: 1px solid var(--border-color); margin: 5px 0;"></div>
                 <div class="menu-item" onclick="event.stopPropagation();">
                     <span>ক্যাপ্টেন মোড</span>
-                    <label class="switch"><input type="checkbox" id="toggleCaptains" onchange="toggleSections()"><span class="slider"></span></label>
+                    <label class="switch"><input type="checkbox" id="toggleCaptains" checked onchange="toggleSections()"><span class="slider"></span></label>
                 </div>
                 <div class="menu-item" onclick="event.stopPropagation();">
                     <span>সমকক্ষ মোড</span>
@@ -487,13 +488,16 @@
                 <span style="font-size: 22px;">⏱️</span>
                 <span>ম্যাচের সময়সূচি সেট করুন</span>
             </div>
-            <input type="text" id="matchTimeInput" placeholder="যেমন: ১২ই সেপ্টেম্বর ২০২৬, বিকাল ৪:০০ টা" oninput="updateMatchTime()" style="border-color: #D1D5DB;">
             
-            <div class="quick-times">
-                <button onclick="setQuickTime('আজ বিকাল ৪:০০ টা')">আজ বিকাল ৪টা</button>
-                <button onclick="setQuickTime('আজ রাত ৮:০০ টা')">আজ রাত ৮টা</button>
-                <button onclick="setQuickTime('আগামীকাল বিকাল ৩:৩০ মিনিট')">আগামীকাল</button>
-                <button onclick="setQuickTime('শুক্রবার, সকাল ৯:০০ টা')">শুক্রবার সকালে</button>
+            <div class="time-inputs-container">
+                <div style="flex: 1;">
+                    <label style="font-size: 14px; color: var(--text-muted);">তারিখ (যেমন: ২৩/০২/২০২৬)</label>
+                    <input type="text" id="matchDateInput" placeholder="দিন/মাস/বছর" oninput="autoFormatDateTime()">
+                </div>
+                <div style="flex: 1;">
+                    <label style="font-size: 14px; color: var(--text-muted);">সময় (যেমন: ৪.৩০)</label>
+                    <input type="text" id="matchTimeInput" placeholder="ঘন্টা.মিনিট" oninput="autoFormatDateTime()">
+                </div>
             </div>
         </div>
 
@@ -532,7 +536,6 @@
 </div>
 
 <script>
-    // --- Screen Wake Lock API ---
     let wakeLock = null;
     async function requestWakeLock() {
         try { if ('wakeLock' in navigator) wakeLock = await navigator.wakeLock.request('screen'); } 
@@ -578,16 +581,54 @@
     let animInterval = null;
     let isMenuOpen = false;
 
-    function setQuickTime(timeText) {
-        document.getElementById('matchTimeInput').value = timeText;
-        updateMatchTime();
+    // SMART DATE & TIME PARSER
+    const bnMonths = ['জানুয়ারি', 'ফেব্রুয়ারি', 'মার্চ', 'এপ্রিল', 'মে', 'জুন', 'জুলাই', 'আগস্ট', 'সেপ্টেম্বর', 'অক্টোবর', 'নভেম্বর', 'ডিসেম্বর'];
+    
+    function parseDate(input) {
+        input = toEnglishNum(input);
+        let match = input.match(/(\d{1,2})[\/\-](\d{1,2})[\/\-](\d{2,4})/);
+        if (match) {
+            let day = toBengaliNum(match[1].padStart(2, '0'));
+            let monthIdx = parseInt(match[2]) - 1;
+            let yearStr = match[3];
+            if (yearStr.length === 2) yearStr = "20" + yearStr;
+            let year = toBengaliNum(yearStr);
+            if (monthIdx >= 0 && monthIdx < 12) {
+                return `${day} ${bnMonths[monthIdx]} ${year}`;
+            }
+        }
+        return toBengaliNum(input); 
     }
 
-    function updateMatchTime() {
-        let timeVal = document.getElementById('matchTimeInput').value.trim();
+    function parseTime(input) {
+        input = toEnglishNum(input);
+        let match = input.match(/(\d{1,2})[:\.](\d{2})/);
+        if (match) {
+            let hour = toBengaliNum(match[1]);
+            let min = toBengaliNum(match[2]);
+            return `${hour}.${min} ঘটিকায়`;
+        }
+        return toBengaliNum(input);
+    }
+
+    function autoFormatDateTime() {
+        let dateInput = document.getElementById('matchDateInput');
+        let timeInput = document.getElementById('matchTimeInput');
         let displayEl = document.getElementById('displayMatchTime');
-        if(timeVal) {
-            displayEl.innerHTML = `🗓️ সময়সূচি: ${timeVal}`;
+        
+        let dateVal = dateInput.value.trim();
+        let timeVal = timeInput.value.trim();
+        
+        if(dateVal || timeVal) {
+            let formattedDate = dateVal ? parseDate(dateVal) : "";
+            let formattedTime = timeVal ? parseTime(timeVal) : "";
+            
+            let displayText = '🗓️ সময়সূচি: ';
+            if(formattedDate) displayText += formattedDate;
+            if(formattedDate && formattedTime) displayText += ' - ';
+            if(formattedTime) displayText += formattedTime;
+            
+            displayEl.innerHTML = displayText;
             displayEl.style.display = 'block';
         } else {
             displayEl.style.display = 'none';
@@ -655,6 +696,7 @@
     
     window.addEventListener('popstate', function(e) {
         const menu = document.getElementById('dropdownMenu');
+        
         if (isMenuOpen) {
             menu.classList.remove('show');
             isMenuOpen = false;
@@ -697,7 +739,7 @@
             if (isMenuOpen) { history.back(); }
         }
     }
-    
+
     function closeMenuSafely() {
         if (isMenuOpen) { history.back(); }
     }
@@ -706,8 +748,8 @@
         const showCap = document.getElementById('toggleCaptains').checked;
         const showEq = document.getElementById('toggleEquivalent').checked;
         const showRan = document.getElementById('toggleRandom').checked;
-        if (!showEq && !showRan) {
-            alert("সমকক্ষ বা র‍্যান্ডম মোডের যেকোনো একটি অন রাখতে হবে!");
+        if (!showEq && !showRan && !showCap) {
+            alert("কমপক্ষে একটি মোড অন রাখতে হবে!");
             document.getElementById('toggleEquivalent').checked = true;
             return;
         }
@@ -813,7 +855,6 @@
                 }
             }
         }
-
         if (!foundDup && document.getElementById('toggleEquivalent').checked) {
             let eqInputs = document.querySelectorAll('.eq-player-input');
             for(let i = 0; i < eqInputs.length; i++) {
@@ -824,7 +865,6 @@
                 }
             }
         }
-
         if (!foundDup && document.getElementById('toggleRandom').checked) {
             for(let i = 0; i < randomPlayersArray.length; i++) {
                 let val = randomPlayersArray[i];
@@ -832,7 +872,6 @@
                 allNames.push(val.toLowerCase());
             }
         }
-
         if(foundDup) {
             alert(`⚠️ ডুপ্লিকেট অ্যালার্ট!\n\n"${duplicateName}" নামটি একাধিকবার ব্যবহার করা হয়েছে। দয়া করে ডুপ্লিকেট নাম মুছে ফেলুন।`);
             return true;
@@ -840,7 +879,6 @@
         return false;
     }
 
-    // --- NEW: ROUND-ROBIN DISTRIBUTION ALGORITHM ---
     function startGeneration() {
         globalTeamNames = [];
         let valid = true;
@@ -857,7 +895,6 @@
         globalAssignments = [];
         let hasPlayers = false;
 
-        // 1. Assign Captains First (If any)
         if (document.getElementById('toggleCaptains').checked) {
             for (let i = 1; i <= numberOfTeams; i++) {
                 let cap = document.getElementById(`capName_${i}`).value.trim();
@@ -870,41 +907,31 @@
             }
         }
 
-        // 2. Round-Robin Distribution for Equivalent Groups
         if (document.getElementById('toggleEquivalent').checked) {
             document.querySelectorAll('.player-row').forEach(row => {
                 let rowPlayers = [];
                 row.querySelectorAll('.eq-player-input').forEach(inp => {
                     if (inp.value.trim()) { rowPlayers.push({name: inp.value.trim(), isCaptain: false}); hasPlayers = true; }
                 });
-                // Shuffle players in this group
                 rowPlayers = shuffleArray(rowPlayers);
-                
-                // Shuffle the team indices to ensure random starting team for each group
                 let indices = shuffleArray(Array.from({length: numberOfTeams}, (_, i) => i));
                 
-                // Distribute 1 by 1
                 for (let j = 0; j < rowPlayers.length; j++) {
-                    let targetTeamIndex = indices[j % numberOfTeams]; // Modulo ensures it loops back if players > teams
+                    let targetTeamIndex = indices[j % numberOfTeams]; 
                     finalTeams[targetTeamIndex].push(rowPlayers[j]);
                     globalAssignments.push({ player: rowPlayers[j], targetTeam: targetTeamIndex });
                 }
             });
         }
 
-        // 3. Round-Robin Distribution for Random Players
         if (document.getElementById('toggleRandom').checked && randomPlayersArray.length > 0) {
             hasPlayers = true;
             let shuffledRandoms = shuffleArray([...randomPlayersArray]);
             
             shuffledRandoms.forEach(playerName => {
                 let pObj = {name: playerName, isCaptain: false};
-                
-                // Find teams with the minimum number of players to ensure fairness
                 let minSize = Math.min(...finalTeams.map(t => t.length));
                 let eligibles = finalTeams.map((t, idx) => ({size: t.length, idx})).filter(t => t.size === minSize);
-                
-                // Pick a random team from those with the minimum players
                 let chosen = eligibles[Math.floor(Math.random() * eligibles.length)].idx;
                 
                 finalTeams[chosen].push(pObj);
@@ -921,7 +948,6 @@
         if (speedSettings === 'skip') {
             renderResults(false); 
         } else {
-            // DO NOT shuffle globalAssignments here, keep the round-robin order intact
             setupSpinView();
         }
     }
@@ -1008,8 +1034,6 @@
 
         let assignment = globalAssignments[index];
         let pNameStr = assignment.player.name + (assignment.player.isCaptain ? " 👑" : "");
-        
-        // Ensure the wheel only shows players who haven't been sorted yet to add realism
         let remainingNames = globalAssignments.slice(index).map(a => a.player.name);
         
         document.querySelectorAll('.spin-team').forEach(el => el.classList.remove('team-highlight'));
@@ -1265,7 +1289,6 @@
         area.innerHTML = html;
     }
 
-    // PRINT TEAM LIST
     function printData(mode) {
         let printArea = document.getElementById('printArea');
         let printHeader = document.getElementById('printHeader');
@@ -1277,7 +1300,6 @@
         setTimeout(() => { window.print(); }, 100);
     }
 
-    // PRINT FIXTURES WITH DATE AND TIME
     function printFixtureData() {
         let printHeader = document.getElementById('printHeaderFixture');
         let typeName = currentFixtureType === 'knockout' ? "নকআউট ফিক্সচার" : "লিগ ফিক্সচার";
@@ -1369,8 +1391,9 @@
         }
     }
 
-    function exportBackup() {
-        closeMenuSafely(); 
+    // --- 100% FIXED BACKUP & RESTORE LOGIC ---
+    function exportBackupData() {
+        closeMenuSafely();
 
         let eqGroups = [];
         document.querySelectorAll('.player-row').forEach(row => {
@@ -1407,21 +1430,22 @@
             randomPlayers: randomPlayersArray
         };
         
-        const blob = new Blob([JSON.stringify(state)], { type: "application/json" });
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = `Team_Full_Backup_${new Date().getTime()}.json`;
-        a.click();
-        URL.revokeObjectURL(url);
+        const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(state));
+        const downloadAnchor = document.createElement('a');
+        downloadAnchor.setAttribute("href", dataStr);
+        downloadAnchor.setAttribute("download", `Team_Full_Backup_${Date.now()}.json`);
+        document.body.appendChild(downloadAnchor);
+        downloadAnchor.click();
+        downloadAnchor.remove();
         
-        setTimeout(() => { alert("ফুল ডেটা বেকাপ (ডাউনলোড) সফল হয়েছে!"); }, 300);
+        setTimeout(() => { alert("ডেটা ব্যাকআপ ফাইল সফলভাবে ডাউনলোড হয়েছে!"); }, 300);
     }
 
-    function importBackup(event) {
+    function importBackupData(event) {
         closeMenuSafely();
         const file = event.target.files[0];
         if (!file) return;
+        
         const reader = new FileReader();
         reader.onload = function(e) {
             try {
@@ -1432,9 +1456,9 @@
                 document.getElementById('teamCount').value = toBengaliNum(loadedCount);
                 numberOfTeams = parseInt(loadedCount);
                 
-                document.getElementById('toggleCaptains').checked = state.toggles.cap || false;
-                document.getElementById('toggleEquivalent').checked = state.toggles.eq || false;
-                document.getElementById('toggleRandom').checked = state.toggles.ran || false;
+                document.getElementById('toggleCaptains').checked = state.toggles.cap !== undefined ? state.toggles.cap : true;
+                document.getElementById('toggleEquivalent').checked = state.toggles.eq !== undefined ? state.toggles.eq : true;
+                document.getElementById('toggleRandom').checked = state.toggles.ran !== undefined ? state.toggles.ran : false;
 
                 if(state.animPrefs) {
                     document.getElementById('animationStyle').value = state.animPrefs.style || 'wheel';
@@ -1474,9 +1498,11 @@
                 
                 toggleSections();
                 navigate('view-step2');
-                alert("ডেটা রিস্টোর সফল হয়েছে!");
+                alert("ডেটা রিস্টোর সফলভাবে সম্পন্ন হয়েছে!");
                 
-            } catch (error) { alert("সঠিক JSON ফাইল নির্বাচন করুন।"); }
+            } catch (error) { 
+                alert("সঠিক JSON ব্যাকআপ ফাইল নির্বাচন করুন।"); 
+            }
         };
         reader.readAsText(file);
         event.target.value = '';
