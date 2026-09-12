@@ -14,6 +14,10 @@
 
     <!-- Premium Google Font -->
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Bengali:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- html2canvas library for PDF-like JPG Export -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
     <style>
         :root {
             --primary: #4338CA;
@@ -30,7 +34,6 @@
             --border-color: #E5E7EB;
         }
 
-        /* Pull-to-Refresh Disabled & Native Feel */
         html, body { 
             font-family: 'Noto Sans Bengali', sans-serif; 
             background-color: var(--card-bg); 
@@ -65,7 +68,6 @@
             -webkit-overflow-scrolling: touch;
         }
         
-        /* PC/Tablet View Overrides */
         @media (min-width: 992px) {
             body { background-color: #F9FAFB; padding: 20px; }
             .container { max-width: 1200px; width: 95%; margin: auto; background: #FFFFFF; padding: 40px; border-radius: 24px; box-shadow: 0 20px 40px -10px rgba(0,0,0,0.1); min-height: calc(100vh - 40px); }
@@ -75,7 +77,6 @@
         .view.active { display: block; }
         @keyframes slideFade { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
         
-        /* App Header */
         .header-section { display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; border-bottom: 1px solid var(--border-color); padding-bottom: 15px; position: sticky; top: 0; background: var(--card-bg); z-index: 50; }
         @media (min-width: 992px) { .header-section { position: relative; z-index: 1; } }
         
@@ -93,7 +94,6 @@
         .menu-item:active { background-color: #F9FAFB; }
         .menu-item.history-item { color: var(--accent); background-color: #FFFBEB; }
         
-        /* Modern Switch */
         .switch { position: relative; display: inline-block; width: 44px; height: 24px; }
         .switch input { opacity: 0; width: 0; height: 0; }
         .slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #D1D5DB; transition: .3s; border-radius: 34px; }
@@ -103,7 +103,6 @@
 
         h3 { color: var(--text-main); text-align: left; font-size: 20px; margin-top: 25px; margin-bottom: 15px; font-weight: 700; }
         
-        /* NATIVE APP INPUTS */
         .input-group { margin-bottom: 20px; text-align: left; width: 100%; }
         label { font-weight: 700; display: block; margin-bottom: 8px; color: var(--text-main); font-size: 16px; }
         
@@ -112,7 +111,6 @@
         input::placeholder { color: #9CA3AF; font-weight: 500; }
         .tournament-input { font-size: 20px !important; font-weight: 800 !important; color: var(--primary) !important; background: #EEF2FF !important; border: 1px solid #C7D2FE !important; }
 
-        /* BUTTONS */
         button { font-family: inherit; border: none; cursor: pointer; transition: all 0.2s ease; display: inline-flex; align-items: center; justify-content: center; gap: 8px; box-sizing: border-box; font-weight: 700; }
         .btn-primary { background: var(--primary); color: white; padding: 18px 20px; font-size: 18px; border-radius: 16px; width: 100%; margin-top: 15px; box-shadow: 0 6px 15px rgba(67, 56, 202, 0.3); }
         .btn-primary:active { transform: scale(0.97); background: var(--primary-light); }
@@ -126,7 +124,10 @@
         .btn-fixture { background: linear-gradient(135deg, #F59E0B 0%, #D97706 100%); color: white; padding: 18px 20px; font-size: 18px; border-radius: 16px; width: 100%; margin-top: 15px; box-shadow: 0 6px 15px rgba(245, 158, 11, 0.3); }
         .btn-fixture:active { transform: scale(0.97); }
 
-        @media (min-width: 768px) { .btn-success, .btn-secondary, .btn-fixture { width: auto; } .input-group, .btn-primary, .btn-fixture { max-width: 800px; margin-left: auto; margin-right: auto; display: flex; } }
+        .btn-image { background: linear-gradient(135deg, #10B981 0%, #059669 100%); color: white; padding: 18px 20px; font-size: 18px; border-radius: 16px; width: 100%; margin-top: 15px; box-shadow: 0 6px 15px rgba(16, 185, 129, 0.3); }
+        .btn-image:active { transform: scale(0.97); }
+
+        @media (min-width: 768px) { .btn-success, .btn-secondary, .btn-fixture, .btn-image { width: auto; } .input-group, .btn-primary, .btn-fixture, .btn-image { max-width: 800px; margin-left: auto; margin-right: auto; display: flex; } }
 
         .vertical-container { display: flex; flex-direction: column; gap: 15px; margin-bottom: 20px; }
         .player-row { display: flex; flex-direction: column; gap: 12px; background: #FFFFFF; padding: 20px 15px; border-radius: 16px; border: 1px solid #D1D5DB; box-shadow: 0 2px 5px rgba(0,0,0,0.02); }
@@ -201,7 +202,6 @@
         .slot-item.spinning { color: var(--text-main); filter: blur(1.5px); }
         .slot-item.winner { color: var(--primary); background: #EEF2FF; border-top: 2px solid var(--primary-light); border-bottom: 2px solid var(--primary-light); filter: blur(0); }
 
-        /* Team Grids */
         .spin-grid { display: flex; flex-wrap: wrap; gap: 15px; justify-content: center; width: 100%; }
         .spin-team { background: #fff; border: 1px solid var(--border-color); border-radius: 16px; width: 100%; padding: 20px 15px; text-align: center; transition: all 0.3s ease; box-sizing: border-box; box-shadow: 0 2px 4px rgba(0,0,0,0.02); }
         @media (min-width: 576px) { .spin-team { width: calc(50% - 15px); } }
@@ -231,7 +231,7 @@
         .player-serial { background: var(--input-bg); color: var(--text-muted); width: 28px; height: 28px; display: inline-flex; justify-content: center; align-items: center; border-radius: 50%; margin-right: 12px; font-size: 14px; font-weight: 800; border: 1px solid var(--border-color); flex-shrink: 0; }
         .captain-tag { background: var(--accent); color: #fff; font-size: 12px; padding: 4px 8px; border-radius: 6px; margin-left: auto; font-weight: bold; }
         
-        .print-actions { display: flex; gap: 15px; justify-content: center; margin-top: 30px; flex-wrap: wrap; width: 100%; }
+        .print-actions { display: flex; gap: 15px; justify-content: center; margin-top: 40px; flex-wrap: wrap; width: 100%; }
         .print-actions button { width: 100%; }
         @media (min-width: 768px) { .print-actions button { width: auto; } }
 
@@ -254,22 +254,6 @@
         .time-inputs-container { display: flex; gap: 15px; flex-direction: column; }
         @media (min-width: 576px) { .time-inputs-container { flex-direction: row; } }
         .schedule-card input { border: 1px solid #D1D5DB; background: #fff; }
-
-        /* Smart Landscape Mode */
-        @media (max-height: 600px) and (orientation: landscape) {
-            .header-section { margin-bottom: 10px; padding-bottom: 5px; }
-            h1 { font-size: 20px; }
-            .app-logo { width: 24px; height: 24px; }
-            .spin-layout-wrapper { flex-direction: row; align-items: flex-start; }
-            .spinner-side { flex: 0 0 50%; max-width: 350px; position: sticky; top: 10px; }
-            .teams-side { flex: 1; }
-            .spinner-box { padding: 15px 10px; margin-bottom: 10px; }
-            .canvas-wheel-container { width: 180px; height: 180px; margin: 5px auto; }
-            .card-scene { height: 100px; max-width: 250px; margin: 10px auto; }
-            .slot-machine { height: 80px; max-width: 250px; margin: 10px auto; }
-            .slot-item { height: 80px; min-height: 80px; font-size: 20px; }
-            .tourney-title-display { font-size: 20px; margin-bottom: 10px; }
-        }
 
         /* App Footer */
         .app-footer { text-align: center; margin-top: auto; padding-top: 25px; border-top: 1px solid var(--border-color); color: var(--text-muted); font-size: 15px; font-weight: 600; padding-bottom: 25px; width: 100%; background: transparent; }
@@ -306,28 +290,23 @@
             #printArea, #fixturePrintArea { display: block !important; position: static !important; width: 100% !important; visibility: visible !important; }
             #printArea *, #fixturePrintArea * { visibility: visible !important; }
             
-            /* Team Grids Print */
             .teams-container { display: flex !important; flex-wrap: wrap !important; justify-content: flex-start !important; gap: 15px !important; margin-top: 10px !important; }
-            .team-box { border: 1.5px solid #000 !important; box-shadow: none !important; border-radius: 8px !important; margin-bottom: 10px !important; width: calc(50% - 15px) !important; box-sizing: border-box !important; break-inside: avoid !important; page-break-inside: avoid !important; }
+            .team-box { border: 1.5px solid #000 !important; box-shadow: none !important; border-radius: 8px !important; margin-bottom: 10px !important; width: calc(50% - 10px) !important; box-sizing: border-box !important; break-inside: avoid !important; page-break-inside: avoid !important; }
             .team-title { background: #F3F4F6 !important; color: #000 !important; border-bottom: 1.5px solid #000 !important; padding: 8px 12px !important; font-size: 14pt !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
             .player-count { color: #000 !important; border: 1px solid #000 !important; background: #fff !important; font-size: 10pt !important; padding: 2px 6px !important; }
             .player-list { padding: 8px !important; }
             .player-list li { font-size: 12pt !important; padding: 6px 4px !important; border-bottom: 1px solid #E5E7EB !important; color: #000 !important; }
-            .player-serial { border: none !important; margin-right: 8px !important; width: auto !important; height: auto !important; }
+            .player-serial { border: none !important; margin-right: 8px !important; width: auto !important; height: auto !important; background: transparent !important; }
             .captain-tag { border: 1px solid #000 !important; color: #000 !important; background: #fff !important; }
             
-            /* Fixture Print */
             .match-card { border: 1.5px solid #000 !important; box-shadow: none !important; padding: 12px !important; margin-bottom: 10px !important; break-inside: avoid !important; page-break-inside: avoid !important; border-radius: 8px !important; display: flex !important; align-items: center !important;}
             .match-team { font-size: 14pt !important; font-weight: bold !important; color: #000 !important; }
             .vs-badge { color: #000 !important; background: #fff !important; border: 1px solid #000 !important; box-shadow: none !important; }
             .round-title { color: #000 !important; border-bottom: 1px solid #000 !important; page-break-after: avoid !important; font-size: 18pt !important; }
 
             .page-break-mode .teams-container { display: block !important; }
-            .page-break-mode .team-box { width: 100% !important; max-width: 600px !important; margin: 0 auto 30px auto !important; page-break-after: always !important; }
-            .page-break-mode .team-box:last-child { page-break-after: auto !important; }
-            
-            .app-footer { visibility: visible !important; display: block !important; position: fixed; bottom: 0; left: 0; width: 100%; text-align: center; border-top: 1px solid #000; padding-top: 10px; font-size: 12pt !important; background: white; z-index: 9999; margin: 0; }
-            .app-footer * { visibility: visible !important; color: #000 !important; background: transparent !important; text-decoration: none; }
+            .page-break-mode .team-box { width: 100% !important; max-width: none !important; margin: 0 0 30px 0 !important; page-break-after: always !important; break-after: page !important; }
+            .page-break-mode .team-box:last-child { page-break-after: auto !important; break-after: auto !important; }
         }
     </style>
 </head>
@@ -347,6 +326,7 @@
             <div class="three-dots" onclick="toggleMenu()">&#8942;</div>
             <div id="dropdownMenu" class="menu-dropdown">
                 <div class="menu-item history-item" onclick="showHistory()">🕒 পূর্বের লটারি (History)</div>
+                <!-- FIXED BACKUP BUTTON -->
                 <div class="menu-item action-item" onclick="exportBackupData()">📥 সকল ডেটা বেকাপ (Save)</div>
                 <div class="menu-item action-item" onclick="document.getElementById('restoreFile').click()">📤 ডেটা রিস্টোর (Load)</div>
                 <input type="file" id="restoreFile" accept=".json" onchange="importBackupData(event)">
@@ -465,13 +445,16 @@
         <h2 style="color:var(--secondary-light); font-size: 26px; margin-bottom: 25px; font-weight: 800; text-align: center;">🎉 টিম তৈরি সম্পন্ন!</h2>
         
         <div id="printArea">
-            <h2 id="printHeader"></h2>
+            <h2 id="printHeader" style="display:none;"></h2>
             <div id="resultArea" class="teams-container"></div>
         </div>
 
         <div class="print-actions">
             <!-- FIXTURE BUTTON -->
             <button class="btn-fixture" onclick="openFixtures()">⚔️ ম্যাচ ফিক্সচার তৈরি করুন</button>
+            
+            <!-- NEW IMAGE CAPTURE BUTTON (PDF LOOK) -->
+            <button class="btn-image" onclick="saveAsImage('teams')">📷 ছবি হিসেবে সেভ (JPG)</button>
             
             <button class="btn-primary" onclick="printData('all')">📄 এক পেজে সব টিম প্রিন্ট</button>
             <button class="btn-primary" onclick="printData('single')" style="background: linear-gradient(135deg, #F59E0B 0%, #D97706 100%); box-shadow: 0 10px 25px rgba(245, 158, 11, 0.2);">📑 আলাদা পেজে প্রিন্ট</button>
@@ -483,6 +466,7 @@
     <div id="view-fixtures" class="view">
         <h2 style="color:var(--primary); font-size: 26px; margin-bottom: 20px; font-weight: 800; text-align: center;">⚔️ ম্যাচ ফিক্সচার</h2>
         
+        <!-- SMART DATE AND TIME PARSER CARD -->
         <div class="schedule-card">
             <div class="schedule-header">
                 <span style="font-size: 22px;">⏱️</span>
@@ -499,6 +483,7 @@
                     <input type="text" id="matchTimeInput" placeholder="ঘন্টা.মিনিট" oninput="autoFormatDateTime()">
                 </div>
             </div>
+            <p style="font-size: 13px; color: #9CA3AF; margin-top: 10px; margin-bottom:0;">* ইংরেজি বা বাংলা যেকোনো সংখ্যায় লিখলে অটোমেটিক কনভার্ট হয়ে যাবে।</p>
         </div>
 
         <div class="fixture-controls">
@@ -508,12 +493,15 @@
 
         <div id="fixturePrintArea">
             <h2 id="printHeaderFixture" style="display:none;"></h2>
+            <!-- Displayed text for the print page -->
             <div id="displayMatchTime" style="text-align: center; color: var(--danger); font-weight: bold; font-size: 18px; margin-bottom: 15px; display: none;"></div>
             
             <div id="fixtureResultArea"></div>
         </div>
 
         <div class="print-actions">
+            <!-- NEW IMAGE CAPTURE BUTTON (PDF LOOK) -->
+            <button class="btn-image" onclick="saveAsImage('fixtures')">📷 ছবি হিসেবে সেভ (JPG)</button>
             <button class="btn-primary" onclick="printFixtureData()">📄 ফিক্সচার প্রিন্ট করুন</button>
             <button class="btn-secondary" onclick="navigate('view-results')" style="background: #F3F4F6; border:1px solid #D1D5DB;">⬅️ টিম লিস্টে ফিরে যান</button>
         </div>
@@ -580,6 +568,152 @@
     let animTimeout2 = null;
     let animInterval = null;
     let isMenuOpen = false;
+
+    // --- NEW: PDF-LIKE HIGH QUALITY JPG EXPORT ---
+    function saveAsImage(type) {
+        let btn = event.currentTarget;
+        let originalText = btn.innerHTML;
+        btn.innerHTML = '⏳ সেভ হচ্ছে...';
+
+        // Create an invisible clone container for perfect rendering (like A4 paper size)
+        let cloneContainer = document.createElement('div');
+        cloneContainer.style.position = 'absolute';
+        cloneContainer.style.left = '-9999px';
+        cloneContainer.style.top = '0';
+        cloneContainer.style.width = '1000px'; 
+        cloneContainer.style.backgroundColor = '#ffffff';
+        cloneContainer.style.padding = '40px';
+        cloneContainer.style.fontFamily = "'Noto Sans Bengali', sans-serif";
+        cloneContainer.style.color = '#000000';
+        
+        // Add Header
+        let fType = type === 'fixtures' ? (currentFixtureType === 'knockout' ? " - নকআউট পর্ব" : " - লিগ পর্ব") : "";
+        let headerHtml = `<h2 style="font-size: 32px; font-weight: 800; text-align: center; border-bottom: 3px solid #000; padding-bottom: 15px; margin-bottom: 30px; color: #000;">🏆 ${globalTournamentName} 🏆${fType}</h2>`;
+        cloneContainer.innerHTML += headerHtml;
+
+        if (type === 'teams') {
+            let sourceTeams = document.getElementById('resultArea').cloneNode(true);
+            
+            // Format like PDF
+            sourceTeams.style.display = 'flex';
+            sourceTeams.style.flexWrap = 'wrap';
+            sourceTeams.style.justifyContent = 'space-between';
+            sourceTeams.style.gap = '20px';
+            
+            Array.from(sourceTeams.children).forEach(box => {
+                box.style.width = 'calc(50% - 10px)';
+                box.style.border = '2px solid #000';
+                box.style.borderRadius = '12px';
+                box.style.marginBottom = '20px';
+                box.style.boxShadow = 'none';
+                box.style.backgroundColor = '#fff';
+                
+                let title = box.querySelector('.team-title');
+                title.style.backgroundColor = '#f3f4f6';
+                title.style.color = '#000';
+                title.style.borderBottom = '2px solid #000';
+                title.style.padding = '12px 15px';
+                
+                let count = box.querySelector('.player-count');
+                count.style.border = '1px solid #000';
+                count.style.color = '#000';
+                count.style.backgroundColor = '#fff';
+                
+                let lis = box.querySelectorAll('li');
+                lis.forEach(li => {
+                    li.style.color = '#000';
+                    li.style.borderBottom = '1px solid #e5e7eb';
+                    li.style.padding = '10px 5px';
+                });
+                
+                let serials = box.querySelectorAll('.player-serial');
+                serials.forEach(s => {
+                    s.style.backgroundColor = 'transparent';
+                    s.style.border = 'none';
+                    s.style.marginRight = '10px';
+                });
+                
+                let tags = box.querySelectorAll('.captain-tag');
+                tags.forEach(t => {
+                    t.style.border = '1px solid #000';
+                    t.style.color = '#000';
+                    t.style.backgroundColor = '#fff';
+                });
+            });
+            
+            cloneContainer.appendChild(sourceTeams);
+            
+        } else if (type === 'fixtures') {
+            let timeVal = document.getElementById('displayMatchTime').innerText;
+            if(timeVal && document.getElementById('displayMatchTime').style.display !== 'none') {
+                let timeHtml = `<div style="text-align: center; color: #d90429; font-weight: bold; font-size: 22px; margin-bottom: 30px;">${timeVal}</div>`;
+                cloneContainer.innerHTML += timeHtml;
+            }
+            
+            let sourceFixtures = document.getElementById('fixtureResultArea').cloneNode(true);
+            
+            let cards = sourceFixtures.querySelectorAll('.match-card');
+            cards.forEach(card => {
+                card.style.border = '2px solid #000';
+                card.style.boxShadow = 'none';
+                card.style.marginBottom = '15px';
+                card.style.padding = '15px';
+                card.style.display = 'flex';
+                card.style.alignItems = 'center';
+                
+                let teams = card.querySelectorAll('.match-team');
+                teams.forEach(t => {
+                    t.style.color = '#000';
+                    t.style.fontSize = '22px';
+                    t.style.fontWeight = 'bold';
+                });
+                
+                let vs = card.querySelector('.vs-badge');
+                vs.style.background = '#fff';
+                vs.style.color = '#000';
+                vs.style.border = '2px solid #000';
+                vs.style.boxShadow = 'none';
+                vs.style.fontSize = '18px';
+            });
+            
+            let titles = sourceFixtures.querySelectorAll('.round-title');
+            titles.forEach(title => {
+                title.style.color = '#000';
+                title.style.borderBottom = '2px solid #000';
+                title.style.fontSize = '24px';
+                title.style.paddingBottom = '10px';
+                title.style.marginBottom = '20px';
+            });
+            
+            cloneContainer.appendChild(sourceFixtures);
+        }
+        
+        let footerHtml = `<div style="text-align: center; margin-top: 40px; padding-top: 20px; border-top: 2px solid #000; font-weight: bold; font-size: 16px; color: #000;">App Created by রাহাত শরীফ</div>`;
+        cloneContainer.innerHTML += footerHtml;
+
+        document.body.appendChild(cloneContainer);
+
+        html2canvas(cloneContainer, {
+            scale: 2, 
+            useCORS: true,
+            backgroundColor: "#ffffff",
+            logging: false
+        }).then(canvas => {
+            let link = document.createElement('a');
+            let fileName = type === 'teams' ? 'Team_List' : 'Match_Fixture';
+            link.download = `${fileName}_${Date.now()}.jpg`;
+            link.href = canvas.toDataURL('image/jpeg', 0.9);
+            link.click();
+            
+            document.body.removeChild(cloneContainer);
+            btn.innerHTML = originalText;
+            
+        }).catch(err => {
+            document.body.removeChild(cloneContainer);
+            btn.innerHTML = originalText;
+            alert("ছবি সেভ করতে সমস্যা হয়েছে!");
+        });
+    }
 
     // SMART DATE & TIME PARSER
     const bnMonths = ['জানুয়ারি', 'ফেব্রুয়ারি', 'মার্চ', 'এপ্রিল', 'মে', 'জুন', 'জুলাই', 'আগস্ট', 'সেপ্টেম্বর', 'অক্টোবর', 'নভেম্বর', 'ডিসেম্বর'];
@@ -696,7 +830,6 @@
     
     window.addEventListener('popstate', function(e) {
         const menu = document.getElementById('dropdownMenu');
-        
         if (isMenuOpen) {
             menu.classList.remove('show');
             isMenuOpen = false;
@@ -855,6 +988,7 @@
                 }
             }
         }
+
         if (!foundDup && document.getElementById('toggleEquivalent').checked) {
             let eqInputs = document.querySelectorAll('.eq-player-input');
             for(let i = 0; i < eqInputs.length; i++) {
@@ -865,6 +999,7 @@
                 }
             }
         }
+
         if (!foundDup && document.getElementById('toggleRandom').checked) {
             for(let i = 0; i < randomPlayersArray.length; i++) {
                 let val = randomPlayersArray[i];
@@ -872,6 +1007,7 @@
                 allNames.push(val.toLowerCase());
             }
         }
+
         if(foundDup) {
             alert(`⚠️ ডুপ্লিকেট অ্যালার্ট!\n\n"${duplicateName}" নামটি একাধিকবার ব্যবহার করা হয়েছে। দয়া করে ডুপ্লিকেট নাম মুছে ফেলুন।`);
             return true;
@@ -895,6 +1031,7 @@
         globalAssignments = [];
         let hasPlayers = false;
 
+        // 1. Assign Captains First
         if (document.getElementById('toggleCaptains').checked) {
             for (let i = 1; i <= numberOfTeams; i++) {
                 let cap = document.getElementById(`capName_${i}`).value.trim();
@@ -907,6 +1044,7 @@
             }
         }
 
+        // 2. Round-Robin Equivalent
         if (document.getElementById('toggleEquivalent').checked) {
             document.querySelectorAll('.player-row').forEach(row => {
                 let rowPlayers = [];
@@ -924,6 +1062,7 @@
             });
         }
 
+        // 3. Round-Robin Random Players
         if (document.getElementById('toggleRandom').checked && randomPlayersArray.length > 0) {
             hasPlayers = true;
             let shuffledRandoms = shuffleArray([...randomPlayersArray]);
@@ -1391,7 +1530,6 @@
         }
     }
 
-    // --- 100% FIXED BACKUP & RESTORE LOGIC ---
     function exportBackupData() {
         closeMenuSafely();
 
@@ -1430,13 +1568,19 @@
             randomPlayers: randomPlayersArray
         };
         
-        const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(state));
+        const blob = new Blob([JSON.stringify(state, null, 2)], { type: "application/json" });
+        const url = URL.createObjectURL(blob);
         const downloadAnchor = document.createElement('a');
-        downloadAnchor.setAttribute("href", dataStr);
-        downloadAnchor.setAttribute("download", `Team_Full_Backup_${Date.now()}.json`);
+        
+        downloadAnchor.style.display = 'none';
+        downloadAnchor.href = url;
+        downloadAnchor.download = `Team_Backup_${Date.now()}.json`;
+        
         document.body.appendChild(downloadAnchor);
         downloadAnchor.click();
-        downloadAnchor.remove();
+        
+        document.body.removeChild(downloadAnchor);
+        URL.revokeObjectURL(url);
         
         setTimeout(() => { alert("ডেটা ব্যাকআপ ফাইল সফলভাবে ডাউনলোড হয়েছে!"); }, 300);
     }
@@ -1505,7 +1649,7 @@
             }
         };
         reader.readAsText(file);
-        event.target.value = '';
+        event.target.value = ''; 
     }
     
     // Initial Load Setup
