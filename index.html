@@ -165,9 +165,10 @@
         .bounce-text { animation: bounceText 1s infinite; display: inline-block; }
         @keyframes bounceText { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-5px); } }
         
+        /* Clean Output Destination */
         #spinDestination { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #34D399; font-size: 20px; margin-top: 25px; padding: 12px 20px; border-radius: 12px; min-height: 35px; font-weight: 800; z-index: 2; position: relative; width: 90%; max-width: 320px; box-shadow: 0 10px 20px rgba(0,0,0,0.2); }
 
-        /* ULTRA HD REALISTIC CANVAS WHEEL (100% FIXED SHAPE) */
+        /* ULTRA HD REALISTIC CANVAS WHEEL */
         .canvas-wheel-container { 
             position: relative; 
             width: 100%; 
@@ -204,6 +205,7 @@
         .slot-item.spinning { color: var(--text-main); filter: blur(1.5px); }
         .slot-item.winner { color: var(--primary); background: #EEF2FF; border-top: 2px solid var(--primary-light); border-bottom: 2px solid var(--primary-light); filter: blur(0); }
 
+        /* Smart Landscape Mode */
         @media (max-height: 600px) and (orientation: landscape) {
             .header-section { margin-bottom: 10px; padding-bottom: 5px; }
             h1 { font-size: 20px; }
@@ -231,6 +233,10 @@
         .spin-list li { padding: 10px; background: var(--input-bg); margin-bottom: 8px; border-radius: 10px; animation: popInList 0.3s ease; display: flex; align-items: center; justify-content: center; gap: 8px; border: 1px solid transparent; }
         @keyframes popInList { 0% { transform: translateY(-10px) scale(0.95); opacity: 0; } 100% { transform: translateY(0) scale(1); opacity: 1; } }
 
+        .confetti { position: fixed; width: 10px; height: 10px; z-index: 9999; animation: fall linear forwards; opacity: 0; pointer-events: none; }
+        @keyframes fall { 0% { transform: translateY(-100px) rotate(0deg); opacity: 1; } 100% { transform: translateY(100vh) rotate(720deg); opacity: 0; } }
+
+        /* Modern Results Display */
         .teams-container { display: flex; flex-wrap: wrap; gap: 20px; margin-top: 20px; justify-content: center; width: 100%; }
         .team-box { background: #fff; border: 1px solid var(--border-color); border-radius: 20px; width: 100%; box-shadow: 0 4px 15px rgba(0,0,0,0.03); overflow: hidden; transition: 0.3s; box-sizing: border-box; }
         @media (min-width: 576px) { .team-box { width: calc(50% - 20px); } }
@@ -248,6 +254,7 @@
         .print-actions button { width: 100%; }
         @media (min-width: 768px) { .print-actions button { width: auto; } }
 
+        /* Fixture Styles */
         .fixture-controls { display: flex; gap: 10px; margin-bottom: 25px; justify-content: center; background: var(--input-bg); padding: 8px; border-radius: 16px; max-width: 800px; margin-left: auto; margin-right: auto; }
         .fixture-controls button { flex: 1; padding: 14px 10px; font-size: 16px; border-radius: 12px; margin: 0; background: transparent; color: var(--text-muted); box-shadow: none; }
         .fixture-controls button.active { background: var(--card-bg); color: var(--primary); box-shadow: 0 4px 10px rgba(0,0,0,0.05); font-weight: 800; }
@@ -277,6 +284,7 @@
         @media (min-width: 576px) { .history-actions { width: auto; } }
         .history-actions button { flex: 1; padding: 10px 15px; font-size: 14px; border-radius: 10px; margin: 0; }
 
+        /* TOAST NOTIFICATION */
         .toast-container {
             position: fixed;
             bottom: -100px;
@@ -299,6 +307,7 @@
         .toast-icon { background: #10B981; color: #fff; width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: bold; }
         .toast-icon.error { background: #EF4444; }
 
+        /* PRINT CSS */
         #restoreFile { display: none; }
         @media print {
             body { background: white !important; margin: 0 !important; padding: 0 !important; font-family: 'Noto Sans Bengali', sans-serif !important; display: block !important; height: auto !important; overflow: visible !important; }
@@ -451,7 +460,6 @@
                     <div id="dynamicSpinnerBox" style="margin: 10px 0; width: 100%; display: flex; justify-content: center; align-items: center;"></div>
                     <div id="spinDestination">লটারি প্রস্তুত হচ্ছে...</div>
                 </div>
-                <!-- 100% FIXED SKIP BUTTON WITH ID -->
                 <button id="btnSkipAnim" class="btn-secondary" onclick="skipAnimation()" style="background: #FEF2F2; color: var(--danger); border-color: #FECDD3; width: 100%;">⏭️ স্কিপ অ্যানিমেশন</button>
             </div>
             
@@ -587,11 +595,17 @@
     
     let savedFixtures = { knockout: "", league: "" };
     let currentFixtureType = 'knockout';
+
     let animActive = false;
     let animTimeout1 = null;
     let animTimeout2 = null;
     let animInterval = null;
     let isMenuOpen = false;
+    
+    // 100% FIXED ANIMATION CONTROL VARIABLES
+    let isSpinning = false;
+    let animationFrameId = null;
+    let wheelAngle = 0;
 
     function saveAsImage(type) {
         let btn = event.currentTarget;
@@ -796,7 +810,7 @@
         return active ? active.id : 'view-step1';
     }
 
-    // --- 100% BUG-FREE NAVIGATION ---
+    // Bug-free navigation system avoiding history state issues when loaded from local storage
     function navigate(viewId) {
         document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
         document.getElementById(viewId).classList.add('active');
@@ -805,11 +819,8 @@
         if (viewId === 'view-spin') mainHeader.style.display = 'none';
         else mainHeader.style.display = 'flex';
         
-        try {
-            history.pushState({ view: viewId }, "", "#" + viewId);
-        } catch(e) {
-            // Ignored specifically for 'content://' or 'file://' Android environments
-        }
+        try { history.pushState({ view: viewId }, "", "#" + viewId); } catch(e){}
+        
         let cont = document.getElementById('mainContainer');
         if(cont) cont.scrollTop = 0; 
     }
@@ -834,9 +845,8 @@
 
     function toggleMenu() { 
         const menu = document.getElementById('dropdownMenu');
-        if (isMenuOpen) { 
-            closeMenuSafely();
-        } else { 
+        if (isMenuOpen) { closeMenuSafely(); } 
+        else { 
             menu.classList.add('show'); 
             isMenuOpen = true; 
             try { history.pushState({ modal: 'menu', view: getCurrentViewId() }, "", "#menu"); } catch(e){} 
@@ -1098,8 +1108,6 @@
         }
     }
 
-    let wheelAngle = 0;
-    
     function setupSpinView() {
         requestWakeLock(); 
         document.getElementById('spinTournamentTitle').innerHTML = `🏆 ${globalTournamentName} 🏆`;
@@ -1109,7 +1117,6 @@
             grid.innerHTML += `<div class="spin-team" id="spinTeamBox_${i}"><h4>${globalTeamNames[i]}</h4><ul class="spin-list" id="spinList_${i}"></ul></div>`;
         }
         
-        // Reset and prepare UI
         let btnSkip = document.getElementById('btnSkipAnim');
         if(btnSkip) {
             btnSkip.innerHTML = "⏭️ স্কিপ অ্যানিমেশন";
@@ -1141,7 +1148,6 @@
             let destBox = document.getElementById('spinDestination');
             if(destBox) destBox.style.display = "none";
             
-            // --- 100% FIXED MANUAL FALLBACK NAVIGATION BUTTON ---
             let btnSkip = document.getElementById('btnSkipAnim');
             if(btnSkip) {
                 btnSkip.innerHTML = "ফলাফল দেখুন ➡️";
@@ -1340,12 +1346,18 @@
         }, speed.pause);
     }
 
+    // 100% BUG-FREE SKIP ANIMATION
     function skipAnimation() {
         animActive = false;
         clearInterval(animInterval);
         clearTimeout(animTimeout1);
         clearTimeout(animTimeout2);
-        if(isSpinning) { cancelAnimationFrame(animationFrameId); isSpinning = false; }
+        
+        if (isSpinning) { 
+            cancelAnimationFrame(animationFrameId); 
+            isSpinning = false; 
+        }
+        
         releaseWakeLock();
         renderResults(false);
     }
@@ -1525,7 +1537,7 @@
             let historyList = JSON.parse(localStorage.getItem('teamGenHistory')) || [];
             historyList.splice(index, 1);
             localStorage.setItem('teamGenHistory', JSON.stringify(historyList));
-            showHistory(); // Refresh view directly
+            showHistory(); 
         }
     }
 
