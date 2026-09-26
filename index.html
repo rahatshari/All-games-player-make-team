@@ -20,7 +20,7 @@
     <meta name="application-name" content="Pro Team Generator">
 
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Bengali:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="./html2canvas.min.js"></script>
 
     <style>
         :root {
@@ -39,7 +39,7 @@
         }
 
         html, body { 
-            font-family: 'Noto Sans Bengali', sans-serif; 
+            font-family: 'Noto Sans Bengali', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; 
             background-color: var(--card-bg); 
             margin: 0; 
             padding: 0; 
@@ -368,7 +368,585 @@
             font-size: 14px;
         }
 
-        .card-scene { perspective: 1000px; width: 95%; max-width: 400px; height: 140px; margin: 20px auto; z-index: 5; position: relative; }
+        /* TOP SEGMENTED NAVIGATION BAR */
+        .top-nav-bar {
+            display: flex;
+            background: #EEF2FF;
+            padding: 6px;
+            border-radius: 18px;
+            gap: 6px;
+            margin-bottom: 22px;
+            border: 1px solid #C7D2FE;
+            overflow-x: auto;
+            scrollbar-width: none;
+            -webkit-overflow-scrolling: touch;
+        }
+        .top-nav-bar::-webkit-scrollbar { display: none; }
+        .nav-tab {
+            flex: 1;
+            min-width: fit-content;
+            padding: 12px 16px;
+            border-radius: 14px;
+            font-size: 15px;
+            font-weight: 700;
+            background: transparent;
+            color: var(--text-muted);
+            border: none;
+            cursor: pointer;
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            white-space: nowrap;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+        }
+        .nav-tab.active {
+            background: #FFFFFF;
+            color: var(--primary);
+            box-shadow: 0 4px 14px rgba(67, 56, 202, 0.15);
+            font-weight: 800;
+        }
+
+        /* HOME SCREEN HUB STYLES */
+        .hub-hero-banner {
+            background: linear-gradient(135deg, #1E1B4B 0%, #312E81 50%, #4338CA 100%);
+            border-radius: 24px;
+            padding: 26px 22px;
+            color: #FFFFFF;
+            margin-bottom: 24px;
+            box-shadow: 0 12px 30px rgba(67, 56, 202, 0.25), inset 0 1px 0 rgba(255,255,255,0.2);
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+            border: 1px solid rgba(255,255,255,0.15);
+            position: relative;
+            overflow: hidden;
+        }
+        .hub-hero-banner::after {
+            content: '';
+            position: absolute;
+            right: -20px;
+            bottom: -20px;
+            width: 140px;
+            height: 140px;
+            background: radial-gradient(circle, rgba(245, 158, 11, 0.25) 0%, transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+        .hub-hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(255,255,255,0.15);
+            backdrop-filter: blur(8px);
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 800;
+            letter-spacing: 0.5px;
+            border: 1px solid rgba(255,255,255,0.25);
+            margin-bottom: 8px;
+            width: fit-content;
+        }
+        .hub-hero-title {
+            margin: 0 0 6px 0;
+            font-size: 24px;
+            font-weight: 800;
+            color: #FFFFFF;
+            line-height: 1.3;
+        }
+        .hub-hero-desc {
+            margin: 0;
+            font-size: 14px;
+            color: #E0E7FF;
+            line-height: 1.5;
+            opacity: 0.95;
+        }
+        .hub-hero-quick-stats {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            border-top: 1px solid rgba(255,255,255,0.15);
+            padding-top: 14px;
+        }
+        .hub-stat-item {
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(6px);
+            border-radius: 12px;
+            padding: 8px 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            border: 1px solid rgba(255,255,255,0.15);
+        }
+        .hub-stat-val {
+            font-weight: 900;
+            font-size: 17px;
+            color: #FDE68A;
+        }
+        .hub-stat-lbl {
+            font-size: 12px;
+            color: #E0E7FF;
+            font-weight: 700;
+        }
+
+        .home-hub-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 18px;
+            margin-bottom: 25px;
+        }
+        @media (min-width: 640px) {
+            .home-hub-grid { grid-template-columns: repeat(2, 1fr); gap: 20px; }
+        }
+        .hub-card {
+            background: #FFFFFF;
+            border-radius: 22px;
+            padding: 24px;
+            border: 1.5px solid var(--border-color);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.04);
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            text-align: left;
+        }
+        .hub-card:hover, .hub-card:active {
+            transform: translateY(-4px);
+            box-shadow: 0 16px 35px rgba(0, 0, 0, 0.1);
+        }
+        .hub-card-team:hover { border-color: var(--primary); }
+        .hub-card-fixer:hover { border-color: var(--accent); }
+        .hub-card-toss:hover { border-color: var(--secondary); }
+        .hub-card-history:hover { border-color: #64748B; }
+
+        .hub-card-icon-wrap {
+            width: 58px;
+            height: 58px;
+            border-radius: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            margin-bottom: 16px;
+            box-shadow: 0 8px 18px rgba(0,0,0,0.12);
+        }
+        .hub-badge {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 11px;
+            font-weight: 800;
+            padding: 4px 10px;
+            border-radius: 20px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .hub-card h3 {
+            margin: 0 0 8px 0;
+            font-size: 20px;
+            font-weight: 800;
+            color: var(--text-main);
+        }
+        .hub-card p {
+            margin: 0 0 16px 0;
+            font-size: 14px;
+            color: var(--text-muted);
+            line-height: 1.5;
+            flex: 1;
+        }
+        .hub-card-action {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-weight: 800;
+            font-size: 14px;
+            color: var(--primary);
+        }
+
+        .hub-quick-bar {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+        .hub-quick-btn {
+            flex: 1;
+            min-width: 140px;
+            background: #F8FAFC;
+            border: 1.5px solid #E2E8F0;
+            color: var(--text-main);
+            padding: 12px 16px;
+            border-radius: 14px;
+            font-size: 14px;
+            font-weight: 700;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: all 0.2s;
+        }
+        .hub-quick-btn:hover, .hub-quick-btn:active {
+            background: #EEF2FF;
+            border-color: #C7D2FE;
+            color: var(--primary);
+            transform: translateY(-2px);
+        }
+
+        /* SUBVIEW BREADCRUMB HEADER BAR */
+        .subview-header-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid var(--border-color);
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        .btn-subview-back {
+            background: #F3F4F6;
+            color: var(--text-main);
+            border: 1.5px solid #E5E7EB;
+            padding: 8px 14px;
+            border-radius: 12px;
+            font-size: 14px;
+            font-weight: 700;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            cursor: pointer;
+            transition: all 0.2s;
+            width: auto;
+            margin: 0;
+        }
+        .btn-subview-back:hover, .btn-subview-back:active {
+            background: #EEF2FF;
+            color: var(--primary);
+            border-color: #C7D2FE;
+            transform: translateX(-3px);
+        }
+        .subview-badge-title {
+            font-size: 14px;
+            font-weight: 800;
+            color: var(--primary);
+            background: #EEF2FF;
+            padding: 6px 12px;
+            border-radius: 20px;
+            border: 1px solid #C7D2FE;
+        }
+
+        /* 3D COIN TOSS STYLES - CINEMATIC REALISTIC PHYSICS */
+        .coin-toss-wrapper {
+            background: radial-gradient(circle at 50% 20%, #1E1B4B 0%, #0F172A 70%, #020617 100%);
+            border-radius: 28px;
+            padding: 30px 18px 25px 18px;
+            color: #FFFFFF;
+            text-align: center;
+            position: relative;
+            overflow: visible;
+            box-shadow: 0 25px 60px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.15);
+            margin-bottom: 25px;
+            border: 1px solid rgba(255,255,255,0.12);
+        }
+        .coin-pitch-arena {
+            position: relative;
+            width: 100%;
+            max-width: 440px;
+            height: 310px;
+            margin: 10px auto 20px auto;
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            perspective: 1200px;
+            perspective-origin: 50% 65%;
+        }
+        .turf-circle {
+            position: absolute;
+            bottom: 8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 270px;
+            height: 60px;
+            border-radius: 50%;
+            background: radial-gradient(ellipse at center, rgba(16, 185, 129, 0.28) 0%, rgba(5, 150, 105, 0.12) 55%, transparent 75%);
+            border: 1.5px dashed rgba(52, 211, 153, 0.45);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+            pointer-events: none;
+            z-index: 1;
+        }
+        .coin-shadow-dynamic {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%) scale(1);
+            width: 140px;
+            height: 24px;
+            border-radius: 50%;
+            background: radial-gradient(ellipse at center, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.55) 45%, rgba(0,0,0,0) 75%);
+            pointer-events: none;
+            z-index: 2;
+            transition: transform 0.04s linear, opacity 0.04s linear, filter 0.04s linear;
+        }
+        .coin-flight-stage {
+            position: relative;
+            z-index: 5;
+            margin-bottom: 22px;
+            transform-style: preserve-3d;
+            will-change: transform;
+        }
+        .coin-3d {
+            width: 165px;
+            height: 165px;
+            position: relative;
+            transform-style: preserve-3d;
+            border-radius: 50%;
+            cursor: pointer;
+            will-change: transform;
+            user-select: none;
+            -webkit-user-select: none;
+            transition: transform 0.05s linear;
+        }
+        .coin-face {
+            position: absolute;
+            inset: 0;
+            border-radius: 50%;
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            box-sizing: border-box;
+            font-family: inherit;
+            overflow: hidden;
+        }
+        .coin-heads {
+            background: radial-gradient(circle at 35% 30%, #FEF9C3 0%, #F59E0B 45%, #B45309 80%, #78350F 100%);
+            color: #451A03;
+            border: 7px solid #FEF08A;
+            box-shadow: 
+                inset 0 0 16px rgba(0,0,0,0.5),
+                inset 0 3px 6px rgba(255,255,255,0.8),
+                0 0 0 2px #B45309,
+                0 4px 0 #78350F,
+                0 8px 0 #451A03,
+                0 18px 35px rgba(0,0,0,0.65);
+            transform: rotateX(0deg);
+        }
+        .coin-tails {
+            background: radial-gradient(circle at 35% 30%, #FFFFFF 0%, #E2E8F0 35%, #94A3B8 70%, #475569 100%);
+            color: #0F172A;
+            border: 7px solid #F8FAFC;
+            box-shadow: 
+                inset 0 0 16px rgba(0,0,0,0.5),
+                inset 0 3px 6px rgba(255,255,255,0.9),
+                0 0 0 2px #64748B,
+                0 4px 0 #475569,
+                0 8px 0 #1E293B,
+                0 18px 35px rgba(0,0,0,0.65);
+            transform: rotateX(180deg);
+        }
+        .coin-milled-border {
+            position: absolute;
+            inset: 5px;
+            border-radius: 50%;
+            border: 2.5px dashed rgba(255,255,255,0.5);
+            pointer-events: none;
+        }
+        .coin-face::after {
+            content: '';
+            position: absolute;
+            top: -100%;
+            left: -100%;
+            width: 300%;
+            height: 300%;
+            background: linear-gradient(45deg, transparent 42%, rgba(255,255,255,0.4) 50%, transparent 58%);
+            animation: coinShimmer 4s infinite linear;
+            pointer-events: none;
+        }
+        @keyframes coinShimmer {
+            0% { transform: translateY(-50%) rotate(0deg); }
+            100% { transform: translateY(50%) rotate(360deg); }
+        }
+        .coin-icon {
+            font-size: 52px;
+            filter: drop-shadow(0 3px 5px rgba(0,0,0,0.35));
+            line-height: 1;
+            margin-bottom: 2px;
+        }
+        .coin-title {
+            font-size: 15px;
+            font-weight: 900;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+        .coin-sub-bengali {
+            font-size: 12px;
+            font-weight: 800;
+            opacity: 0.9;
+        }
+
+        .coin-style-selector {
+            display: flex;
+            gap: 8px;
+            justify-content: center;
+            margin-bottom: 16px;
+            flex-wrap: wrap;
+        }
+        .coin-style-pill {
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.2);
+            color: #FFFFFF;
+            padding: 6px 12px;
+            border-radius: 12px;
+            font-size: 13px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .coin-style-pill.active {
+            background: #F59E0B;
+            border-color: #FEF08A;
+            color: #451A03;
+            box-shadow: 0 3px 10px rgba(245, 158, 11, 0.4);
+        }
+
+        /* MATCH FIXER MODERN CARDS & BRACKET */
+        .sport-selector {
+            display: flex;
+            gap: 8px;
+            overflow-x: auto;
+            padding-bottom: 6px;
+            margin-bottom: 15px;
+            scrollbar-width: none;
+        }
+        .sport-pill {
+            padding: 10px 16px;
+            border-radius: 12px;
+            background: #F3F4F6;
+            color: var(--text-main);
+            font-weight: 700;
+            font-size: 14px;
+            cursor: pointer;
+            border: 1.5px solid transparent;
+            white-space: nowrap;
+            transition: all 0.2s;
+        }
+        .sport-pill.active {
+            background: #EEF2FF;
+            color: var(--primary);
+            border-color: #818CF8;
+            box-shadow: 0 3px 10px rgba(79, 70, 229, 0.12);
+        }
+
+        .team-count-chips {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-bottom: 15px;
+        }
+        .team-chip-btn {
+            padding: 8px 14px;
+            border-radius: 10px;
+            background: #F3F4F6;
+            border: 1px solid #D1D5DB;
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--text-main);
+            cursor: pointer;
+        }
+        .team-chip-btn.active {
+            background: var(--primary);
+            color: #FFFFFF;
+            border-color: var(--primary);
+        }
+
+        /* POINTS TABLE STYLES */
+        .points-table-container {
+            width: 100%;
+            overflow-x: auto;
+            background: #FFFFFF;
+            border-radius: 16px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+            margin: 20px 0;
+        }
+        .points-table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: center;
+            font-size: 14px;
+            min-width: 500px;
+        }
+        .points-table th {
+            background: #1E1B4B;
+            color: #FFFFFF;
+            padding: 12px 10px;
+            font-weight: 800;
+            font-size: 13px;
+        }
+        .points-table td {
+            padding: 12px 10px;
+            border-bottom: 1px solid var(--border-color);
+            font-weight: 600;
+            color: var(--text-main);
+        }
+        .points-table tr:hover { background-color: #F8FAFC; }
+        .points-table .pos-cell { font-weight: 900; color: var(--primary); }
+        .points-table .team-cell { text-align: left; font-weight: 800; }
+        .points-table .pts-cell { font-weight: 900; color: var(--secondary); background: #ECFDF5; }
+
+        /* DRAMATIC VS REVEAL IN LIVE DRAW */
+        .draw-vs-card {
+            background: #FFFFFF;
+            border-radius: 20px;
+            padding: 20px;
+            margin: 15px auto;
+            border: 2px solid #E0E7FF;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+            gap: 15px;
+            max-width: 600px;
+            animation: popInList 0.4s ease-out;
+        }
+        .draw-team-box {
+            flex: 1;
+            padding: 16px 12px;
+            border-radius: 14px;
+            background: #F8FAFC;
+            border: 1.5px dashed #CBD5E1;
+            font-size: 18px;
+            font-weight: 800;
+            color: var(--text-main);
+            text-align: center;
+            min-height: 55px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+        }
+        .draw-team-box.selected {
+            background: #EEF2FF;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+            animation: bounceText 0.5s ease-out;
+            box-shadow: 0 4px 15px rgba(67, 56, 202, 0.15);
+        }
+        .draw-vs-badge {
+            background: linear-gradient(135deg, #EF4444 0%, #B91C1C 100%);
+            color: #FFFFFF;
+            font-weight: 900;
+            font-size: 16px;
+            padding: 10px 16px;
+            border-radius: 12px;
+            box-shadow: 0 6px 15px rgba(239, 68, 68, 0.3);
+            flex-shrink: 0;
+        }
         .card-object { width: 100%; height: 100%; position: relative; transition: transform cubic-bezier(0.175, 0.885, 0.32, 1.275); transform-style: preserve-3d; }
         .card-face { position: absolute; width: 100%; height: 100%; backface-visibility: hidden; display: flex; align-items: center; justify-content: center; border-radius: 16px; font-size: clamp(24px, 5vw, 32px); font-weight: 800; box-shadow: 0 10px 25px rgba(0,0,0,0.3); border: 4px solid #fff; padding: 10px; box-sizing: border-box; text-align: center; line-height: 1.3; word-wrap: break-word; }
         .card-front { background: linear-gradient(135deg, var(--accent) 0%, var(--danger) 100%); color: white; }
@@ -532,7 +1110,7 @@
 <div class="container" id="mainContainer">
     <!-- Header -->
     <div class="header-section" id="mainHeader">
-        <h1>
+        <h1 onclick="goToHub()" style="cursor:pointer;" title="হোম মেনুতে যান">
             <svg xmlns="http://www.w3.org/2000/svg" class="app-logo" viewBox="0 0 200 200">
                 <defs><linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#4338CA" /><stop offset="100%" stop-color="#6366F1" /></linearGradient><linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#FDE68A" /><stop offset="50%" stop-color="#F59E0B" /><stop offset="100%" stop-color="#D97706" /></linearGradient><filter id="shadow" x="-10%" y="-10%" width="120%" height="120%"><feDropShadow dx="0" dy="8" stdDeviation="6" flood-opacity="0.3"/></filter></defs>
                 <rect width="200" height="200" rx="45" fill="url(#bgGrad)" filter="url(#shadow)"/><path d="M70 150 h60 v15 h-60 z" fill="url(#goldGrad)"/><path d="M90 120 h20 v30 h-20 z" fill="url(#goldGrad)"/><path d="M60 55 h80 c0 35 -15 65 -40 65 c-25 0 -40 -30 -40 -65 z" fill="url(#goldGrad)"/><path d="M60 65 c-25 0 -25 35 0 35" fill="none" stroke="url(#goldGrad)" stroke-width="10" stroke-linecap="round"/><path d="M140 65 c25 0 25 35 0 35" fill="none" stroke="url(#goldGrad)" stroke-width="10" stroke-linecap="round"/><path d="M100 75 l6 14 h14 l-11 9 5 15 -14 -10 -14 10 5 -15 -11 -9 h14 z" fill="#FFFFFF" filter="url(#shadow)"/>
@@ -543,6 +1121,9 @@
             <button id="headerInstallBtn" class="btn-install-app" onclick="triggerPWAInstall()" title="গুগল ক্রোম বা ফোনে অ্যাপটি ইনস্টল করুন">
                 <span>📲</span> <span>ইনস্টল</span>
             </button>
+            <button id="headerHapticBtn" onclick="toggleHaptic()" style="background:#EEF2FF; border:1px solid #C7D2FE; border-radius:12px; padding:8px 10px; font-size:16px; cursor:pointer;" title="হ্যাপটিক (ভাইব্রেশন) অন/অফ">
+                📳
+            </button>
             <button id="headerSoundBtn" onclick="toggleSound()" style="background:#EEF2FF; border:1px solid #C7D2FE; border-radius:12px; padding:8px 10px; font-size:16px; cursor:pointer;" title="শব্দ অন/অফ">
                 🔊
             </button>
@@ -550,11 +1131,16 @@
                 <div class="three-dots" onclick="toggleMenu()">&#8942;</div>
                 <div id="dropdownMenu" class="menu-dropdown">
                     <div class="menu-item action-item" onclick="triggerPWAInstall()" style="color:var(--primary); background:#EEF2FF;">📲 অ্যাপ ইনস্টল করুন (Install)</div>
+                    <div class="menu-item action-item" onclick="goToHub()" style="color:var(--primary);">🏠 প্রধান মেনু (Home Hub)</div>
                     <div class="menu-item history-item" onclick="showHistory()">🕒 পূর্বের লটারি (History)</div>
                     <div class="menu-item action-item" onclick="exportBackupData()">📥 সকল ডেটা বেকাপ (Save)</div>
                     <div class="menu-item action-item" onclick="document.getElementById('restoreFile').click()">📤 ডেটা রিস্টোর (Load)</div>
                     <input type="file" id="restoreFile" accept=".json" onchange="importBackupData(event)">
                     <div style="border-top: 1px solid var(--border-color); margin: 5px 0;"></div>
+                    <div class="menu-item" onclick="event.stopPropagation();">
+                        <span>হ্যাপটিক (ভাইব্রেশন)</span>
+                        <label class="switch"><input type="checkbox" id="toggleHaptics" checked onchange="toggleHaptic(this.checked)"><span class="slider"></span></label>
+                    </div>
                     <div class="menu-item" onclick="event.stopPropagation();">
                         <span>ক্যাপ্টেন মোড</span>
                         <label class="switch"><input type="checkbox" id="toggleCaptains" checked onchange="toggleSections()"><span class="slider"></span></label>
@@ -572,8 +1158,115 @@
         </div>
     </div>
 
+    <!-- TOP NAVIGATION TABS -->
+    <div class="top-nav-bar" id="topNavTabs">
+        <button class="nav-tab active" id="tabHomeHub" onclick="goToHub()">🏠 প্রধান মেনু</button>
+        <button class="nav-tab" id="tabTeamGen" onclick="switchMainTab('team')">🎲 টিম মেকার</button>
+        <button class="nav-tab" id="tabMatchFixer" onclick="switchMainTab('fixture')">⚔️ ম্যাচ ফিক্সার</button>
+        <button class="nav-tab" id="tabCoinToss" onclick="switchMainTab('toss')">🪙 কয়েন টস</button>
+        <button class="nav-tab" id="tabHistory" onclick="switchMainTab('history')">🕒 হিস্ট্রি</button>
+    </div>
+
+    <!-- VIEW 0: HOME HUB (প্রধান মেনু) -->
+    <div id="view-hub" class="view active">
+        <!-- Hero Banner -->
+        <div class="hub-hero-banner">
+            <div>
+                <div class="hub-hero-badge">⚡ অল-ইন-ওয়ান স্পোর্টস ও টুর্নামেন্ট স্যুট</div>
+                <h2 class="hub-hero-title">স্বাগতম! প্রো টিম ও ম্যাচ জেনারেটরে</h2>
+                <p class="hub-hero-desc">লটারির মাধ্যমে নিরপেক্ষ দল তৈরি, ম্যাচ শিডিউল ফিক্সচার এবং রিয়েল ৩ডি কয়েন টস—সবকিছু এখন একটি অ্যাপে সম্পূর্ণ অফলাইনে।</p>
+            </div>
+            <div class="hub-hero-quick-stats">
+                <div class="hub-stat-item">
+                    <span class="hub-stat-val" id="hubSavedTeamsCount">০</span>
+                    <span class="hub-stat-lbl">টিম রেকর্ড</span>
+                </div>
+                <div class="hub-stat-item">
+                    <span class="hub-stat-val" id="hubSavedTossCount">০</span>
+                    <span class="hub-stat-lbl">টস রেকর্ড</span>
+                </div>
+                <div class="hub-stat-item">
+                    <span class="hub-stat-val">১০০%</span>
+                    <span class="hub-stat-lbl">অফলাইন রেডি</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- 4 Primary Feature Cards -->
+        <div class="home-hub-grid">
+            <!-- 1: Team Maker -->
+            <div class="hub-card hub-card-team" onclick="openModule('team')">
+                <span class="hub-badge" style="background:#EEF2FF; color:var(--primary); border:1px solid #C7D2FE;">সবচেয়ে জনপ্রিয়</span>
+                <div class="hub-card-icon-wrap" style="background:linear-gradient(135deg, #4338CA 0%, #6366F1 100%); color:#fff;">
+                    🎲
+                </div>
+                <h3>টিম মেকার (Team Maker)</h3>
+                <p>ক্যাপ্টেন ও প্লেয়ারদের লটারির মাধ্যমে নিরপেক্ষ ও সুষম দল গঠন। আধুনিক নিয়ন লাকি হুইল, থ্রি-ডি কার্ড ফ্লিপ ও ক্যাসিনো স্লট মেশিন অ্যানিমেশন।</p>
+                <div class="hub-card-action">
+                    <span>টিম তৈরি শুরু করুন</span>
+                    <span style="font-size:18px;">➡️</span>
+                </div>
+            </div>
+
+            <!-- 2: Match Fixer -->
+            <div class="hub-card hub-card-fixer" onclick="openModule('fixer')">
+                <span class="hub-badge" style="background:#FFFBEB; color:#B45309; border:1px solid #FDE68A;">লাইভ ড্র</span>
+                <div class="hub-card-icon-wrap" style="background:linear-gradient(135deg, #F59E0B 0%, #D97706 100%); color:#fff;">
+                    ⚔️
+                </div>
+                <h3>ম্যাচ ফিক্সার (Match Fixer)</h3>
+                <p>ক্রিকেট, ফুটবল বা যেকোনো টুর্নামেন্টের নকআউট ও রাউন্ড-রবিন লিগ ফিক্সচার তৈরি, স্পিন হুইল লাইভ ম্যাচ ড্র এবং স্বয়ংক্রিয় সময়সূচি।</p>
+                <div class="hub-card-action" style="color:#D97706;">
+                    <span>ম্যাচ ফিক্সচার সাজান</span>
+                    <span style="font-size:18px;">➡️</span>
+                </div>
+            </div>
+
+            <!-- 3: 3D Coin Toss -->
+            <div class="hub-card hub-card-toss" onclick="openModule('toss')">
+                <span class="hub-badge" style="background:#ECFDF5; color:var(--secondary); border:1px solid #A7F3D0;">রিয়েল ৩D ফিজিক্স</span>
+                <div class="hub-card-icon-wrap" style="background:linear-gradient(135deg, #10B981 0%, #059669 100%); color:#fff;">
+                    🪙
+                </div>
+                <h3>৩D কয়েন টস (Coin Toss)</h3>
+                <p>ক্রিকেট ও ফুটবলের জন্য বাস্তবসম্মত ৩ডি কয়েন ফ্লিপিং ফিজিক্স। বাতাসের ঘূর্ণন, ড্রপ শ্যাডো ও বাউন্স, হেড-টেইল কল ও ডিসিশন ট্র্যাকার।</p>
+                <div class="hub-card-action" style="color:var(--secondary);">
+                    <span>কয়েন টস রুমে প্রবেশ</span>
+                    <span style="font-size:18px;">➡️</span>
+                </div>
+            </div>
+
+            <!-- 4: Saved History & Backup -->
+            <div class="hub-card hub-card-history" onclick="openModule('history')">
+                <span class="hub-badge" style="background:#F1F5F9; color:#475569; border:1px solid #CBD5E1;">অফলাইন ডেটা</span>
+                <div class="hub-card-icon-wrap" style="background:linear-gradient(135deg, #334155 0%, #1E293B 100%); color:#fff;">
+                    🕒
+                </div>
+                <h3>হিস্টোরি ও বেকাপ (History)</h3>
+                <p>ডিভাইসে সেভ থাকা সকল ফলাফল ও টুর্নামেন্ট রেকর্ড দেখুন, ছবি (JPG) হিসেবে সেভ করুন অথবা সম্পূর্ণ ফাইল ব্যাকআপ ও রিস্টোর করুন।</p>
+                <div class="hub-card-action" style="color:#334155;">
+                    <span>রেকর্ড ও ব্যাকআপ দেখুন</span>
+                    <span style="font-size:18px;">➡️</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quick utilities bar -->
+        <div class="hub-quick-bar">
+            <button class="hub-quick-btn" onclick="loadDemoData()">⚡ দ্রুত ডেমো ডেটা ট্রাই করুন</button>
+            <button class="hub-quick-btn" onclick="exportBackupData()">📥 সম্পূর্ণ ডেটা ব্যাকআপ (Save)</button>
+            <button class="hub-quick-btn" onclick="triggerPWAInstall()">📲 অ্যাপ ইনস্টল করুন</button>
+        </div>
+    </div>
+
     <!-- VIEW 1: Setup Team Count & Name -->
-    <div id="view-step1" class="view active">
+    <div id="view-step1" class="view">
+        <div class="subview-header-bar">
+            <button class="btn-subview-back" onclick="goToHub()">
+                <span>⬅️</span> <span>প্রধান মেনু (Home)</span>
+            </button>
+            <span class="subview-badge-title">🎲 টিম মেকার: ধাপ ১</span>
+        </div>
         <div class="input-group">
             <label>টুর্নামেন্ট বা ইভেন্টের নাম (ঐচ্ছিক):</label>
             <input type="text" id="tournamentNameInput" class="tournament-input" placeholder="যেমন: প্রিমিয়ার লীগ ২০২৬">
@@ -590,6 +1283,15 @@
 
     <!-- VIEW 2: Data Input & Setup -->
     <div id="view-step2" class="view">
+        <div class="subview-header-bar">
+            <button class="btn-subview-back" onclick="navigate('view-step1')">
+                <span>⬅️</span> <span>আগের ধাপ</span>
+            </button>
+            <button class="btn-subview-back" onclick="goToHub()">
+                <span>🏠</span> <span>প্রধান মেনু</span>
+            </button>
+            <span class="subview-badge-title">🎲 টিম মেকার: ধাপ ২</span>
+        </div>
         <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px;">
             <h3 style="margin:0;">টিমের নাম দিন (বাধ্যতামূলক)</h3>
             <button class="btn-secondary" onclick="loadDemoData()" style="padding:6px 12px; font-size:13px; width:auto; margin:0; background:#ECFDF5; color:var(--secondary); border:1px solid #A7F3D0;">⚡ ডেমো প্লেয়ার</button>
@@ -674,6 +1376,12 @@
 
     <!-- VIEW 4: Results & Print -->
     <div id="view-results" class="view">
+        <div class="subview-header-bar">
+            <button class="btn-subview-back" onclick="goToHub()">
+                <span>⬅️</span> <span>প্রধান মেনু (Home)</span>
+            </button>
+            <span class="subview-badge-title">🏆 টিম রেজাল্ট</span>
+        </div>
         <h2 style="color:var(--secondary-light); font-size: 26px; margin-bottom: 25px; font-weight: 800; text-align: center;">🎉 টিম তৈরি সম্পন্ন!</h2>
         
         <div id="captureResultArea">
@@ -693,8 +1401,270 @@
         </div>
     </div>
 
-    <!-- VIEW 6: MATCH FIXTURES -->
+    <!-- VIEW: MATCH FIXER HOME SCREEN -->
+    <div id="view-fixer-home" class="view">
+        <div class="subview-header-bar">
+            <button class="btn-subview-back" onclick="goToHub()">
+                <span>⬅️</span> <span>প্রধান মেনু (Home)</span>
+            </button>
+            <span class="subview-badge-title">⚔️ ম্যাচ ফিক্সার & টুর্নামেন্ট ড্র</span>
+        </div>
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px; flex-wrap:wrap; gap:10px;">
+            <h2 style="color:var(--primary); font-size:26px; margin:0; font-weight:800;">⚔️ ম্যাচ ফিক্সার & লাইভ ড্র</h2>
+            <button class="btn-secondary" onclick="loadDemoFixerTeams()" style="width:auto; margin:0; padding:8px 14px; background:#ECFDF5; color:var(--secondary); border:1.5px solid #A7F3D0; font-size:14px;">⚡ ডেমো টিম</button>
+        </div>
+        <p style="color:var(--text-muted); font-size:15px; margin-top:-5px; margin-bottom:20px;">টিমগুলোর নাম দিয়ে সরাসরি বা স্পিন হুইল লটারি ড্রয়ের মাধ্যমে নিরপেক্ষ ম্যাচ শিডিউল তৈরি করুন।</p>
+
+        <!-- Sport Selector -->
+        <label style="font-size:14px; color:var(--text-muted); font-weight:700;">খেলার ধরন নির্বাচন করুন:</label>
+        <div class="sport-selector" id="sportSelector">
+            <div class="sport-pill active" onclick="selectSport(this, 'cricket')">🏏 ক্রিকেট</div>
+            <div class="sport-pill" onclick="selectSport(this, 'football')">⚽ ফুটবল</div>
+            <div class="sport-pill" onclick="selectSport(this, 'badminton')">🏸 ব্যাডমিন্টন</div>
+            <div class="sport-pill" onclick="selectSport(this, 'custom')">🎯 অন্যান্য স্পোর্টস</div>
+        </div>
+
+        <div class="input-group">
+            <label>টুর্নামেন্ট বা কাপের নাম:</label>
+            <input type="text" id="fixerTourneyName" class="tournament-input" placeholder="যেমন: চ্যাম্পিয়ন্স কাপ ২০২৬">
+        </div>
+
+        <div style="display:flex; gap:15px; flex-wrap:wrap;">
+            <div style="flex:1; min-width:260px;" class="input-group">
+                <label>খেলার ফরম্যাট:</label>
+                <select id="fixerFormat" onchange="toggleFixerFormatHelp()">
+                    <option value="knockout" selected>⚡ নকআউট পর্ব (Knockout Bracket)</option>
+                    <option value="league">🔄 রাউন্ড-রবিন লিগ (Round-Robin League)</option>
+                </select>
+            </div>
+            <div style="flex:1; min-width:260px;" class="input-group">
+                <label>ভেন্যু / মাঠের নাম (ঐচ্ছিক):</label>
+                <input type="text" id="fixerVenue" placeholder="যেমন: সেন্ট্রাল স্টেডিয়াম">
+            </div>
+        </div>
+
+        <!-- Team Count Chips -->
+        <div class="input-group">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+                <label style="margin:0;">মোট কয়টি দল খেলবে?</label>
+                <button type="button" onclick="loadTeamsFromTeamGen()" style="background:transparent; color:var(--primary); font-size:13px; font-weight:700; border:none; text-decoration:underline; cursor:pointer;">📥 টিম মেকার থেকে আনুন</button>
+            </div>
+            <div class="team-count-chips">
+                <button class="team-chip-btn" onclick="setFixerTeamCount(2)">২ টিম</button>
+                <button class="team-chip-btn active" onclick="setFixerTeamCount(4)">৪ টিম</button>
+                <button class="team-chip-btn" onclick="setFixerTeamCount(6)">৬ টিম</button>
+                <button class="team-chip-btn" onclick="setFixerTeamCount(8)">৮ টিম</button>
+                <button class="team-chip-btn" onclick="setFixerTeamCount(10)">১০ টিম</button>
+                <button class="team-chip-btn" onclick="setFixerTeamCount(12)">১২ টিম</button>
+                <button class="team-chip-btn" onclick="setFixerTeamCount(16)">১৬ টিম</button>
+            </div>
+            <input type="hidden" id="fixerTeamCountInput" value="4">
+        </div>
+
+        <!-- Team Names Input Area -->
+        <div class="input-group">
+            <label>দলের নামসমূহ:</label>
+            <div id="fixerTeamInputsContainer" class="vertical-container"></div>
+        </div>
+
+        <!-- Schedule Time Auto Interval -->
+        <div class="schedule-card" style="margin-bottom:20px;">
+            <div class="schedule-header">
+                <span>⏱️</span>
+                <span>অটো সময়সূচি সেটিংস (ঐচ্ছিক)</span>
+            </div>
+            <div class="time-inputs-container">
+                <div style="flex:1;">
+                    <label style="font-size:13px; color:var(--text-muted);">প্রথম ম্যাচের তারিখ:</label>
+                    <input type="text" id="fixerStartDate" placeholder="যেমন: ২৫/০৩/২০২৬">
+                </div>
+                <div style="flex:1;">
+                    <label style="font-size:13px; color:var(--text-muted);">শুরুর সময়:</label>
+                    <input type="text" id="fixerStartTime" placeholder="যেমন: ৩.০০ PM">
+                </div>
+                <div style="flex:1;">
+                    <label style="font-size:13px; color:var(--text-muted);">ম্যাচের ব্যবধান:</label>
+                    <select id="fixerMatchInterval">
+                        <option value="same">সব ম্যাচ একই সময়ে</option>
+                        <option value="1">১ ঘণ্টা পর পর</option>
+                        <option value="2" selected>২ ঘণ্টা পর পর</option>
+                        <option value="day">১ দিন পর পর</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div style="display:flex; flex-direction:column; gap:12px; margin-top:10px;">
+            <button class="btn-primary" onclick="startAnimatedMatchDraw()" style="background:linear-gradient(135deg, #4338CA 0%, #6366F1 100%);">
+                🎡 স্পিন হুইল লাইভ ড্র শুরু করুন
+            </button>
+            <button class="btn-secondary" onclick="generateDirectFixer()" style="background:#F3F4F6; border:1.5px solid #D1D5DB; font-weight:700;">
+                ⚡ সরাসরি ফিক্সচার তৈরি করুন (Instant)
+            </button>
+        </div>
+    </div>
+
+    <!-- VIEW: ANIMATED LIVE MATCH DRAW -->
+    <div id="view-fixer-draw" class="view">
+        <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; margin-bottom:15px;">
+            <div id="drawTourneyTitle" class="tourney-title-display" style="margin:0;">🏆 টুর্নামেন্ট ড্র</div>
+            <button class="btn-secondary" onclick="skipFixerDraw()" style="width:auto; margin:0; padding:8px 14px; background:#FEF2F2; color:var(--danger); border:1px solid #FECDD3;">⏭️ সব ড্র স্কিপ</button>
+        </div>
+
+        <div class="spin-layout-wrapper">
+            <div class="spinner-side">
+                <div class="spinner-box">
+                    <div id="drawStageStatus" class="spinner-title bounce-text">ড্র প্রস্তুত হচ্ছে...</div>
+                    
+                    <div class="canvas-wheel-container" style="max-width:320px;">
+                        <div class="wheel-led-ring" id="drawWheelLedRing"></div>
+                        <div class="wheel-pointer" id="drawWheelPointer">
+                            <svg viewBox="0 0 32 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <polygon points="16,48 2,12 16,4 30,12" fill="#DC2626" stroke="#FEF08A" stroke-width="2.5"/>
+                                <polygon points="16,36 8,14 16,8 24,14" fill="#EF4444"/>
+                                <circle cx="16" cy="14" r="5" fill="#FEF08A" stroke="#B45309" stroke-width="2"/>
+                            </svg>
+                        </div>
+                        <canvas id="drawCanvasWheel" class="canvas-wheel"></canvas>
+                        <div class="wheel-center-dot"></div>
+                    </div>
+
+                    <!-- Dramatic VS Match Reveal Box -->
+                    <div class="draw-vs-card" id="currentDrawMatchCard" style="width:95%; max-width:340px; padding:12px; margin:15px auto 0 auto;">
+                        <div class="draw-team-box" id="drawBoxTeamA">দল ১ (?)</div>
+                        <div class="draw-vs-badge">VS</div>
+                        <div class="draw-team-box" id="drawBoxTeamB">দল ২ (?)</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="teams-side">
+                <h3 style="margin-top:0; color:var(--primary); font-size:19px; display:flex; align-items:center; justify-content:space-between;">
+                    <span>📋 ফিক্সড হওয়া ম্যাচসমূহ</span>
+                    <span id="drawProgressCount" style="font-size:14px; color:var(--text-muted);">০ / ০</span>
+                </h3>
+                <div id="drawCompletedMatchesList"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- VIEW: 3D INTERACTIVE COIN TOSS -->
+    <div id="view-coin-toss" class="view">
+        <div class="subview-header-bar">
+            <button class="btn-subview-back" onclick="goToHub()">
+                <span>⬅️</span> <span>প্রধান মেনু (Home)</span>
+            </button>
+            <span class="subview-badge-title">🪙 ৩D কয়েন টস</span>
+        </div>
+        <h2 style="color:var(--primary); font-size:26px; margin-bottom:5px; font-weight:800; text-align:center;">🪙 ৩D কয়েন টস সিস্টেম</h2>
+        <p style="color:var(--text-muted); font-size:15px; text-align:center; margin-bottom:20px;">ম্যাচ শুরুর আগে নিরপেক্ষ ও দৃষ্টি-নন্দন ৩ডি কয়েন ফ্লিপিং ফিজিক্স</p>
+
+        <div class="coin-toss-wrapper">
+            <!-- Coin Style Selector -->
+            <div class="coin-style-selector">
+                <span style="font-size:13px; color:#E0E7FF; font-weight:700; align-self:center; margin-right:4px;">কয়েন স্টাইল:</span>
+                <button type="button" class="coin-style-pill active" id="coinPillCricket" onclick="setCoinStyle('cricket')">🏏 ক্রিকেট গোল্ড</button>
+                <button type="button" class="coin-style-pill" id="coinPillBangladesh" onclick="setCoinStyle('bangladesh')">🇧🇩 বাংলাদেশ স্পেশাল</button>
+                <button type="button" class="coin-style-pill" id="coinPillRoyal" onclick="setCoinStyle('royal')">👑 রয়েল গোল্ড</button>
+            </div>
+
+            <!-- 3D Stadium Turf Pitch Arena -->
+            <div class="coin-pitch-arena" id="coinPitchArena">
+                <div class="turf-circle"></div>
+                <div class="coin-shadow-dynamic" id="coinDynamicShadow"></div>
+                <div class="coin-flight-stage" id="coinFlightStage">
+                    <div class="coin-3d" id="interactiveCoin" onclick="flipCoin('high')" title="কয়েন ফ্লিপ করতে ক্লিক বা ট্যাপ করুন">
+                        <div class="coin-face coin-heads">
+                            <div class="coin-milled-border"></div>
+                            <div class="coin-icon" id="headsIconDisplay">🏆</div>
+                            <div class="coin-title" id="headsTextDisplay">HEADS</div>
+                            <div class="coin-sub-bengali" id="headsBengaliDisplay">হেডস</div>
+                        </div>
+                        <div class="coin-face coin-tails">
+                            <div class="coin-milled-border"></div>
+                            <div class="coin-icon" id="tailsIconDisplay">🏏</div>
+                            <div class="coin-title" id="tailsTextDisplay">TAILS</div>
+                            <div class="coin-sub-bengali" id="tailsBengaliDisplay">টেইলস</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div style="font-size:13px; color:#93C5FD; margin-bottom:12px; font-weight:600;">
+                👆 কয়েনে সরাসরি ক্লিক/ট্যাপ করেও টস করতে পারেন!
+            </div>
+
+            <!-- Toss Status Banner -->
+            <div id="coinTossStatus" style="font-size:22px; font-weight:800; color:#38BDF8; min-height:35px; margin-bottom:15px;">
+                টস করার জন্য প্রস্তুত!
+            </div>
+
+            <!-- Team inputs for toss -->
+            <div style="background:rgba(255,255,255,0.08); border-radius:18px; padding:18px; max-width:540px; margin:0 auto 20px auto; border:1px solid rgba(255,255,255,0.15);">
+                <div style="display:flex; gap:10px; align-items:center; margin-bottom:12px;">
+                    <input type="text" id="tossTeamA" placeholder="দল ১ এর নাম" value="টিম এ" style="background:#FFFFFF; color:#111827; font-weight:700;">
+                    <span style="font-weight:900; color:#F59E0B; font-size:16px;">VS</span>
+                    <input type="text" id="tossTeamB" placeholder="দল ২ এর নাম" value="টিম বি" style="background:#FFFFFF; color:#111827; font-weight:700;">
+                </div>
+
+                <div style="display:flex; gap:12px; flex-wrap:wrap; text-align:left;">
+                    <div style="flex:1; min-width:180px;">
+                        <label style="color:#E2E8F0; font-size:13px;">কে কল করবে?</label>
+                        <select id="tossCallerSelect" style="background:#FFFFFF; color:#111827;">
+                            <option value="A">দল ১ (Team A)</option>
+                            <option value="B">দল ২ (Team B)</option>
+                        </select>
+                    </div>
+                    <div style="flex:1; min-width:180px;">
+                        <label style="color:#E2E8F0; font-size:13px;">কলের পছন্দ:</label>
+                        <select id="tossCallChoice" style="background:#FFFFFF; color:#111827;">
+                            <option value="heads">🏆 হেডস (Heads)</option>
+                            <option value="tails">🏏 টেইলস (Tails)</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div style="display:flex; gap:12px; justify-content:center; flex-wrap:wrap; max-width:440px; margin:0 auto;">
+                <button id="btnFlipCoin" class="btn-primary" onclick="flipCoin('high')" style="flex:1; min-width:180px; margin:0; background:linear-gradient(135deg, #F59E0B 0%, #D97706 100%); box-shadow:0 8px 25px rgba(245, 158, 11, 0.4); font-size:18px;">
+                    🪙 ৩D উঁচু টস (High Toss)
+                </button>
+                <button id="btnQuickFlipCoin" class="btn-secondary" onclick="flipCoin('quick')" style="width:auto; padding:14px 18px; margin:0; background:rgba(255,255,255,0.15); color:#fff; border:1px solid rgba(255,255,255,0.3); font-weight:700;">
+                    ⚡ দ্রুত টস
+                </button>
+            </div>
+        </div>
+
+        <!-- Toss Decision Panel (Reveals when toss is done) -->
+        <div id="tossDecisionPanel" style="display:none; background:#FFFFFF; border:2px solid var(--secondary-light); border-radius:20px; padding:20px; margin-bottom:25px; box-shadow:0 10px 25px rgba(16, 185, 129, 0.15); text-align:center;">
+            <div id="tossWinnerText" style="font-size:22px; font-weight:800; color:var(--secondary); margin-bottom:12px;"></div>
+            <p style="font-size:15px; color:var(--text-muted); margin-bottom:15px;">টসে জিতে দল কি সিদ্ধান্ত নিলো?</p>
+            <div style="display:flex; gap:12px; justify-content:center; flex-wrap:wrap;">
+                <button class="btn-secondary" onclick="recordTossDecision('ব্যাটিং (Batting)')" style="background:#EEF2FF; color:var(--primary); border-color:#C7D2FE; width:auto;">🏏 ব্যাটিং</button>
+                <button class="btn-secondary" onclick="recordTossDecision('বোলিং (Bowling)')" style="background:#ECFDF5; color:var(--secondary); border-color:#A7F3D0; width:auto;">🎯 বোলিং</button>
+                <button class="btn-secondary" onclick="recordTossDecision('কোর্ট / সাইড')" style="background:#FFFBEB; color:#B45309; border-color:#FDE68A; width:auto;">⚡ কোর্ট / সাইড</button>
+            </div>
+        </div>
+
+        <!-- Toss History -->
+        <div style="background:#FFFFFF; border:1px solid var(--border-color); border-radius:18px; padding:20px;">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px;">
+                <h3 style="margin:0; font-size:18px; color:var(--text-main);">📜 টস হিস্ট্রি লগ</h3>
+                <button onclick="clearTossHistory()" style="background:transparent; border:none; color:var(--danger); font-size:13px; font-weight:700; cursor:pointer;">মুছুন</button>
+            </div>
+            <div id="tossHistoryList" style="display:flex; flex-direction:column; gap:10px;"></div>
+        </div>
+    </div>
+
+    <!-- VIEW: FIXTURES -->
     <div id="view-fixtures" class="view">
+        <div class="subview-header-bar">
+            <button class="btn-subview-back" onclick="goToHub()">
+                <span>⬅️</span> <span>প্রধান মেনু (Home)</span>
+            </button>
+            <span class="subview-badge-title">⚔️ ম্যাচ ফিক্সচার শিডিউল</span>
+        </div>
         <h2 style="color:var(--primary); font-size: 26px; margin-bottom: 20px; font-weight: 800; text-align: center;">⚔️ ম্যাচ ফিক্সচার</h2>
         
         <div class="schedule-card">
@@ -738,10 +1708,16 @@
 
     <!-- VIEW 5: History -->
     <div id="view-history" class="view">
+        <div class="subview-header-bar">
+            <button class="btn-subview-back" onclick="goToHub()">
+                <span>⬅️</span> <span>প্রধান মেনু (Home)</span>
+            </button>
+            <span class="subview-badge-title">🕒 সেভড হিস্ট্রি</span>
+        </div>
         <h2 style="color: var(--primary); font-size: 26px;">🕒 পূর্বের লটারি</h2>
         <p style="color:var(--text-muted); font-size:15px; font-weight: 600;">ডিভাইসে সেভ থাকা ফলাফলগুলো দেখুন।</p>
         <div id="historyContainer" class="vertical-container" style="margin-top: 25px;"></div>
-        <button class="btn-secondary" onclick="goHome()" style="margin-top:20px;">⬅️ মেইন মেনুতে ফেরত যান</button>
+        <button class="btn-secondary" onclick="goToHub()" style="margin-top:20px;">⬅️ প্রধান মেনুতে ফেরত যান</button>
     </div>
 
     <div class="app-footer">
@@ -875,6 +1851,47 @@
     let audioCtx = null;
     let soundEnabled = true;
 
+    // HAPTIC FEEDBACK (Vibration) CONTROLLER
+    let hapticEnabled = localStorage.getItem('teamGenHapticEnabled') !== 'false';
+
+    function updateHapticUI() {
+        const btn = document.getElementById('headerHapticBtn');
+        const toggle = document.getElementById('toggleHaptics');
+        if (btn) {
+            btn.innerHTML = hapticEnabled ? '📳' : '📴';
+            btn.style.opacity = hapticEnabled ? '1' : '0.55';
+            btn.title = hapticEnabled ? 'হ্যাপটিক (ভাইব্রেশন) অন আছে' : 'হ্যাপটিক (ভাইব্রেশন) বন্ধ আছে';
+        }
+        if (toggle) {
+            toggle.checked = hapticEnabled;
+        }
+    }
+
+    function toggleHaptic(forcedState) {
+        if (typeof forcedState === 'boolean') {
+            hapticEnabled = forcedState;
+        } else {
+            hapticEnabled = !hapticEnabled;
+        }
+        localStorage.setItem('teamGenHapticEnabled', hapticEnabled ? 'true' : 'false');
+        updateHapticUI();
+        if (hapticEnabled) {
+            triggerHaptic([35, 25, 35]);
+            showToast("হ্যাপটিক ফিডব্যাক (ভাইব্রেশন) চালু করা হয়েছে 📳");
+        } else {
+            showToast("হ্যাপটিক ফিডব্যাক (ভাইব্রেশন) বন্ধ করা হয়েছে 📴");
+        }
+    }
+
+    function triggerHaptic(pattern = [30]) {
+        if (!hapticEnabled) return;
+        try {
+            if ('vibrate' in navigator) {
+                navigator.vibrate(pattern);
+            }
+        } catch (e) {}
+    }
+
     function initAudio() {
         if (!audioCtx) {
             const AudioContext = window.AudioContext || window.webkitAudioContext;
@@ -913,7 +1930,7 @@
             osc.start(now);
             osc.stop(now + 0.04);
 
-            if (navigator.vibrate) navigator.vibrate(12);
+            triggerHaptic([12]);
         } catch (e) {}
     }
 
@@ -940,7 +1957,93 @@
                 osc.start(now);
                 osc.stop(now + 0.45);
             });
-            if (navigator.vibrate) navigator.vibrate([50, 40, 90]);
+            triggerHaptic([50, 40, 90]);
+        } catch (e) {}
+    }
+
+    function playCoinFlickTick() {
+        if (!soundEnabled) return;
+        try {
+            initAudio();
+            if (!audioCtx) return;
+            const now = audioCtx.currentTime;
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.type = 'sine';
+            osc.frequency.setValueAtTime(1600 + Math.random() * 400, now);
+            osc.frequency.exponentialRampToValueAtTime(800, now + 0.025);
+            gain.gain.setValueAtTime(0.06, now);
+            gain.gain.exponentialRampToValueAtTime(0.001, now + 0.025);
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+            osc.start(now);
+            osc.stop(now + 0.03);
+        } catch (e) {}
+    }
+
+    function playCoinSoftClink() {
+        if (!soundEnabled) return;
+        try {
+            initAudio();
+            if (!audioCtx) return;
+            const now = audioCtx.currentTime;
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.type = 'triangle';
+            osc.frequency.setValueAtTime(2200, now);
+            osc.frequency.exponentialRampToValueAtTime(900, now + 0.12);
+            gain.gain.setValueAtTime(0.15, now);
+            gain.gain.exponentialRampToValueAtTime(0.001, now + 0.12);
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+            osc.start(now);
+            osc.stop(now + 0.13);
+        } catch (e) {}
+    }
+
+    function playCoinSpinSound() {
+        if (!soundEnabled) return;
+        try {
+            initAudio();
+            if (!audioCtx) return;
+            const now = audioCtx.currentTime;
+            // High frequency metallic shimmer
+            for (let i = 0; i < 6; i++) {
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(1400 + i * 280, now + (i * 0.15));
+                osc.frequency.exponentialRampToValueAtTime(700, now + (i * 0.15) + 0.12);
+                gain.gain.setValueAtTime(0.08, now + (i * 0.15));
+                gain.gain.exponentialRampToValueAtTime(0.001, now + (i * 0.15) + 0.12);
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+                osc.start(now + (i * 0.15));
+                osc.stop(now + (i * 0.15) + 0.13);
+            }
+        } catch (e) {}
+    }
+
+    function playCoinClinkSound() {
+        if (!soundEnabled) return;
+        try {
+            initAudio();
+            if (!audioCtx) return;
+            const now = audioCtx.currentTime;
+            const freqs = [2800, 3400, 4200];
+            freqs.forEach(f => {
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                osc.type = 'triangle';
+                osc.frequency.setValueAtTime(f, now);
+                osc.frequency.exponentialRampToValueAtTime(800, now + 0.25);
+                gain.gain.setValueAtTime(0.3, now);
+                gain.gain.exponentialRampToValueAtTime(0.001, now + 0.3);
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+                osc.start(now);
+                osc.stop(now + 0.32);
+            });
         } catch (e) {}
     }
 
@@ -1262,18 +2365,89 @@
 
     function getCurrentViewId() {
         const active = document.querySelector('.view.active');
-        return active ? active.id : 'view-step1';
+        return active ? active.id : 'view-hub';
+    }
+
+    function goToHub() {
+        updateHubStats();
+        navigate('view-hub');
+    }
+
+    function openModule(moduleKey) {
+        if (moduleKey === 'team') {
+            navigate(generatedTeams && generatedTeams.length > 0 ? 'view-results' : 'view-step1');
+        } else if (moduleKey === 'fixer') {
+            initFixerHomeScreen();
+            navigate('view-fixer-home');
+        } else if (moduleKey === 'toss') {
+            initCoinTossView();
+            navigate('view-coin-toss');
+        } else if (moduleKey === 'history') {
+            showHistory();
+        }
+    }
+
+    function updateHubStats() {
+        try {
+            let historyList = JSON.parse(localStorage.getItem('teamGenHistory')) || [];
+            let tossHistory = JSON.parse(localStorage.getItem('tossHistoryLog')) || [];
+            let tCountEl = document.getElementById('hubSavedTeamsCount');
+            let tossCountEl = document.getElementById('hubSavedTossCount');
+            if (tCountEl) tCountEl.innerText = toBengaliNum(historyList.length);
+            if (tossCountEl) tossCountEl.innerText = toBengaliNum(tossHistory.length);
+        } catch(e) {}
+    }
+
+    function updateTopNavTabs(viewId) {
+        document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+        if (viewId === 'view-hub') {
+            document.getElementById('tabHomeHub')?.classList.add('active');
+        } else if (['view-step1', 'view-step2', 'view-spin', 'view-results'].includes(viewId)) {
+            document.getElementById('tabTeamGen')?.classList.add('active');
+        } else if (['view-fixer-home', 'view-fixer-draw', 'view-fixtures'].includes(viewId)) {
+            document.getElementById('tabMatchFixer')?.classList.add('active');
+        } else if (viewId === 'view-coin-toss') {
+            document.getElementById('tabCoinToss')?.classList.add('active');
+        } else if (viewId === 'view-history') {
+            document.getElementById('tabHistory')?.classList.add('active');
+        }
+    }
+
+    function switchMainTab(tabKey) {
+        if (tabKey === 'hub') {
+            goToHub();
+        } else if (tabKey === 'team') {
+            navigate(generatedTeams && generatedTeams.length > 0 ? 'view-results' : 'view-step1');
+        } else if (tabKey === 'fixture') {
+            initFixerHomeScreen();
+            navigate('view-fixer-home');
+        } else if (tabKey === 'toss') {
+            initCoinTossView();
+            navigate('view-coin-toss');
+        } else if (tabKey === 'history') {
+            showHistory();
+        }
     }
 
     // Bug-free navigation system avoiding history state issues when loaded from local storage
     function navigate(viewId) {
         document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
-        document.getElementById(viewId).classList.add('active');
+        const target = document.getElementById(viewId);
+        if (target) target.classList.add('active');
         
         const mainHeader = document.getElementById('mainHeader');
-        if (viewId === 'view-spin') mainHeader.style.display = 'none';
-        else mainHeader.style.display = 'flex';
+        const topNavTabs = document.getElementById('topNavTabs');
         
+        if (viewId === 'view-spin' || viewId === 'view-fixer-draw') {
+            if (mainHeader) mainHeader.style.display = 'none';
+            if (topNavTabs) topNavTabs.style.display = 'none';
+        } else {
+            if (mainHeader) mainHeader.style.display = 'flex';
+            if (topNavTabs) topNavTabs.style.display = 'flex';
+        }
+        
+        updateTopNavTabs(viewId);
+
         try { history.pushState({ view: viewId }, "", "#" + viewId); } catch(e){}
         
         let cont = document.getElementById('mainContainer');
@@ -1284,8 +2458,9 @@
         const menu = document.getElementById('dropdownMenu');
         if (isMenuOpen) { menu.classList.remove('show'); isMenuOpen = false; return; }
         if (animActive) skipAnimation();
+        if (drawAnimActive) skipFixerDraw();
 
-        let targetView = 'view-step1';
+        let targetView = 'view-hub';
         if (e.state && e.state.view) targetView = e.state.view;
         else if (e.state && e.state.modal === 'menu') { menu.classList.add('show'); isMenuOpen = true; return; }
 
@@ -1294,8 +2469,15 @@
         if(vEl) vEl.classList.add('active');
         
         const mainHeader = document.getElementById('mainHeader');
-        if (targetView === 'view-spin') mainHeader.style.display = 'none';
-        else mainHeader.style.display = 'flex';
+        const topNavTabs = document.getElementById('topNavTabs');
+        if (targetView === 'view-spin' || targetView === 'view-fixer-draw') {
+            if (mainHeader) mainHeader.style.display = 'none';
+            if (topNavTabs) topNavTabs.style.display = 'none';
+        } else {
+            if (mainHeader) mainHeader.style.display = 'flex';
+            if (topNavTabs) topNavTabs.style.display = 'flex';
+        }
+        updateTopNavTabs(targetView);
     });
 
     function toggleMenu() { 
@@ -2005,6 +3187,8 @@
 
     function openFixtures() { navigate('view-fixtures'); generateFixture('knockout'); }
 
+    let fixtureResultsMap = {};
+
     function generateFixture(type) {
         document.getElementById('btnKnockout').className = (type === 'knockout') ? 'active' : '';
         document.getElementById('btnLeague').className = (type === 'league') ? 'active' : '';
@@ -2012,45 +3196,104 @@
         const area = document.getElementById('fixtureResultArea');
         currentFixtureType = type;
 
-        if (savedFixtures[type]) { area.innerHTML = savedFixtures[type]; return; }
-
         let teams = [...globalTeamNames];
+        if (teams.length < 2) {
+            area.innerHTML = '<div style="text-align:center; padding:30px; color:var(--text-muted);">ম্যাচ ফিক্সচারের জন্য কোনো টিম পাওয়া যায়নি। ম্যাচ ফিক্সার থেকে টিম ইনপুট দিন।</div>';
+            return;
+        }
+
         let html = '';
+        let matchCounter = 1;
 
         if (type === 'knockout') {
-            teams = shuffleArray(teams);
-            html += `<div class="round-title">নকআউট পর্ব (Knockout)</div>`;
+            html += `<div class="round-title">নকআউট পর্ব (Knockout Bracket)</div>`;
             for(let i=0; i<teams.length; i+=2) {
                 if(i+1 < teams.length) {
-                    html += `<div class="match-card"><div class="match-team team-a">${teams[i]}</div><div class="vs-badge">VS</div><div class="match-team team-b">${teams[i+1]}</div></div>`;
+                    let teamA = teams[i];
+                    let teamB = teams[i+1];
+                    let mId = `match_${matchCounter}`;
+                    html += `
+                        <div class="match-card" id="${mId}">
+                            <div style="font-size:13px; font-weight:800; color:var(--text-muted); width:100%; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center;">
+                                <span>ম্যাচ ${toBengaliNum(matchCounter)}</span>
+                                <button type="button" onclick="openTossForMatch('${teamA}', '${teamB}')" style="background:#FFFBEB; color:#B45309; border:1px solid #FDE68A; border-radius:8px; padding:4px 10px; font-size:12px; cursor:pointer;">🪙 এই ম্যাচের টস করুন</button>
+                            </div>
+                            <div class="match-team team-a" onclick="setMatchWinner('${mId}', '${teamA}')" title="বিজয়ী বানাতে ক্লিক করুন" style="cursor:pointer;">${teamA}</div>
+                            <div class="vs-badge">VS</div>
+                            <div class="match-team team-b" onclick="setMatchWinner('${mId}', '${teamB}')" title="বিজয়ী বানাতে ক্লিক করুন" style="cursor:pointer;">${teamB}</div>
+                        </div>
+                    `;
+                    matchCounter++;
                 } else {
-                    html += `<div class="match-card"><div class="match-team team-a">${teams[i]}</div><div class="vs-badge" style="background:#059669;">BYE</div><div class="match-team" style="color:var(--text-muted); font-size:14px;">সরাসরি পরবর্তী রাউন্ডে</div></div>`;
+                    html += `
+                        <div class="match-card">
+                            <div style="font-size:13px; font-weight:800; color:var(--text-muted); width:100%; margin-bottom:8px;">বাই (BYE)</div>
+                            <div class="match-team team-a">${teams[i]}</div>
+                            <div class="vs-badge" style="background:#059669;">BYE</div>
+                            <div class="match-team" style="color:var(--secondary); font-size:14px; font-weight:700;">সরাসরি পরবর্তী রাউন্ডে</div>
+                        </div>
+                    `;
                 }
             }
         } else {
-            if (teams.length % 2 !== 0) teams.push("BYE_TEAM");
-            let numRounds = teams.length - 1;
-            let half = teams.length / 2;
+            let leagueTeams = [...teams];
+            if (leagueTeams.length % 2 !== 0) leagueTeams.push("BYE_TEAM");
+            let numRounds = leagueTeams.length - 1;
+            let half = leagueTeams.length / 2;
 
             for(let round=0; round<numRounds; round++) {
                 let roundHtml = `<div class="round-title">রাউন্ড ${toBengaliNum(round+1)}</div>`;
                 for(let i=0; i<half; i++) {
-                    let teamA = teams[i];
-                    let teamB = teams[teams.length - 1 - i];
+                    let teamA = leagueTeams[i];
+                    let teamB = leagueTeams[leagueTeams.length - 1 - i];
                     if (teamA !== "BYE_TEAM" && teamB !== "BYE_TEAM") {
-                        roundHtml += `<div class="match-card"><div class="match-team team-a">${teamA}</div><div class="vs-badge">VS</div><div class="match-team team-b">${teamB}</div></div>`;
+                        let mId = `match_${matchCounter}`;
+                        roundHtml += `
+                            <div class="match-card" id="${mId}">
+                                <div style="font-size:13px; font-weight:800; color:var(--text-muted); width:100%; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center;">
+                                    <span>ম্যাচ ${toBengaliNum(matchCounter)}</span>
+                                    <button type="button" onclick="openTossForMatch('${teamA}', '${teamB}')" style="background:#FFFBEB; color:#B45309; border:1px solid #FDE68A; border-radius:8px; padding:4px 10px; font-size:12px; cursor:pointer;">🪙 টস করুন</button>
+                                </div>
+                                <div class="match-team team-a" onclick="setMatchWinner('${mId}', '${teamA}')" title="বিজয়ী বানাতে ক্লিক করুন" style="cursor:pointer;">${teamA}</div>
+                                <div class="vs-badge">VS</div>
+                                <div class="match-team team-b" onclick="setMatchWinner('${mId}', '${teamB}')" title="বিজয়ী বানাতে ক্লিক করুন" style="cursor:pointer;">${teamB}</div>
+                            </div>
+                        `;
+                        matchCounter++;
                     } else {
                         let playingTeam = teamA !== "BYE_TEAM" ? teamA : teamB;
-                        roundHtml += `<div class="match-card" style="opacity:0.8;"><div class="match-team team-a">${playingTeam}</div><div class="vs-badge" style="background:#F59E0B;">BYE</div><div class="match-team" style="color:var(--text-muted); font-size:14px;">এই রাউন্ডে বিশ্রাম</div></div>`;
+                        roundHtml += `
+                            <div class="match-card" style="opacity:0.85;">
+                                <div class="match-team team-a">${playingTeam}</div>
+                                <div class="vs-badge" style="background:#F59E0B;">BYE</div>
+                                <div class="match-team" style="color:var(--text-muted); font-size:14px;">এই রাউন্ডে বিশ্রাম</div>
+                            </div>
+                        `;
                     }
                 }
                 html += roundHtml;
-                teams.splice(1, 0, teams.pop());
+                leagueTeams.splice(1, 0, leagueTeams.pop());
             }
         }
 
         savedFixtures[type] = html;
         area.innerHTML = html;
+    }
+
+    function setMatchWinner(matchCardId, winnerTeam) {
+        let card = document.getElementById(matchCardId);
+        if (!card) return;
+        card.querySelectorAll('.match-team').forEach(t => {
+            if (t.innerText.includes(winnerTeam)) {
+                t.style.color = '#059669';
+                t.innerHTML = `🏆 ${winnerTeam} <span style="font-size:12px; background:#ECFDF5; padding:2px 8px; border-radius:6px;">বিজয়ী</span>`;
+            } else {
+                t.style.opacity = '0.5';
+            }
+        });
+        playWinFanfare();
+        createConfetti();
+        showToast(`🎉 "${winnerTeam}" কে ম্যাচের বিজয়ী ঘোষণা করা হয়েছে!`);
     }
 
     function printData(mode) {
@@ -2126,6 +3369,697 @@
             historyList.splice(index, 1);
             localStorage.setItem('teamGenHistory', JSON.stringify(historyList));
             showHistory(); 
+        }
+    }
+
+    // ==========================================
+    // MATCH FIXER & LIVE ANIMATED DRAW MODULE
+    // ==========================================
+    let fixerSelectedSport = 'cricket';
+    let drawAnimActive = false;
+    let drawAnimationFrameId = null;
+    let drawWheelAngle = 0;
+    let remainingDrawTeams = [];
+    let drawnMatchesList = [];
+    let currentDrawSlot = null; // { matchIndex: 1, teamA: null, teamB: null }
+    let drawIsSpinning = false;
+
+    function selectSport(el, sport) {
+        fixerSelectedSport = sport;
+        document.querySelectorAll('.sport-pill').forEach(p => p.classList.remove('active'));
+        el.classList.add('active');
+    }
+
+    function toggleFixerFormatHelp() {
+        // Format changed
+    }
+
+    function setFixerTeamCount(count) {
+        document.getElementById('fixerTeamCountInput').value = count;
+        document.querySelectorAll('.team-chip-btn').forEach(btn => {
+            btn.classList.toggle('active', btn.innerText.includes(toBengaliNum(count)));
+        });
+        renderFixerTeamInputs(count);
+    }
+
+    function initFixerHomeScreen() {
+        let countVal = parseInt(document.getElementById('fixerTeamCountInput')?.value || "4");
+        if (!document.getElementById('fixerTourneyName').value && globalTournamentName && globalTournamentName !== "টিম লটারি / টুর্নামেন্ট") {
+            document.getElementById('fixerTourneyName').value = globalTournamentName;
+        }
+        setFixerTeamCount(countVal);
+    }
+
+    function renderFixerTeamInputs(count) {
+        const container = document.getElementById('fixerTeamInputsContainer');
+        if (!container) return;
+        const existingValues = [];
+        container.querySelectorAll('input').forEach(inp => existingValues.push(inp.value));
+        container.innerHTML = '';
+        for (let i = 1; i <= count; i++) {
+            let prevVal = existingValues[i - 1] || '';
+            container.innerHTML += `<input type="text" id="fixerTeam_${i}" placeholder="দল ${toBengaliNum(i)} এর নাম" value="${prevVal}">`;
+        }
+    }
+
+    function loadDemoFixerTeams() {
+        const count = parseInt(document.getElementById('fixerTeamCountInput').value || "4");
+        const demoPool = [
+            "ঢাকা ডায়নামাইটস", "চিটাগং কিংস", "সিলেট স্ট্রাইকার্স", "ফরচুন বরিশাল",
+            "রংপুর রাইডার্স", "খুলনা টাইগার্স", "রাজশাহী রয়্যালস", "কুমিল্লা ভিক্টোরিয়ান্স",
+            "মোহামেডান স্পোর্টিং", "আবাহনী লিমিটেড", "শেখ রাসেল", "ব্রাদার্স ইউনিয়ন",
+            "ভিক্টোরিয়া স্পোর্টিং", "শেখ জামাল ধানমন্ডি", "ওয়ারী ক্লাব", "উত্তর বারিধারা"
+        ];
+        document.getElementById('fixerTourneyName').value = "সুপার কাপ চ্যাম্পিয়নশিপ ২০২৬";
+        for (let i = 1; i <= count; i++) {
+            const inp = document.getElementById(`fixerTeam_${i}`);
+            if (inp) inp.value = demoPool[(i - 1) % demoPool.length];
+        }
+        showToast("ডেমো টিম লোড হয়েছে! 🚀");
+    }
+
+    function loadTeamsFromTeamGen() {
+        if (!globalTeamNames || globalTeamNames.length === 0) {
+            showToast("টিম মেকারে এখনো কোনো টিম তৈরি করা হয়নি!", true);
+            return;
+        }
+        setFixerTeamCount(globalTeamNames.length);
+        globalTeamNames.forEach((name, idx) => {
+            const inp = document.getElementById(`fixerTeam_${idx + 1}`);
+            if (inp) inp.value = name;
+        });
+        if (globalTournamentName) {
+            document.getElementById('fixerTourneyName').value = globalTournamentName;
+        }
+        showToast("টিম মেকার থেকে দলগুলো লোড করা হয়েছে! ✔️");
+    }
+
+    function getFixerTeamsArray() {
+        let count = parseInt(document.getElementById('fixerTeamCountInput').value || "4");
+        let teams = [];
+        for (let i = 1; i <= count; i++) {
+            let val = document.getElementById(`fixerTeam_${i}`)?.value.trim();
+            if (!val) {
+                showToast(`দল ${toBengaliNum(i)} এর নাম দিন!`, true);
+                document.getElementById(`fixerTeam_${i}`)?.focus();
+                return null;
+            }
+            teams.push(val);
+        }
+        return teams;
+    }
+
+    function startAnimatedMatchDraw() {
+        let teams = getFixerTeamsArray();
+        if (!teams) return;
+        if (teams.length < 2) {
+            showToast("ম্যাচ ড্র করতে কমপক্ষে ২টি দল প্রয়োজন!", true);
+            return;
+        }
+        let tourneyName = document.getElementById('fixerTourneyName').value.trim() || "চ্যাম্পিয়নশিপ টুর্নামেন্ট";
+        globalTournamentName = tourneyName;
+        document.getElementById('drawTourneyTitle').innerHTML = `🏆 ${tourneyName} - লাইভ ড্র`;
+
+        remainingDrawTeams = shuffleArray([...teams]);
+        drawnMatchesList = [];
+        currentDrawSlot = { matchIndex: 1, teamA: null, teamB: null };
+        drawAnimActive = true;
+        drawWheelAngle = 0;
+
+        document.getElementById('drawCompletedMatchesList').innerHTML = '';
+        let totalMatches = Math.floor(teams.length / 2);
+        document.getElementById('drawProgressCount').innerText = `০ / ${toBengaliNum(totalMatches)}`;
+
+        document.getElementById('drawBoxTeamA').innerText = "দল ১ (?)";
+        document.getElementById('drawBoxTeamA').className = "draw-team-box";
+        document.getElementById('drawBoxTeamB').innerText = "দল ২ (?)";
+        document.getElementById('drawBoxTeamB').className = "draw-team-box";
+
+        navigate('view-fixer-draw');
+        runNextDrawStep();
+    }
+
+    function runNextDrawStep() {
+        if (!drawAnimActive) return;
+
+        // Check if all matches drawn
+        if (remainingDrawTeams.length === 0) {
+            document.getElementById('drawStageStatus').innerText = "🎉 সব ম্যাচের ড্র সম্পন্ন হয়েছে!";
+            document.getElementById('drawStageStatus').classList.remove('bounce-text');
+            createConfetti();
+            playWinFanfare();
+
+            let completeBtnHtml = `
+                <div style="text-align:center; padding:20px 0;">
+                    <button class="btn-primary" onclick="completeDrawAndShowFixtures()" style="background:linear-gradient(135deg, #10B981 0%, #059669 100%); font-size:18px;">
+                        🏆 চূড়ান্ত ফিক্সচার দেখুন ও সেভ করুন
+                    </button>
+                </div>
+            `;
+            document.getElementById('currentDrawMatchCard').innerHTML = completeBtnHtml;
+            return;
+        }
+
+        // Odd team gets a BYE
+        if (remainingDrawTeams.length === 1 && !currentDrawSlot.teamA) {
+            let luckyTeam = remainingDrawTeams.pop();
+            drawnMatchesList.push({
+                matchIndex: currentDrawSlot.matchIndex,
+                teamA: luckyTeam,
+                teamB: "BYE (সরাসরি পরের রাউন্ডে)",
+                isBye: true
+            });
+            renderCompletedDrawMatches();
+            runNextDrawStep();
+            return;
+        }
+
+        let isDrawingTeamA = !currentDrawSlot.teamA;
+        let matchNum = toBengaliNum(currentDrawSlot.matchIndex);
+        
+        if (isDrawingTeamA) {
+            document.getElementById('drawStageStatus').innerHTML = `🎯 ম্যাচ ${matchNum}: ১ম দল ড্র হচ্ছে...`;
+            document.getElementById('drawBoxTeamA').innerText = "ঘুরছে... 🎡";
+            document.getElementById('drawBoxTeamA').className = "draw-team-box";
+            document.getElementById('drawBoxTeamB').innerText = "দল ২ (?)";
+            document.getElementById('drawBoxTeamB').className = "draw-team-box";
+        } else {
+            document.getElementById('drawStageStatus').innerHTML = `⚔️ ম্যাচ ${matchNum}: প্রতিপক্ষ ড্র হচ্ছে...`;
+            document.getElementById('drawBoxTeamB').innerText = "ঘুরছে... 🎡";
+        }
+
+        // Draw canvas wheel with remaining teams
+        drawCanvasWheel('drawCanvasWheel', remainingDrawTeams);
+        
+        let canvas = document.getElementById('drawCanvasWheel');
+        let pointer = document.getElementById('drawWheelPointer');
+        let numSlices = remainingDrawTeams.length;
+        let sliceAngle = 360 / numSlices;
+        
+        // Pick a random winner from remaining teams
+        let winnerIndex = Math.floor(Math.random() * remainingDrawTeams.length);
+        let winnerName = remainingDrawTeams[winnerIndex];
+
+        let centerOffset = (winnerIndex + 0.5) * sliceAngle;
+        let targetAngle = 270 - centerOffset;
+        while (targetAngle < 0) targetAngle += 360;
+
+        let fullSpins = 5;
+        let finalAngle = targetAngle + (360 * fullSpins) + ((Math.random() - 0.5) * (sliceAngle * 0.7));
+
+        let startTime = null;
+        let startAngle = drawWheelAngle % 360;
+        let distance = finalAngle - startAngle;
+        let lastPegPassed = -1;
+        let durationMs = 2200;
+        drawIsSpinning = true;
+
+        function animateDrawWheel(timestamp) {
+            if (!startTime) startTime = timestamp;
+            let elapsed = timestamp - startTime;
+            let progress = Math.min(elapsed / durationMs, 1);
+            let easeProgress = 1 - Math.pow(1 - progress, 4.5);
+            drawWheelAngle = startAngle + (distance * easeProgress);
+            canvas.style.transform = `rotate(${drawWheelAngle}deg)`;
+
+            let normalizedAngle = drawWheelAngle % 360;
+            let topCoord = (270 - normalizedAngle + 360) % 360;
+            let currentPeg = Math.floor(topCoord / sliceAngle);
+
+            if (currentPeg !== lastPegPassed) {
+                lastPegPassed = currentPeg;
+                let velocityFactor = 1 - progress;
+                if (velocityFactor > 0.04) {
+                    playTickSound(velocityFactor);
+                    let kickAngle = -18 * velocityFactor - 4;
+                    pointer.style.transition = 'transform 0.04s ease-out';
+                    pointer.style.transform = `translateX(-50%) rotate(${kickAngle}deg)`;
+                    setTimeout(() => {
+                        if (drawIsSpinning && pointer) {
+                            pointer.style.transition = 'transform 0.08s ease-in';
+                            pointer.style.transform = `translateX(-50%) rotate(0deg)`;
+                        }
+                    }, 40);
+                }
+            }
+
+            if (progress < 1) {
+                drawAnimationFrameId = requestAnimationFrame(animateDrawWheel);
+            } else {
+                drawIsSpinning = false;
+                pointer.style.transform = `translateX(-50%) rotate(0deg)`;
+                playWinFanfare();
+
+                // Remove drawn team from pool
+                remainingDrawTeams.splice(winnerIndex, 1);
+
+                if (isDrawingTeamA) {
+                    currentDrawSlot.teamA = winnerName;
+                    document.getElementById('drawBoxTeamA').innerText = winnerName;
+                    document.getElementById('drawBoxTeamA').className = "draw-team-box selected";
+                    setTimeout(() => { runNextDrawStep(); }, 1200);
+                } else {
+                    currentDrawSlot.teamB = winnerName;
+                    document.getElementById('drawBoxTeamB').innerText = winnerName;
+                    document.getElementById('drawBoxTeamB').className = "draw-team-box selected";
+                    
+                    // Match Complete!
+                    drawnMatchesList.push({
+                        matchIndex: currentDrawSlot.matchIndex,
+                        teamA: currentDrawSlot.teamA,
+                        teamB: currentDrawSlot.teamB,
+                        isBye: false
+                    });
+                    renderCompletedDrawMatches();
+
+                    // Advance slot
+                    currentDrawSlot = { matchIndex: currentDrawSlot.matchIndex + 1, teamA: null, teamB: null };
+                    setTimeout(() => { runNextDrawStep(); }, 1600);
+                }
+            }
+        }
+        setTimeout(() => { drawAnimationFrameId = requestAnimationFrame(animateDrawWheel); }, 50);
+    }
+
+    function renderCompletedDrawMatches() {
+        const container = document.getElementById('drawCompletedMatchesList');
+        if (!container) return;
+        container.innerHTML = '';
+        drawnMatchesList.forEach(m => {
+            let mDiv = document.createElement('div');
+            mDiv.className = 'match-card';
+            mDiv.style.marginBottom = '10px';
+            mDiv.style.padding = '12px 16px';
+            
+            if (m.isBye) {
+                mDiv.innerHTML = `
+                    <div style="font-weight:800; font-size:14px; color:var(--text-muted); margin-right:12px;">ম্যাচ ${toBengaliNum(m.matchIndex)}:</div>
+                    <div class="match-team team-a" style="font-size:16px;">${m.teamA}</div>
+                    <div class="vs-badge" style="background:#059669; font-size:12px; padding:4px 8px;">BYE</div>
+                    <div style="font-size:13px; color:var(--text-muted); flex:1; text-align:right;">পরবর্তী রাউন্ডে উত্তীর্ণ</div>
+                `;
+            } else {
+                mDiv.innerHTML = `
+                    <div style="font-weight:800; font-size:14px; color:var(--text-muted); margin-right:12px;">ম্যাচ ${toBengaliNum(m.matchIndex)}:</div>
+                    <div class="match-team team-a" style="font-size:16px;">${m.teamA}</div>
+                    <div class="vs-badge" style="font-size:12px; padding:4px 8px;">VS</div>
+                    <div class="match-team team-b" style="font-size:16px;">${m.teamB}</div>
+                `;
+            }
+            container.appendChild(mDiv);
+        });
+
+        let totalMatches = Math.floor((remainingDrawTeams.length + drawnMatchesList.length * 2) / 2);
+        document.getElementById('drawProgressCount').innerText = `${toBengaliNum(drawnMatchesList.length)} / ${toBengaliNum(totalMatches)}`;
+    }
+
+    function skipFixerDraw() {
+        drawAnimActive = false;
+        cancelAnimationFrame(drawAnimationFrameId);
+        drawIsSpinning = false;
+
+        // Auto pair whatever is left
+        let allRemaining = [...remainingDrawTeams];
+        if (currentDrawSlot && currentDrawSlot.teamA) {
+            allRemaining.unshift(currentDrawSlot.teamA);
+        }
+
+        while (allRemaining.length >= 2) {
+            let tA = allRemaining.shift();
+            let tB = allRemaining.shift();
+            drawnMatchesList.push({
+                matchIndex: drawnMatchesList.length + 1,
+                teamA: tA,
+                teamB: tB,
+                isBye: false
+            });
+        }
+        if (allRemaining.length === 1) {
+            drawnMatchesList.push({
+                matchIndex: drawnMatchesList.length + 1,
+                teamA: allRemaining.shift(),
+                teamB: "BYE",
+                isBye: true
+            });
+        }
+        completeDrawAndShowFixtures();
+    }
+
+    function completeDrawAndShowFixtures() {
+        drawAnimActive = false;
+        let format = document.getElementById('fixerFormat')?.value || 'knockout';
+        
+        // Re-construct globalTeamNames order based on drawn matches
+        let orderedTeams = [];
+        drawnMatchesList.forEach(m => {
+            if (m.teamA && !orderedTeams.includes(m.teamA)) orderedTeams.push(m.teamA);
+            if (m.teamB && m.teamB !== "BYE" && !orderedTeams.includes(m.teamB)) orderedTeams.push(m.teamB);
+        });
+        globalTeamNames = orderedTeams;
+        numberOfTeams = orderedTeams.length;
+        savedFixtures = { knockout: "", league: "" };
+
+        // Copy dates/times if configured
+        let startDate = document.getElementById('fixerStartDate')?.value;
+        let startTime = document.getElementById('fixerStartTime')?.value;
+        let venue = document.getElementById('fixerVenue')?.value;
+        
+        let dateInp = document.getElementById('matchDateInput');
+        let timeInp = document.getElementById('matchTimeInput');
+        if (dateInp && startDate) dateInp.value = startDate;
+        if (timeInp && startTime) timeInp.value = startTime;
+        if (venue) {
+            let disp = document.getElementById('displayMatchTime');
+            if (disp) {
+                disp.innerText = `🏟️ ভেন্যু: ${venue}`;
+                disp.style.display = 'block';
+            }
+        }
+
+        navigate('view-fixtures');
+        generateFixture(format);
+        showToast("ম্যাচ ফিক্সচার সফলভাবে প্রস্তুত হয়েছে! 🏆");
+    }
+
+    function generateDirectFixer() {
+        let teams = getFixerTeamsArray();
+        if (!teams || teams.length < 2) return;
+        
+        globalTeamNames = shuffleArray([...teams]);
+        numberOfTeams = globalTeamNames.length;
+        savedFixtures = { knockout: "", league: "" };
+
+        let tourneyName = document.getElementById('fixerTourneyName').value.trim() || "চ্যাম্পিয়নশিপ টুর্নামেন্ট";
+        globalTournamentName = tourneyName;
+
+        let format = document.getElementById('fixerFormat')?.value || 'knockout';
+
+        let startDate = document.getElementById('fixerStartDate')?.value;
+        let startTime = document.getElementById('fixerStartTime')?.value;
+        let venue = document.getElementById('fixerVenue')?.value;
+        
+        let dateInp = document.getElementById('matchDateInput');
+        let timeInp = document.getElementById('matchTimeInput');
+        if (dateInp && startDate) dateInp.value = startDate;
+        if (timeInp && startTime) timeInp.value = startTime;
+
+        navigate('view-fixtures');
+        generateFixture(format);
+        showToast("ফিক্সচার তাৎক্ষণিক তৈরি হয়েছে! ⚡");
+    }
+
+    // ==========================================
+    // 3D COIN TOSS SYSTEM (Cinematic Realistic Physics)
+    // ==========================================
+    let isCoinFlipping = false;
+    let currentTossResult = null;
+    let currentCoinStyle = 'cricket';
+
+    const coinStylesData = {
+        cricket: {
+            heads: { icon: '🏆', title: 'HEADS', bn: 'হেডস (ট্রফি)' },
+            tails: { icon: '🏏', title: 'TAILS', bn: 'টেইলস (ব্যাট)' },
+            selectHeads: '🏆 হেডস (Heads)',
+            selectTails: '🏏 টেইলস (Tails)'
+        },
+        bangladesh: {
+            heads: { icon: '🪷', title: 'SHAPLA', bn: 'শাপলা প্রতীক' },
+            tails: { icon: '🐅', title: 'TIGER', bn: 'রয়েল বেঙ্গল টাইগার' },
+            selectHeads: '🪷 শাপলা (Heads)',
+            selectTails: '🐅 বাঘ প্রতীক (Tails)'
+        },
+        royal: {
+            heads: { icon: '👑', title: 'CROWN', bn: 'সোনার মুকুট' },
+            tails: { icon: '🦅', title: 'EAGLE', bn: 'রয়েল ঈগল' },
+            selectHeads: '👑 মুকুট (Heads)',
+            selectTails: '🦅 ঈগল (Tails)'
+        }
+    };
+
+    function setCoinStyle(style) {
+        if (!coinStylesData[style]) return;
+        currentCoinStyle = style;
+
+        document.querySelectorAll('.coin-style-pill').forEach(p => p.classList.remove('active'));
+        if (style === 'cricket') document.getElementById('coinPillCricket')?.classList.add('active');
+        if (style === 'bangladesh') document.getElementById('coinPillBangladesh')?.classList.add('active');
+        if (style === 'royal') document.getElementById('coinPillRoyal')?.classList.add('active');
+
+        const data = coinStylesData[style];
+        const headsIcon = document.getElementById('headsIconDisplay');
+        const tailsIcon = document.getElementById('tailsIconDisplay');
+        const headsText = document.getElementById('headsTextDisplay');
+        const tailsText = document.getElementById('tailsTextDisplay');
+        const headsBn = document.getElementById('headsBengaliDisplay');
+        const tailsBn = document.getElementById('tailsBengaliDisplay');
+
+        if (headsIcon) headsIcon.innerText = data.heads.icon;
+        if (tailsIcon) tailsIcon.innerText = data.tails.icon;
+        if (headsText) headsText.innerText = data.heads.title;
+        if (tailsText) tailsText.innerText = data.tails.title;
+        if (headsBn) headsBn.innerText = data.heads.bn;
+        if (tailsBn) tailsBn.innerText = data.tails.bn;
+
+        const callSelect = document.getElementById('tossCallChoice');
+        if (callSelect) {
+            callSelect.innerHTML = `
+                <option value="heads">${data.selectHeads}</option>
+                <option value="tails">${data.selectTails}</option>
+            `;
+        }
+        triggerHaptic([20]);
+    }
+
+    function initCoinTossView(teamA = null, teamB = null) {
+        if (teamA) document.getElementById('tossTeamA').value = teamA;
+        if (teamB) document.getElementById('tossTeamB').value = teamB;
+        document.getElementById('coinTossStatus').innerText = "টস করার জন্য প্রস্তুত!";
+        document.getElementById('tossDecisionPanel').style.display = 'none';
+        renderTossHistory();
+    }
+
+    function openTossForMatch(teamA, teamB) {
+        initCoinTossView(teamA, teamB);
+        navigate('view-coin-toss');
+        showToast(`"${teamA}" বনাম "${teamB}" এর টস পেজ ওপেন হয়েছে! 🪙`);
+    }
+
+    let coinAnimFrameId = null;
+
+    function flipCoin(speedMode = 'high') {
+        if (isCoinFlipping) return;
+        initAudio();
+        isCoinFlipping = true;
+
+        const coin = document.getElementById('interactiveCoin');
+        const flightStage = document.getElementById('coinFlightStage');
+        const shadow = document.getElementById('coinDynamicShadow');
+        const btnMain = document.getElementById('btnFlipCoin');
+        const btnQuick = document.getElementById('btnQuickFlipCoin');
+
+        if (btnMain) btnMain.disabled = true;
+        if (btnQuick) btnQuick.disabled = true;
+        if (btnMain) btnMain.innerText = "⏳ বাতাসে ঘুরছে...";
+
+        document.getElementById('coinTossStatus').innerText = "🪙 কয়েন বাতাসে ঘুরছে...";
+        document.getElementById('tossDecisionPanel').style.display = 'none';
+
+        // 50/50 fair probability
+        const isTails = Math.random() >= 0.5;
+        const fullSpins = speedMode === 'quick' ? 6 : 10;
+        const targetRotX = (fullSpins * 360) + (isTails ? 180 : 0);
+
+        triggerHaptic([40, 25, 40]);
+        playCoinSpinSound();
+
+        const durationMs = speedMode === 'quick' ? 1400 : 2600;
+        const maxHeight = speedMode === 'quick' ? 150 : 230;
+        let startTime = null;
+        let lastTickTime = 0;
+        let bounceSound1 = false;
+        let bounceSound2 = false;
+
+        function runCoinPhysics(timestamp) {
+            if (!startTime) startTime = timestamp;
+            const elapsed = timestamp - startTime;
+            const progress = Math.min(elapsed / durationMs, 1);
+
+            // 1. Rotation on X-axis (tumble head over heels) with smooth deceleration
+            const rotProgress = 1 - Math.pow(1 - progress, 3.2);
+            const currentRotX = targetRotX * rotProgress;
+            
+            // Gyroscopic precession on Z-axis (slight authentic wobble in air that settles)
+            const wobbleZ = Math.sin(progress * Math.PI * 7) * (speedMode === 'quick' ? 8 : 15) * (1 - progress);
+            coin.style.transform = `rotateX(${currentRotX}deg) rotateZ(${wobbleZ}deg)`;
+
+            // Rhythmic mid-air tick sound as coin faces revolve
+            if (progress < 0.84 && (timestamp - lastTickTime > (speedMode === 'quick' ? 65 : 85))) {
+                lastTickTime = timestamp;
+                playCoinFlickTick();
+            }
+
+            // 2. Vertical Y trajectory and Shadow physics
+            let yPos = 0;
+            let shadowScale = 1;
+            let shadowOpacity = 0.85;
+            let shadowBlur = 2;
+
+            if (progress < 0.84) {
+                // Parabolic sky flight
+                const pFlight = progress / 0.84;
+                yPos = -4 * maxHeight * pFlight * (1 - pFlight);
+                const heightFrac = Math.abs(yPos) / maxHeight;
+                shadowScale = 1 - (0.75 * heightFrac);
+                shadowOpacity = 0.85 - (0.65 * heightFrac);
+                shadowBlur = 2 + (14 * heightFrac);
+            } else if (progress < 0.92) {
+                // First ground impact and rebound
+                if (!bounceSound1) {
+                    bounceSound1 = true;
+                    playCoinClinkSound();
+                    triggerHaptic([35, 20]);
+                }
+                const pBounce1 = (progress - 0.84) / 0.08;
+                const bounceHeight1 = speedMode === 'quick' ? 18 : 34;
+                yPos = -4 * bounceHeight1 * pBounce1 * (1 - pBounce1);
+                const bFrac1 = Math.abs(yPos) / bounceHeight1;
+                shadowScale = 1 - (0.35 * bFrac1);
+                shadowOpacity = 0.85 - (0.35 * bFrac1);
+                shadowBlur = 2 + (5 * bFrac1);
+            } else if (progress < 0.98) {
+                // Second mini bounce
+                if (!bounceSound2) {
+                    bounceSound2 = true;
+                    playCoinSoftClink();
+                    triggerHaptic([18]);
+                }
+                const pBounce2 = (progress - 0.92) / 0.06;
+                const bounceHeight2 = speedMode === 'quick' ? 6 : 10;
+                yPos = -4 * bounceHeight2 * pBounce2 * (1 - pBounce2);
+                shadowScale = 0.95;
+                shadowOpacity = 0.8;
+                shadowBlur = 3;
+            } else {
+                // Settled at rest flat on the turf
+                yPos = 0;
+                shadowScale = 1;
+                shadowOpacity = 0.9;
+                shadowBlur = 2;
+            }
+
+            flightStage.style.transform = `translateY(${yPos}px)`;
+            shadow.style.transform = `translateX(-50%) scale(${shadowScale})`;
+            shadow.style.opacity = shadowOpacity;
+            shadow.style.filter = `blur(${shadowBlur}px)`;
+
+            if (progress < 1) {
+                coinAnimFrameId = requestAnimationFrame(runCoinPhysics);
+            } else {
+                finishCoinToss(isTails);
+            }
+        }
+
+        coinAnimFrameId = requestAnimationFrame(runCoinPhysics);
+    }
+
+    function finishCoinToss(isTails) {
+        isCoinFlipping = false;
+        const btnMain = document.getElementById('btnFlipCoin');
+        const btnQuick = document.getElementById('btnQuickFlipCoin');
+        if (btnMain) {
+            btnMain.disabled = false;
+            btnMain.innerText = "🪙 আবার টস করুন";
+        }
+        if (btnQuick) btnQuick.disabled = false;
+
+        playWinFanfare();
+        createConfetti();
+        triggerHaptic([60, 40, 80]);
+
+        const teamAName = document.getElementById('tossTeamA').value.trim() || "টিম এ";
+        const teamBName = document.getElementById('tossTeamB').value.trim() || "টিম বি";
+        const caller = document.getElementById('tossCallerSelect').value;
+        const callChoice = document.getElementById('tossCallChoice').value;
+
+        const currentStyleData = coinStylesData[currentCoinStyle] || coinStylesData.cricket;
+        const outcome = isTails ? 'tails' : 'heads';
+        const outcomeObj = isTails ? currentStyleData.tails : currentStyleData.heads;
+        const outcomeBangla = `${outcomeObj.icon} ${outcomeObj.bn}`;
+
+        const callerWon = (outcome === callChoice);
+        const winningTeam = callerWon ? (caller === 'A' ? teamAName : teamBName) : (caller === 'A' ? teamBName : teamAName);
+
+        currentTossResult = {
+            id: Date.now(),
+            time: new Date().toLocaleTimeString('bn-BD', { hour: '2-digit', minute: '2-digit' }),
+            teamA: teamAName,
+            teamB: teamBName,
+            winner: winningTeam,
+            outcome: outcomeBangla,
+            decision: ""
+        };
+
+        document.getElementById('coinTossStatus').innerHTML = `🎉 <b>${outcomeBangla}</b> উঠেছে! <b>${winningTeam}</b> টসে জিতেছে! 🏆`;
+        document.getElementById('tossWinnerText').innerHTML = `🏆 ${winningTeam} টসে জয়ী হয়েছে!`;
+        document.getElementById('tossDecisionPanel').style.display = 'block';
+    }
+
+    function recordTossDecision(decision) {
+        if (!currentTossResult) return;
+        currentTossResult.decision = decision;
+        
+        let history = JSON.parse(localStorage.getItem('tossHistoryLog')) || [];
+        history.unshift(currentTossResult);
+        if (history.length > 30) history.pop();
+        localStorage.setItem('tossHistoryLog', JSON.stringify(history));
+
+        document.getElementById('tossDecisionPanel').style.display = 'none';
+        document.getElementById('coinTossStatus').innerHTML = `✨ <b>${currentTossResult.winner}</b> টসে জিতে <b>${decision}</b> করার সিদ্ধান্ত নিয়েছে!`;
+        renderTossHistory();
+        updateHubStats();
+        showToast("টসের ফলাফল ও সিদ্ধান্ত সেভ করা হয়েছে! ✔️");
+    }
+
+    function renderTossHistory() {
+        const container = document.getElementById('tossHistoryList');
+        if (!container) return;
+        let history = JSON.parse(localStorage.getItem('tossHistoryLog')) || [];
+        container.innerHTML = '';
+        if (history.length === 0) {
+            container.innerHTML = `<div style="text-align:center; color:var(--text-muted); font-size:14px; padding:10px;">কোনো পূর্বের টস রেকর্ড নেই।</div>`;
+            return;
+        }
+        history.forEach((item, idx) => {
+            let row = document.createElement('div');
+            row.style.background = '#F9FAFB';
+            row.style.padding = '10px 14px';
+            row.style.borderRadius = '12px';
+            row.style.border = '1px solid #E5E7EB';
+            row.style.fontSize = '14px';
+            row.style.display = 'flex';
+            row.style.justifyContent = 'space-between';
+            row.style.alignItems = 'center';
+            row.style.flexWrap = 'wrap';
+            row.style.gap = '8px';
+            row.innerHTML = `
+                <div>
+                    <b>${item.teamA}</b> VS <b>${item.teamB}</b> 
+                    <span style="color:var(--text-muted); font-size:12px; margin-left:6px;">(${item.time})</span>
+                </div>
+                <div style="font-weight:700; color:var(--secondary);">
+                    জয়ী: ${item.winner} ${item.decision ? `(${item.decision})` : ''}
+                </div>
+            `;
+            container.appendChild(row);
+        });
+    }
+
+    function clearTossHistory() {
+        if (confirm("আপনি কি সব টস হিস্ট্রি মুছে ফেলতে চান?")) {
+            localStorage.removeItem('tossHistoryLog');
+            renderTossHistory();
+            updateHubStats();
+            showToast("টস হিস্ট্রি মুছে ফেলা হয়েছে!");
         }
     }
 
@@ -2252,7 +4186,13 @@
         event.target.value = ''; 
     }
     
-    try { history.replaceState({ view: 'view-step1' }, "", "#view-step1"); } catch(e){}
+    try { history.replaceState({ view: 'view-hub' }, "", "#view-hub"); } catch(e){}
+    updateHapticUI();
+    updateHubStats();
+    initFixerHomeScreen();
+    initCoinTossView();
+    setCoinStyle('cricket');
+    navigate('view-hub');
 </script>
 
 </body>
