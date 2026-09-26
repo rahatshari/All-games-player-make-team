@@ -1,4 +1,4 @@
-const CACHE_NAME = 'pro-team-generator-v4';
+const CACHE_NAME = 'pro-team-generator-v5';
 const STATIC_ASSETS = [
   './',
   './index.html',

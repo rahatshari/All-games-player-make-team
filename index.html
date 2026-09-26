@@ -57,7 +57,7 @@
             width: 100%; 
             max-width: 100%; 
             margin: 0; 
-            padding: 15px 20px; 
+            padding: 15px 20px 85px 20px; 
             border-radius: 0; 
             box-shadow: none; 
             position: relative; 
@@ -74,7 +74,7 @@
         
         @media (min-width: 992px) {
             body { background-color: #F9FAFB; padding: 20px; }
-            .container { max-width: 1200px; width: 95%; margin: auto; background: #FFFFFF; padding: 40px; border-radius: 24px; box-shadow: 0 20px 40px -10px rgba(0,0,0,0.1); min-height: calc(100vh - 40px); }
+            .container { max-width: 1200px; width: 95%; margin: auto; background: #FFFFFF; padding: 35px 40px 95px 40px; border-radius: 24px; box-shadow: 0 20px 40px -10px rgba(0,0,0,0.1); min-height: calc(100vh - 40px); }
         }
 
         .view { display: none; animation: slideFade 0.3s ease-out; flex: 1; }
@@ -368,231 +368,363 @@
             font-size: 14px;
         }
 
-        /* TOP SEGMENTED NAVIGATION BAR */
-        .top-nav-bar {
-            display: flex;
-            background: #EEF2FF;
-            padding: 6px;
-            border-radius: 18px;
-            gap: 6px;
-            margin-bottom: 22px;
-            border: 1px solid #C7D2FE;
-            overflow-x: auto;
-            scrollbar-width: none;
-            -webkit-overflow-scrolling: touch;
-        }
-        .top-nav-bar::-webkit-scrollbar { display: none; }
-        .nav-tab {
-            flex: 1;
-            min-width: fit-content;
-            padding: 12px 16px;
-            border-radius: 14px;
-            font-size: 15px;
-            font-weight: 700;
-            background: transparent;
-            color: var(--text-muted);
-            border: none;
-            cursor: pointer;
-            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-            white-space: nowrap;
+        /* NATIVE BOTTOM NAVIGATION BAR (Mobile First) */
+        .bottom-nav-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 64px;
+            background: rgba(255, 255, 255, 0.96);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-top: 1px solid var(--border-color);
             display: flex;
             align-items: center;
-            justify-content: center;
-            gap: 6px;
+            justify-content: space-around;
+            z-index: 1000;
+            padding-bottom: env(safe-area-inset-bottom, 0px);
+            box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.05);
         }
-        .nav-tab.active {
-            background: #FFFFFF;
+        @media (min-width: 992px) {
+            .bottom-nav-bar {
+                max-width: 680px;
+                left: 50%;
+                transform: translateX(-50%);
+                bottom: 16px;
+                border-radius: 20px;
+                border: 1px solid var(--border-color);
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+            }
+        }
+        .bottom-nav-item {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 3px;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            padding: 8px 0;
+            color: #64748B;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            -webkit-tap-highlight-color: transparent;
+        }
+        .bottom-nav-item:active {
+            transform: scale(0.92);
+        }
+        .bottom-nav-icon {
+            font-size: 20px;
+            line-height: 1;
+            transition: transform 0.2s ease;
+        }
+        .bottom-nav-label {
+            font-size: 11px;
+            font-weight: 700;
+            line-height: 1.1;
+        }
+        .bottom-nav-item.active {
             color: var(--primary);
-            box-shadow: 0 4px 14px rgba(67, 56, 202, 0.15);
+        }
+        .bottom-nav-item.active .bottom-nav-icon {
+            transform: scale(1.15);
+        }
+        .bottom-nav-item.active .bottom-nav-label {
             font-weight: 800;
         }
 
-        /* HOME SCREEN HUB STYLES */
-        .hub-hero-banner {
+        /* NATIVE APP DASHBOARD STYLES (Clean App Look, Zero Story Text) */
+        .app-status-card {
             background: linear-gradient(135deg, #1E1B4B 0%, #312E81 50%, #4338CA 100%);
-            border-radius: 24px;
-            padding: 26px 22px;
+            border-radius: 20px;
+            padding: 18px 20px;
             color: #FFFFFF;
-            margin-bottom: 24px;
-            box-shadow: 0 12px 30px rgba(67, 56, 202, 0.25), inset 0 1px 0 rgba(255,255,255,0.2);
-            display: flex;
-            flex-direction: column;
-            gap: 18px;
-            border: 1px solid rgba(255,255,255,0.15);
+            margin-bottom: 20px;
+            box-shadow: 0 10px 25px rgba(67, 56, 202, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.15);
             position: relative;
             overflow: hidden;
         }
-        .hub-hero-banner::after {
+        .app-status-card::after {
             content: '';
             position: absolute;
-            right: -20px;
-            bottom: -20px;
-            width: 140px;
-            height: 140px;
+            right: -25px;
+            bottom: -25px;
+            width: 120px;
+            height: 120px;
             background: radial-gradient(circle, rgba(245, 158, 11, 0.25) 0%, transparent 70%);
             border-radius: 50%;
             pointer-events: none;
         }
-        .hub-hero-badge {
-            display: inline-flex;
+        .app-status-top {
+            display: flex;
             align-items: center;
-            gap: 6px;
-            background: rgba(255,255,255,0.15);
-            backdrop-filter: blur(8px);
-            padding: 5px 12px;
-            border-radius: 20px;
-            font-size: 12px;
-            font-weight: 800;
-            letter-spacing: 0.5px;
-            border: 1px solid rgba(255,255,255,0.25);
+            justify-content: space-between;
             margin-bottom: 8px;
-            width: fit-content;
+            gap: 8px;
         }
-        .hub-hero-title {
-            margin: 0 0 6px 0;
-            font-size: 24px;
+        .app-status-badge {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(8px);
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 800;
+            color: #E0E7FF;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .app-offline-pill {
+            background: rgba(16, 185, 129, 0.2);
+            color: #6EE7B7;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 800;
+            border: 1px solid rgba(110, 231, 183, 0.3);
+        }
+        .app-status-title {
+            margin: 0 0 14px 0;
+            font-size: 20px;
             font-weight: 800;
             color: #FFFFFF;
-            line-height: 1.3;
         }
-        .hub-hero-desc {
-            margin: 0;
-            font-size: 14px;
-            color: #E0E7FF;
-            line-height: 1.5;
-            opacity: 0.95;
+        .app-status-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
         }
-        .hub-hero-quick-stats {
-            display: flex;
-            gap: 12px;
-            flex-wrap: wrap;
-            border-top: 1px solid rgba(255,255,255,0.15);
-            padding-top: 14px;
-        }
-        .hub-stat-item {
-            background: rgba(255,255,255,0.1);
+        .app-stat-chip {
+            background: rgba(255, 255, 255, 0.1);
             backdrop-filter: blur(6px);
-            border-radius: 12px;
-            padding: 8px 14px;
+            border-radius: 14px;
+            padding: 8px 10px;
             display: flex;
             align-items: center;
             gap: 8px;
-            border: 1px solid rgba(255,255,255,0.15);
+            border: 1px solid rgba(255, 255, 255, 0.12);
         }
-        .hub-stat-val {
+        .app-stat-icon {
+            font-size: 18px;
+        }
+        .app-stat-num {
+            font-size: 16px;
             font-weight: 900;
-            font-size: 17px;
             color: #FDE68A;
+            line-height: 1.1;
         }
-        .hub-stat-lbl {
-            font-size: 12px;
+        .app-stat-txt {
+            font-size: 11px;
             color: #E0E7FF;
-            font-weight: 700;
+            font-weight: 600;
         }
 
-        .home-hub-grid {
+        /* 2x2 NATIVE APP TILES GRID */
+        .app-native-grid {
             display: grid;
-            grid-template-columns: 1fr;
-            gap: 18px;
-            margin-bottom: 25px;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin-bottom: 20px;
         }
-        @media (min-width: 640px) {
-            .home-hub-grid { grid-template-columns: repeat(2, 1fr); gap: 20px; }
+        @media (min-width: 768px) {
+            .app-native-grid {
+                grid-template-columns: repeat(4, 1fr);
+                gap: 16px;
+            }
         }
-        .hub-card {
+        .app-tile {
             background: #FFFFFF;
-            border-radius: 22px;
-            padding: 24px;
+            border-radius: 20px;
+            padding: 16px;
             border: 1.5px solid var(--border-color);
-            box-shadow: 0 4px 20px rgba(0,0,0,0.04);
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.03);
             cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            position: relative;
-            overflow: hidden;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
             display: flex;
             flex-direction: column;
             text-align: left;
+            position: relative;
+            user-select: none;
+            -webkit-tap-highlight-color: transparent;
         }
-        .hub-card:hover, .hub-card:active {
-            transform: translateY(-4px);
-            box-shadow: 0 16px 35px rgba(0, 0, 0, 0.1);
+        .app-tile:active {
+            transform: scale(0.96);
+            box-shadow: 0 2px 6px rgba(0,0,0,0.06);
         }
-        .hub-card-team:hover { border-color: var(--primary); }
-        .hub-card-fixer:hover { border-color: var(--accent); }
-        .hub-card-toss:hover { border-color: var(--secondary); }
-        .hub-card-history:hover { border-color: #64748B; }
+        .app-tile-team:hover { border-color: var(--primary); }
+        .app-tile-fixer:hover { border-color: var(--accent); }
+        .app-tile-toss:hover { border-color: var(--secondary); }
+        .app-tile-history:hover { border-color: #64748B; }
 
-        .hub-card-icon-wrap {
-            width: 58px;
-            height: 58px;
-            border-radius: 18px;
+        .app-tile-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 12px;
+        }
+        .app-tile-icon-box {
+            width: 46px;
+            height: 46px;
+            border-radius: 14px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 28px;
-            margin-bottom: 16px;
-            box-shadow: 0 8px 18px rgba(0,0,0,0.12);
+            font-size: 22px;
+            color: #FFFFFF;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
         }
-        .hub-badge {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            font-size: 11px;
+        .app-icon-team { background: linear-gradient(135deg, #4338CA 0%, #6366F1 100%); }
+        .app-icon-fixer { background: linear-gradient(135deg, #D97706 0%, #F59E0B 100%); }
+        .app-icon-toss { background: linear-gradient(135deg, #059669 0%, #10B981 100%); }
+        .app-icon-history { background: linear-gradient(135deg, #334155 0%, #475569 100%); }
+
+        .app-tile-badge {
+            font-size: 10px;
             font-weight: 800;
-            padding: 4px 10px;
-            border-radius: 20px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
+            padding: 3px 8px;
+            border-radius: 10px;
+            letter-spacing: 0.3px;
         }
-        .hub-card h3 {
-            margin: 0 0 8px 0;
-            font-size: 20px;
+        .badge-team { background: #EEF2FF; color: var(--primary); border: 1px solid #C7D2FE; }
+        .badge-fixer { background: #FFFBEB; color: #B45309; border: 1px solid #FDE68A; }
+        .badge-toss { background: #ECFDF5; color: var(--secondary); border: 1px solid #A7F3D0; }
+        .badge-history { background: #F1F5F9; color: #475569; border: 1px solid #CBD5E1; }
+
+        .app-tile-body {
+            margin-bottom: 12px;
+            flex: 1;
+        }
+        .app-tile-title {
+            margin: 0 0 4px 0;
+            font-size: 16px;
             font-weight: 800;
             color: var(--text-main);
+            letter-spacing: -0.2px;
         }
-        .hub-card p {
-            margin: 0 0 16px 0;
-            font-size: 14px;
+        .app-tile-sub {
+            margin: 0;
+            font-size: 12px;
             color: var(--text-muted);
-            line-height: 1.5;
-            flex: 1;
-        }
-        .hub-card-action {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            font-weight: 800;
-            font-size: 14px;
-            color: var(--primary);
+            font-weight: 600;
+            line-height: 1.3;
         }
 
-        .hub-quick-bar {
+        .app-tile-action {
             display: flex;
-            gap: 12px;
-            flex-wrap: wrap;
-            margin-bottom: 20px;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 12px;
+            font-weight: 800;
+            border-top: 1px solid #F3F4F6;
+            padding-top: 8px;
         }
-        .hub-quick-btn {
-            flex: 1;
-            min-width: 140px;
+        .action-team { color: var(--primary); }
+        .action-fixer { color: #D97706; }
+        .action-toss { color: var(--secondary); }
+        .action-history { color: #475569; }
+        .app-arrow { font-size: 15px; font-weight: 900; }
+
+        /* QUICK SHORTCUTS & UTILITIES */
+        .app-section-header {
+            font-size: 13px;
+            font-weight: 800;
+            color: var(--text-muted);
+            margin: 0 0 10px 2px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .app-shortcuts-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            margin-bottom: 18px;
+        }
+        @media (min-width: 640px) {
+            .app-shortcuts-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+        .app-shortcut-btn {
             background: #F8FAFC;
             border: 1.5px solid #E2E8F0;
             color: var(--text-main);
-            padding: 12px 16px;
+            padding: 10px 12px;
             border-radius: 14px;
-            font-size: 14px;
+            font-size: 13px;
             font-weight: 700;
-            display: inline-flex;
+            display: flex;
             align-items: center;
             justify-content: center;
-            gap: 8px;
-            transition: all 0.2s;
+            gap: 6px;
+            cursor: pointer;
+            transition: all 0.15s ease;
+            -webkit-tap-highlight-color: transparent;
         }
-        .hub-quick-btn:hover, .hub-quick-btn:active {
+        .app-shortcut-btn:active {
             background: #EEF2FF;
             border-color: #C7D2FE;
+            transform: scale(0.96);
+        }
+        .shortcut-icon { font-size: 15px; }
+
+        /* RECENT ACTIVITY CARD */
+        .app-recent-card {
+            background: #FFFFFF;
+            border: 1.5px solid var(--border-color);
+            border-radius: 18px;
+            padding: 12px 14px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.03);
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        .app-recent-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 8px 10px;
+            border-radius: 12px;
+            background: #F8FAFC;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .app-recent-item:active {
+            background: #EEF2FF;
+        }
+        .recent-item-icon {
+            font-size: 20px;
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #FFFFFF;
+            border-radius: 10px;
+            border: 1px solid var(--border-color);
+        }
+        .recent-item-info {
+            flex: 1;
+            min-width: 0;
+        }
+        .recent-item-title {
+            font-size: 13px;
+            font-weight: 800;
+            color: var(--text-main);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .recent-item-meta {
+            font-size: 11px;
+            color: var(--text-muted);
+            font-weight: 600;
+        }
+        .recent-item-action {
+            font-size: 12px;
+            font-weight: 800;
             color: var(--primary);
-            transform: translateY(-2px);
         }
 
         /* SUBVIEW BREADCRUMB HEADER BAR */
@@ -1158,104 +1290,141 @@
         </div>
     </div>
 
-    <!-- TOP NAVIGATION TABS -->
-    <div class="top-nav-bar" id="topNavTabs">
-        <button class="nav-tab active" id="tabHomeHub" onclick="goToHub()">🏠 প্রধান মেনু</button>
-        <button class="nav-tab" id="tabTeamGen" onclick="switchMainTab('team')">🎲 টিম মেকার</button>
-        <button class="nav-tab" id="tabMatchFixer" onclick="switchMainTab('fixture')">⚔️ ম্যাচ ফিক্সার</button>
-        <button class="nav-tab" id="tabCoinToss" onclick="switchMainTab('toss')">🪙 কয়েন টস</button>
-        <button class="nav-tab" id="tabHistory" onclick="switchMainTab('history')">🕒 হিস্ট্রি</button>
-    </div>
-
-    <!-- VIEW 0: HOME HUB (প্রধান মেনু) -->
+    <!-- VIEW 0: HOME HUB (প্রধান মেনু / অ্যাপ ড্যাশবোর্ড) -->
     <div id="view-hub" class="view active">
-        <!-- Hero Banner -->
-        <div class="hub-hero-banner">
-            <div>
-                <div class="hub-hero-badge">⚡ অল-ইন-ওয়ান স্পোর্টস ও টুর্নামেন্ট স্যুট</div>
-                <h2 class="hub-hero-title">স্বাগতম! প্রো টিম ও ম্যাচ জেনারেটরে</h2>
-                <p class="hub-hero-desc">লটারির মাধ্যমে নিরপেক্ষ দল তৈরি, ম্যাচ শিডিউল ফিক্সচার এবং রিয়েল ৩ডি কয়েন টস—সবকিছু এখন একটি অ্যাপে সম্পূর্ণ অফলাইনে।</p>
+        <!-- Compact Native App Status Card -->
+        <div class="app-status-card">
+            <div class="app-status-top">
+                <span class="app-status-badge">🏆 স্পোর্টস ও টুর্নামেন্ট স্যুট</span>
+                <span class="app-offline-pill">🟢 ১০০% অফলাইন</span>
             </div>
-            <div class="hub-hero-quick-stats">
-                <div class="hub-stat-item">
-                    <span class="hub-stat-val" id="hubSavedTeamsCount">০</span>
-                    <span class="hub-stat-lbl">টিম রেকর্ড</span>
+            <h2 class="app-status-title">ম্যাচ ও টিম ড্যাশবোর্ড</h2>
+            <div class="app-status-stats">
+                <div class="app-stat-chip">
+                    <span class="app-stat-icon">🎲</span>
+                    <div>
+                        <div class="app-stat-num" id="hubSavedTeamsCount">০</div>
+                        <div class="app-stat-txt">টিম রেকর্ড</div>
+                    </div>
                 </div>
-                <div class="hub-stat-item">
-                    <span class="hub-stat-val" id="hubSavedTossCount">০</span>
-                    <span class="hub-stat-lbl">টস রেকর্ড</span>
+                <div class="app-stat-chip">
+                    <span class="app-stat-icon">🪙</span>
+                    <div>
+                        <div class="app-stat-num" id="hubSavedTossCount">০</div>
+                        <div class="app-stat-txt">টস রেকর্ড</div>
+                    </div>
                 </div>
-                <div class="hub-stat-item">
-                    <span class="hub-stat-val">১০০%</span>
-                    <span class="hub-stat-lbl">অফলাইন রেডি</span>
+                <div class="app-stat-chip">
+                    <span class="app-stat-icon">⚔️</span>
+                    <div>
+                        <div class="app-stat-num" id="hubSavedTourneyCount">০</div>
+                        <div class="app-stat-txt">ফিক্সচার</div>
+                    </div>
                 </div>
             </div>
         </div>
 
-        <!-- 4 Primary Feature Cards -->
-        <div class="home-hub-grid">
+        <!-- 4 Native Mobile App Tiles (2x2 Grid) -->
+        <div class="app-native-grid">
             <!-- 1: Team Maker -->
-            <div class="hub-card hub-card-team" onclick="openModule('team')">
-                <span class="hub-badge" style="background:#EEF2FF; color:var(--primary); border:1px solid #C7D2FE;">সবচেয়ে জনপ্রিয়</span>
-                <div class="hub-card-icon-wrap" style="background:linear-gradient(135deg, #4338CA 0%, #6366F1 100%); color:#fff;">
-                    🎲
+            <div class="app-tile app-tile-team" onclick="triggerHaptic([15]); openModule('team');">
+                <div class="app-tile-header">
+                    <div class="app-tile-icon-box app-icon-team">🎲</div>
+                    <span class="app-tile-badge badge-team">অটো দল</span>
                 </div>
-                <h3>টিম মেকার (Team Maker)</h3>
-                <p>ক্যাপ্টেন ও প্লেয়ারদের লটারির মাধ্যমে নিরপেক্ষ ও সুষম দল গঠন। আধুনিক নিয়ন লাকি হুইল, থ্রি-ডি কার্ড ফ্লিপ ও ক্যাসিনো স্লট মেশিন অ্যানিমেশন।</p>
-                <div class="hub-card-action">
-                    <span>টিম তৈরি শুরু করুন</span>
-                    <span style="font-size:18px;">➡️</span>
+                <div class="app-tile-body">
+                    <h3 class="app-tile-title">টিম মেকার</h3>
+                    <p class="app-tile-sub">সুষম দল ও লটারি ড্র</p>
+                </div>
+                <div class="app-tile-action action-team">
+                    <span>শুরু করুন</span>
+                    <span class="app-arrow">→</span>
                 </div>
             </div>
 
             <!-- 2: Match Fixer -->
-            <div class="hub-card hub-card-fixer" onclick="openModule('fixer')">
-                <span class="hub-badge" style="background:#FFFBEB; color:#B45309; border:1px solid #FDE68A;">লাইভ ড্র</span>
-                <div class="hub-card-icon-wrap" style="background:linear-gradient(135deg, #F59E0B 0%, #D97706 100%); color:#fff;">
-                    ⚔️
+            <div class="app-tile app-tile-fixer" onclick="triggerHaptic([15]); openModule('fixer');">
+                <div class="app-tile-header">
+                    <div class="app-tile-icon-box app-icon-fixer">⚔️</div>
+                    <span class="app-tile-badge badge-fixer">হুইল ড্র</span>
                 </div>
-                <h3>ম্যাচ ফিক্সার (Match Fixer)</h3>
-                <p>ক্রিকেট, ফুটবল বা যেকোনো টুর্নামেন্টের নকআউট ও রাউন্ড-রবিন লিগ ফিক্সচার তৈরি, স্পিন হুইল লাইভ ম্যাচ ড্র এবং স্বয়ংক্রিয় সময়সূচি।</p>
-                <div class="hub-card-action" style="color:#D97706;">
-                    <span>ম্যাচ ফিক্সচার সাজান</span>
-                    <span style="font-size:18px;">➡️</span>
+                <div class="app-tile-body">
+                    <h3 class="app-tile-title">ম্যাচ ফিক্সার</h3>
+                    <p class="app-tile-sub">টুর্নামেন্ট ও শিডিউল</p>
+                </div>
+                <div class="app-tile-action action-fixer">
+                    <span>ড্র শুরু</span>
+                    <span class="app-arrow">→</span>
                 </div>
             </div>
 
             <!-- 3: 3D Coin Toss -->
-            <div class="hub-card hub-card-toss" onclick="openModule('toss')">
-                <span class="hub-badge" style="background:#ECFDF5; color:var(--secondary); border:1px solid #A7F3D0;">রিয়েল ৩D ফিজিক্স</span>
-                <div class="hub-card-icon-wrap" style="background:linear-gradient(135deg, #10B981 0%, #059669 100%); color:#fff;">
-                    🪙
+            <div class="app-tile app-tile-toss" onclick="triggerHaptic([15]); openModule('toss');">
+                <div class="app-tile-header">
+                    <div class="app-tile-icon-box app-icon-toss">🪙</div>
+                    <span class="app-tile-badge badge-toss">৩D ফিজিক্স</span>
                 </div>
-                <h3>৩D কয়েন টস (Coin Toss)</h3>
-                <p>ক্রিকেট ও ফুটবলের জন্য বাস্তবসম্মত ৩ডি কয়েন ফ্লিপিং ফিজিক্স। বাতাসের ঘূর্ণন, ড্রপ শ্যাডো ও বাউন্স, হেড-টেইল কল ও ডিসিশন ট্র্যাকার।</p>
-                <div class="hub-card-action" style="color:var(--secondary);">
-                    <span>কয়েন টস রুমে প্রবেশ</span>
-                    <span style="font-size:18px;">➡️</span>
+                <div class="app-tile-body">
+                    <h3 class="app-tile-title">কয়েন টস</h3>
+                    <p class="app-tile-sub">হেডস ও টেইলস ফ্লিপ</p>
+                </div>
+                <div class="app-tile-action action-toss">
+                    <span>টস রুম</span>
+                    <span class="app-arrow">→</span>
                 </div>
             </div>
 
             <!-- 4: Saved History & Backup -->
-            <div class="hub-card hub-card-history" onclick="openModule('history')">
-                <span class="hub-badge" style="background:#F1F5F9; color:#475569; border:1px solid #CBD5E1;">অফলাইন ডেটা</span>
-                <div class="hub-card-icon-wrap" style="background:linear-gradient(135deg, #334155 0%, #1E293B 100%); color:#fff;">
-                    🕒
+            <div class="app-tile app-tile-history" onclick="triggerHaptic([15]); openModule('history');">
+                <div class="app-tile-header">
+                    <div class="app-tile-icon-box app-icon-history">🕒</div>
+                    <span class="app-tile-badge badge-history">সেভড ডেটা</span>
                 </div>
-                <h3>হিস্টোরি ও বেকাপ (History)</h3>
-                <p>ডিভাইসে সেভ থাকা সকল ফলাফল ও টুর্নামেন্ট রেকর্ড দেখুন, ছবি (JPG) হিসেবে সেভ করুন অথবা সম্পূর্ণ ফাইল ব্যাকআপ ও রিস্টোর করুন।</p>
-                <div class="hub-card-action" style="color:#334155;">
-                    <span>রেকর্ড ও ব্যাকআপ দেখুন</span>
-                    <span style="font-size:18px;">➡️</span>
+                <div class="app-tile-body">
+                    <h3 class="app-tile-title">হিস্টোরি</h3>
+                    <p class="app-tile-sub">ফলাফল ও ব্যাকআপ</p>
+                </div>
+                <div class="app-tile-action action-history">
+                    <span>রেকর্ড দেখুন</span>
+                    <span class="app-arrow">→</span>
                 </div>
             </div>
         </div>
 
-        <!-- Quick utilities bar -->
-        <div class="hub-quick-bar">
-            <button class="hub-quick-btn" onclick="loadDemoData()">⚡ দ্রুত ডেমো ডেটা ট্রাই করুন</button>
-            <button class="hub-quick-btn" onclick="exportBackupData()">📥 সম্পূর্ণ ডেটা ব্যাকআপ (Save)</button>
-            <button class="hub-quick-btn" onclick="triggerPWAInstall()">📲 অ্যাপ ইনস্টল করুন</button>
+        <!-- Quick Shortcuts Strip -->
+        <div class="app-section-header">
+            <span>⚡ কুইক শর্টকাট (Quick Actions)</span>
+        </div>
+        <div class="app-shortcuts-grid">
+            <button class="app-shortcut-btn" onclick="triggerHaptic([12]); loadDemoData();">
+                <span class="shortcut-icon">⚡</span>
+                <span>ডেমো টিম লোড</span>
+            </button>
+            <button class="app-shortcut-btn" onclick="triggerHaptic([12]); openModule('toss');">
+                <span class="shortcut-icon">🪙</span>
+                <span>কুইক টস ফ্লিপ</span>
+            </button>
+            <button class="app-shortcut-btn" onclick="triggerHaptic([12]); exportBackupData();">
+                <span class="shortcut-icon">📥</span>
+                <span>ডেটা ব্যাকআপ</span>
+            </button>
+            <button class="app-shortcut-btn" onclick="triggerHaptic([12]); document.getElementById('restoreFile').click();">
+                <span class="shortcut-icon">📤</span>
+                <span>ব্যাকআপ লোড</span>
+            </button>
+            <button id="hubQuickInstallBtn" class="app-shortcut-btn" onclick="triggerHaptic([12]); triggerPWAInstall();" style="border-color:#C7D2FE; background:#EEF2FF; color:var(--primary);">
+                <span class="shortcut-icon">📲</span>
+                <span>অ্যাপ ইনস্টল</span>
+            </button>
+        </div>
+
+        <!-- Recent Activity Widget -->
+        <div id="hubRecentActivitySection" style="margin-top:16px; display:none;">
+            <div class="app-section-header">
+                <span>🕒 সর্বশেষ কার্যকলাপ</span>
+            </div>
+            <div id="hubRecentActivityContent" class="app-recent-card">
+            </div>
         </div>
     </div>
 
@@ -1725,6 +1894,30 @@
     </div>
 </div>
 
+<!-- NATIVE BOTTOM NAVIGATION BAR -->
+<nav class="bottom-nav-bar" id="bottomNavBar">
+    <button class="bottom-nav-item active" id="bNavHome" onclick="triggerHaptic([10]); goToHub();">
+        <span class="bottom-nav-icon">🏠</span>
+        <span class="bottom-nav-label">হোম</span>
+    </button>
+    <button class="bottom-nav-item" id="bNavTeam" onclick="triggerHaptic([10]); openModule('team');">
+        <span class="bottom-nav-icon">🎲</span>
+        <span class="bottom-nav-label">টিম মেকার</span>
+    </button>
+    <button class="bottom-nav-item" id="bNavFixer" onclick="triggerHaptic([10]); openModule('fixer');">
+        <span class="bottom-nav-icon">⚔️</span>
+        <span class="bottom-nav-label">ফিক্সার</span>
+    </button>
+    <button class="bottom-nav-item" id="bNavCoin" onclick="triggerHaptic([10]); openModule('toss');">
+        <span class="bottom-nav-icon">🪙</span>
+        <span class="bottom-nav-label">কয়েন টস</span>
+    </button>
+    <button class="bottom-nav-item" id="bNavHistory" onclick="triggerHaptic([10]); openModule('history');">
+        <span class="bottom-nav-icon">🕒</span>
+        <span class="bottom-nav-label">হিস্ট্রি</span>
+    </button>
+</nav>
+
 <!-- PWA Install Banner -->
 <div id="pwaInstallBanner" class="install-banner-pwa">
     <div style="display:flex; align-items:center; gap:12px;">
@@ -2050,39 +2243,95 @@
     // PWA INSTALLATION SYSTEM (Google Chrome, Android, Desktop & iOS)
     let deferredPrompt = null;
 
+    function isPWAInstalled() {
+        const isStandalone = (window.matchMedia && window.matchMedia('(display-mode: standalone)').matches) || 
+                             window.navigator.standalone === true || 
+                             (document.referrer && document.referrer.includes('android-app://')) ||
+                             localStorage.getItem('pwa_app_installed_state') === 'true';
+        return !!isStandalone;
+    }
+
+    function updateInstallUI() {
+        const headerBtn = document.getElementById('headerInstallBtn');
+        const menuInstallItem = document.getElementById('menuInstallItem');
+        const hubInstallBtn = document.getElementById('hubQuickInstallBtn');
+        const banner = document.getElementById('pwaInstallBanner');
+
+        const installed = isPWAInstalled();
+
+        if (installed) {
+            // Already installed: completely hide all install buttons automatically
+            if (headerBtn) headerBtn.style.setProperty('display', 'none', 'important');
+            if (menuInstallItem) menuInstallItem.style.setProperty('display', 'none', 'important');
+            if (hubInstallBtn) hubInstallBtn.style.setProperty('display', 'none', 'important');
+            if (banner) banner.style.setProperty('display', 'none', 'important');
+        } else {
+            // Not installed yet: keep install button available
+            if (headerBtn) headerBtn.style.display = 'inline-flex';
+            if (menuInstallItem) menuInstallItem.style.display = 'flex';
+            if (hubInstallBtn) hubInstallBtn.style.display = 'inline-flex';
+        }
+    }
+
     window.addEventListener('beforeinstallprompt', (e) => {
         e.preventDefault();
         deferredPrompt = e;
-        const banner = document.getElementById('pwaInstallBanner');
-        const headerBtn = document.getElementById('headerInstallBtn');
-        if (banner) banner.style.display = 'flex';
-        if (headerBtn) {
-            headerBtn.style.display = 'inline-flex';
-            headerBtn.classList.add('animate-pulse');
+        if (!isPWAInstalled()) {
+            updateInstallUI();
+            const banner = document.getElementById('pwaInstallBanner');
+            const headerBtn = document.getElementById('headerInstallBtn');
+            if (banner) banner.style.display = 'flex';
+            if (headerBtn) {
+                headerBtn.style.display = 'inline-flex';
+                headerBtn.classList.add('animate-pulse');
+            }
         }
     });
 
     window.addEventListener('appinstalled', () => {
         deferredPrompt = null;
+        localStorage.setItem('pwa_app_installed_state', 'true');
+        updateInstallUI();
         const banner = document.getElementById('pwaInstallBanner');
         if (banner) banner.style.display = 'none';
-        showToast("প্রো টিম জেনারেটর সফলভাবে ইনস্টল হয়েছে! 🎉");
+        showToast("প্রো টিম জেনারেটর সফলভাবে ফোনে ইনস্টল হয়েছে! 🎉");
     });
 
+    try {
+        const mq = window.matchMedia('(display-mode: standalone)');
+        if (mq.matches) {
+            localStorage.setItem('pwa_app_installed_state', 'true');
+        }
+        mq.addEventListener('change', (e) => {
+            if (e.matches) {
+                localStorage.setItem('pwa_app_installed_state', 'true');
+                updateInstallUI();
+            }
+        });
+    } catch(e) {}
+
     function triggerPWAInstall() {
+        if (isPWAInstalled()) {
+            updateInstallUI();
+            showToast("অ্যাপটি ইতিমধ্যে আপনার ডিভাইসে ইনস্টল করা আছে! ✔️");
+            return;
+        }
         if (deferredPrompt) {
             deferredPrompt.prompt();
             deferredPrompt.userChoice.then((choiceResult) => {
                 if (choiceResult.outcome === 'accepted') {
-                    showToast("অ্যাপটি ইনস্টল হচ্ছে...");
+                    localStorage.setItem('pwa_app_installed_state', 'true');
+                    updateInstallUI();
+                    showToast("অ্যাপটি সফলভাবে ফোনে ইনস্টল হচ্ছে... 🎉");
                 }
                 deferredPrompt = null;
                 dismissInstallBanner();
             });
         } else {
-            // Check if already in standalone mode
-            const isStandalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone;
+            const isStandalone = (window.matchMedia && window.matchMedia('(display-mode: standalone)').matches) || window.navigator.standalone;
             if (isStandalone) {
+                localStorage.setItem('pwa_app_installed_state', 'true');
+                updateInstallUI();
                 showToast("অ্যাপটি ইতিমধ্যে আপনার ডিভাইসে ইনস্টল করা আছে! ✔️");
             } else {
                 openInstallModal();
@@ -2393,39 +2642,83 @@
             let tossHistory = JSON.parse(localStorage.getItem('tossHistoryLog')) || [];
             let tCountEl = document.getElementById('hubSavedTeamsCount');
             let tossCountEl = document.getElementById('hubSavedTossCount');
+            let tourneyCountEl = document.getElementById('hubSavedTourneyCount');
             if (tCountEl) tCountEl.innerText = toBengaliNum(historyList.length);
             if (tossCountEl) tossCountEl.innerText = toBengaliNum(tossHistory.length);
+            if (tourneyCountEl) tourneyCountEl.innerText = toBengaliNum(historyList.length);
+
+            // Render Recent Activity Widget if records exist
+            const recentSec = document.getElementById('hubRecentActivitySection');
+            const recentContent = document.getElementById('hubRecentActivityContent');
+            if (recentSec && recentContent) {
+                if (tossHistory.length > 0 || historyList.length > 0) {
+                    recentSec.style.display = 'block';
+                    let html = '';
+                    if (tossHistory.length > 0) {
+                        const lastToss = tossHistory[0];
+                        html += `
+                            <div class="app-recent-item" onclick="triggerHaptic([12]); openModule('toss')">
+                                <div class="recent-item-icon">🪙</div>
+                                <div class="recent-item-info">
+                                    <div class="recent-item-title">সর্বশেষ টস: ${lastToss.winner || 'বিজয়ী'} (${lastToss.decision || 'সিদ্ধান্ত'})</div>
+                                    <div class="recent-item-meta">${lastToss.date || ''} • ফলাফল: ${lastToss.outcome || ''}</div>
+                                </div>
+                                <div class="recent-item-action">দেখুন →</div>
+                            </div>
+                        `;
+                    }
+                    if (historyList.length > 0) {
+                        const lastTourney = historyList[0];
+                        let teamCountText = lastTourney.teams ? `${toBengaliNum(lastTourney.teams.length)}টি দল` : '';
+                        html += `
+                            <div class="app-recent-item" onclick="triggerHaptic([12]); openModule('history')">
+                                <div class="recent-item-icon">🏆</div>
+                                <div class="recent-item-info">
+                                    <div class="recent-item-title">${lastTourney.tournamentName || 'টুর্নামেন্ট লটারি'}</div>
+                                    <div class="recent-item-meta">${lastTourney.date || ''} • ${teamCountText}</div>
+                                </div>
+                                <div class="recent-item-action">দেখুন →</div>
+                            </div>
+                        `;
+                    }
+                    recentContent.innerHTML = html;
+                } else {
+                    recentSec.style.display = 'none';
+                }
+            }
         } catch(e) {}
     }
 
-    function updateTopNavTabs(viewId) {
-        document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+    function updateBottomNav(viewId) {
+        document.querySelectorAll('.bottom-nav-item').forEach(t => t.classList.remove('active'));
         if (viewId === 'view-hub') {
-            document.getElementById('tabHomeHub')?.classList.add('active');
+            document.getElementById('bNavHome')?.classList.add('active');
         } else if (['view-step1', 'view-step2', 'view-spin', 'view-results'].includes(viewId)) {
-            document.getElementById('tabTeamGen')?.classList.add('active');
+            document.getElementById('bNavTeam')?.classList.add('active');
         } else if (['view-fixer-home', 'view-fixer-draw', 'view-fixtures'].includes(viewId)) {
-            document.getElementById('tabMatchFixer')?.classList.add('active');
+            document.getElementById('bNavFixer')?.classList.add('active');
         } else if (viewId === 'view-coin-toss') {
-            document.getElementById('tabCoinToss')?.classList.add('active');
+            document.getElementById('bNavCoin')?.classList.add('active');
         } else if (viewId === 'view-history') {
-            document.getElementById('tabHistory')?.classList.add('active');
+            document.getElementById('bNavHistory')?.classList.add('active');
         }
+    }
+
+    function updateTopNavTabs(viewId) {
+        updateBottomNav(viewId);
     }
 
     function switchMainTab(tabKey) {
         if (tabKey === 'hub') {
             goToHub();
         } else if (tabKey === 'team') {
-            navigate(generatedTeams && generatedTeams.length > 0 ? 'view-results' : 'view-step1');
+            openModule('team');
         } else if (tabKey === 'fixture') {
-            initFixerHomeScreen();
-            navigate('view-fixer-home');
+            openModule('fixer');
         } else if (tabKey === 'toss') {
-            initCoinTossView();
-            navigate('view-coin-toss');
+            openModule('toss');
         } else if (tabKey === 'history') {
-            showHistory();
+            openModule('history');
         }
     }
 
@@ -2436,17 +2729,17 @@
         if (target) target.classList.add('active');
         
         const mainHeader = document.getElementById('mainHeader');
-        const topNavTabs = document.getElementById('topNavTabs');
+        const bottomNav = document.getElementById('bottomNavBar');
         
         if (viewId === 'view-spin' || viewId === 'view-fixer-draw') {
             if (mainHeader) mainHeader.style.display = 'none';
-            if (topNavTabs) topNavTabs.style.display = 'none';
+            if (bottomNav) bottomNav.style.display = 'none';
         } else {
             if (mainHeader) mainHeader.style.display = 'flex';
-            if (topNavTabs) topNavTabs.style.display = 'flex';
+            if (bottomNav) bottomNav.style.display = 'flex';
         }
         
-        updateTopNavTabs(viewId);
+        updateBottomNav(viewId);
 
         try { history.pushState({ view: viewId }, "", "#" + viewId); } catch(e){}
         
@@ -2469,15 +2762,15 @@
         if(vEl) vEl.classList.add('active');
         
         const mainHeader = document.getElementById('mainHeader');
-        const topNavTabs = document.getElementById('topNavTabs');
+        const bottomNav = document.getElementById('bottomNavBar');
         if (targetView === 'view-spin' || targetView === 'view-fixer-draw') {
             if (mainHeader) mainHeader.style.display = 'none';
-            if (topNavTabs) topNavTabs.style.display = 'none';
+            if (bottomNav) bottomNav.style.display = 'none';
         } else {
             if (mainHeader) mainHeader.style.display = 'flex';
-            if (topNavTabs) topNavTabs.style.display = 'flex';
+            if (bottomNav) bottomNav.style.display = 'flex';
         }
-        updateTopNavTabs(targetView);
+        updateBottomNav(targetView);
     });
 
     function toggleMenu() { 
@@ -4188,6 +4481,7 @@
     
     try { history.replaceState({ view: 'view-hub' }, "", "#view-hub"); } catch(e){}
     updateHapticUI();
+    updateInstallUI();
     updateHubStats();
     initFixerHomeScreen();
     initCoinTossView();
