@@ -3,13 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>প্রো টিম জেনারেটর</title>
+    <title>Pro Team Generator - প্রো টিম জেনারেটর</title>
+    <meta name="description" content="লটারির মাধ্যমে নিরপেক্ষ টিম তৈরি ও ম্যাচ ফিক্সচার তৈরির প্রফেশনাল অ্যাপ।">
+    <meta property="og:title" content="Pro Team Generator - প্রো টিম জেনারেটর">
+    <meta property="og:description" content="লটারির মাধ্যমে নিরপেক্ষ টিম তৈরি ও ম্যাচ ফিক্সচার তৈরির প্রফেশনাল অ্যাপ।">
     
-    <link rel="icon" href="logo.svg" type="image/svg+xml">
-    <link rel="manifest" href="manifest.json">
+    <link rel="icon" type="image/png" sizes="192x192" href="./icons/icon-192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="./favicon.png">
+    <link rel="icon" href="./logo.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" sizes="180x180" href="./icons/apple-touch-icon.png">
+    <link rel="manifest" href="./manifest.json">
     <meta name="theme-color" content="#4338CA">
+    <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="application-name" content="Pro Team Generator">
 
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Bengali:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
@@ -166,27 +174,199 @@
         @keyframes bounceText { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-5px); } }
         
         /* Clean Output Destination */
-        #spinDestination { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #34D399; font-size: 20px; margin-top: 25px; padding: 12px 20px; border-radius: 12px; min-height: 35px; font-weight: 800; z-index: 2; position: relative; width: 90%; max-width: 320px; box-shadow: 0 10px 20px rgba(0,0,0,0.2); }
+        #spinDestination { background: rgba(255,255,255,0.12); backdrop-filter: blur(10px); border: 1.5px solid rgba(52, 211, 153, 0.4); color: #34D399; font-size: 19px; margin-top: 20px; padding: 14px 22px; border-radius: 16px; min-height: 38px; font-weight: 800; z-index: 2; position: relative; width: 92%; max-width: 360px; box-shadow: 0 10px 25px rgba(0,0,0,0.3); text-align: center; }
 
-        /* ULTRA HD REALISTIC CANVAS WHEEL */
+        /* ULTRA HD REALISTIC CANVAS WHEEL WITH LED LIGHTS & GOLD CASING */
         .canvas-wheel-container { 
             position: relative; 
             width: 100%; 
-            max-width: 280px; 
+            max-width: 340px; 
             aspect-ratio: 1 / 1; 
-            margin: 10px auto; 
+            margin: 15px auto; 
             z-index: 5; 
             flex-shrink: 0; 
             box-sizing: border-box;
+            border-radius: 50%;
+            padding: 12px;
+            background: radial-gradient(circle at 35% 35%, #2d3748 0%, #0f172a 70%, #020617 100%);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.7), 0 0 0 4px #F59E0B, 0 0 35px rgba(245, 158, 11, 0.45);
         }
-        @media (min-width: 380px) { .canvas-wheel-container { max-width: 320px; } }
-        @media (min-width: 768px) { .canvas-wheel-container { max-width: 360px; } }
+        @media (min-width: 380px) { .canvas-wheel-container { max-width: 360px; padding: 14px; } }
+        @media (min-width: 768px) { .canvas-wheel-container { max-width: 400px; padding: 16px; } }
         
-        .canvas-wheel { width: 100%; height: 100%; border-radius: 50%; border: 8px solid #fff; box-shadow: 0 15px 35px rgba(0,0,0,0.6); background: #222; display: block; position: relative; z-index: 2; box-sizing: border-box; }
-        .canvas-wheel-container::after { content: ''; position: absolute; top: 8px; left: 8px; right: 8px; bottom: 8px; border-radius: 50%; box-shadow: inset 0 0 20px rgba(0,0,0,0.5); pointer-events: none; z-index: 3; box-sizing: border-box; }
-        .wheel-center-dot { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 20%; height: 20%; background: radial-gradient(circle, #ffffff 0%, #cbd5e1 100%); border-radius: 50%; border: 6px solid #1E293B; z-index: 10; box-shadow: 0 5px 15px rgba(0,0,0,0.4); box-sizing: border-box;}
-        .wheel-pointer { position: absolute; top: -15px; left: 50%; transform: translateX(-50%); width: 0; height: 0; border-left: 16px solid transparent; border-right: 16px solid transparent; border-top: 32px solid #EF4444; z-index: 15; filter: drop-shadow(0 4px 4px rgba(0,0,0,0.5)); transform-origin: top center; }
-        .wheel-glowing { box-shadow: 0 0 40px var(--secondary-light) !important; border-color: var(--secondary-light) !important; }
+        .wheel-led-ring {
+            position: absolute;
+            inset: 3px;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 4;
+        }
+        .wheel-led-bulb {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #FDE047;
+            box-shadow: 0 0 6px #FDE047, 0 0 12px #F59E0B;
+            transform: translate(-50%, -50%);
+            transition: background 0.15s ease, box-shadow 0.15s ease;
+        }
+        .wheel-led-bulb.alt {
+            background: #38BDF8;
+            box-shadow: 0 0 6px #38BDF8, 0 0 12px #0284C7;
+        }
+        .wheel-led-bulb.dim {
+            background: #78350F;
+            box-shadow: none;
+        }
+
+        .canvas-wheel { 
+            width: 100%; 
+            height: 100%; 
+            border-radius: 50%; 
+            border: 4px solid #FDE68A; 
+            box-shadow: inset 0 0 30px rgba(0,0,0,0.6), 0 8px 25px rgba(0,0,0,0.5); 
+            background: #111827; 
+            display: block; 
+            position: relative; 
+            z-index: 2; 
+            box-sizing: border-box; 
+            transition: transform 0.05s linear;
+        }
+        .wheel-center-dot { 
+            position: absolute; 
+            top: 50%; 
+            left: 50%; 
+            transform: translate(-50%, -50%); 
+            width: 22%; 
+            height: 22%; 
+            background: radial-gradient(circle at 35% 35%, #FFFFFF 0%, #F59E0B 55%, #78350F 100%); 
+            border-radius: 50%; 
+            border: 4px solid #FEF08A; 
+            z-index: 10; 
+            box-shadow: 0 8px 20px rgba(0,0,0,0.6), inset 0 2px 6px rgba(255,255,255,0.8); 
+            box-sizing: border-box;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #451A03;
+            font-size: 22px;
+            font-weight: 900;
+        }
+        .wheel-center-dot::after {
+            content: '⭐';
+            font-size: 18px;
+            filter: drop-shadow(0 2px 2px rgba(0,0,0,0.4));
+        }
+
+        .wheel-pointer { 
+            position: absolute; 
+            top: -14px; 
+            left: 50%; 
+            transform: translateX(-50%); 
+            width: 32px; 
+            height: 48px; 
+            z-index: 15; 
+            filter: drop-shadow(0 6px 8px rgba(0,0,0,0.7)); 
+            transform-origin: top center;
+            transition: transform 0.08s ease-out;
+            pointer-events: none;
+        }
+        .wheel-pointer svg {
+            width: 100%;
+            height: 100%;
+            display: block;
+        }
+        .wheel-glowing { 
+            box-shadow: 0 0 50px #10B981, 0 0 0 5px #34D399 !important; 
+            border-color: #6EE7B7 !important; 
+        }
+
+        /* INSTALL APP BANNER & MODAL */
+        .btn-install-app {
+            background: linear-gradient(135deg, #4F46E5 0%, #7C3AED 100%);
+            color: #FFFFFF;
+            padding: 8px 14px;
+            border-radius: 12px;
+            font-size: 13px;
+            font-weight: 700;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            border: 1px solid rgba(255,255,255,0.25);
+            box-shadow: 0 4px 12px rgba(79, 70, 229, 0.35);
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .btn-install-app:active { transform: scale(0.96); }
+        .install-banner-pwa {
+            display: none;
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 90%;
+            max-width: 480px;
+            background: #0F172A;
+            border: 1.5px solid #4338CA;
+            color: #FFFFFF;
+            padding: 14px 18px;
+            border-radius: 18px;
+            box-shadow: 0 20px 45px rgba(0,0,0,0.5);
+            z-index: 99998;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            animation: slideUpFade 0.4s ease-out forwards;
+        }
+        @keyframes slideUpFade {
+            from { opacity: 0; transform: translate(-50%, 30px); }
+            to { opacity: 1; transform: translate(-50%, 0); }
+        }
+        .install-modal-backdrop {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.65);
+            backdrop-filter: blur(6px);
+            z-index: 100000;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        .install-modal-content {
+            background: #FFFFFF;
+            border-radius: 24px;
+            max-width: 460px;
+            width: 100%;
+            padding: 28px 24px;
+            box-shadow: 0 25px 60px rgba(0,0,0,0.3);
+            text-align: left;
+            position: relative;
+            animation: scaleIn 0.25s ease-out;
+        }
+        .install-step-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            margin-bottom: 14px;
+            font-size: 15px;
+            color: var(--text-main);
+            font-weight: 600;
+        }
+        .install-step-num {
+            background: #EEF2FF;
+            color: var(--primary);
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            font-weight: 800;
+            font-size: 14px;
+        }
 
         .card-scene { perspective: 1000px; width: 95%; max-width: 400px; height: 140px; margin: 20px auto; z-index: 5; position: relative; }
         .card-object { width: 100%; height: 100%; position: relative; transition: transform cubic-bezier(0.175, 0.885, 0.32, 1.275); transform-style: preserve-3d; }
@@ -359,25 +539,34 @@
             </svg>
             টিম জেনারেটর
         </h1>
-        <div class="menu-container">
-            <div class="three-dots" onclick="toggleMenu()">&#8942;</div>
-            <div id="dropdownMenu" class="menu-dropdown">
-                <div class="menu-item history-item" onclick="showHistory()">🕒 পূর্বের লটারি (History)</div>
-                <div class="menu-item action-item" onclick="exportBackupData()">📥 সকল ডেটা বেকাপ (Save)</div>
-                <div class="menu-item action-item" onclick="document.getElementById('restoreFile').click()">📤 ডেটা রিস্টোর (Load)</div>
-                <input type="file" id="restoreFile" accept=".json" onchange="importBackupData(event)">
-                <div style="border-top: 1px solid var(--border-color); margin: 5px 0;"></div>
-                <div class="menu-item" onclick="event.stopPropagation();">
-                    <span>ক্যাপ্টেন মোড</span>
-                    <label class="switch"><input type="checkbox" id="toggleCaptains" checked onchange="toggleSections()"><span class="slider"></span></label>
-                </div>
-                <div class="menu-item" onclick="event.stopPropagation();">
-                    <span>সমকক্ষ মোড</span>
-                    <label class="switch"><input type="checkbox" id="toggleEquivalent" checked onchange="toggleSections()"><span class="slider"></span></label>
-                </div>
-                <div class="menu-item" onclick="event.stopPropagation();">
-                    <span>র‍্যান্ডম মোড</span>
-                    <label class="switch"><input type="checkbox" id="toggleRandom" onchange="toggleSections()"><span class="slider"></span></label>
+        <div style="display:flex; align-items:center; gap:8px;">
+            <button id="headerInstallBtn" class="btn-install-app" onclick="triggerPWAInstall()" title="গুগল ক্রোম বা ফোনে অ্যাপটি ইনস্টল করুন">
+                <span>📲</span> <span>ইনস্টল</span>
+            </button>
+            <button id="headerSoundBtn" onclick="toggleSound()" style="background:#EEF2FF; border:1px solid #C7D2FE; border-radius:12px; padding:8px 10px; font-size:16px; cursor:pointer;" title="শব্দ অন/অফ">
+                🔊
+            </button>
+            <div class="menu-container">
+                <div class="three-dots" onclick="toggleMenu()">&#8942;</div>
+                <div id="dropdownMenu" class="menu-dropdown">
+                    <div class="menu-item action-item" onclick="triggerPWAInstall()" style="color:var(--primary); background:#EEF2FF;">📲 অ্যাপ ইনস্টল করুন (Install)</div>
+                    <div class="menu-item history-item" onclick="showHistory()">🕒 পূর্বের লটারি (History)</div>
+                    <div class="menu-item action-item" onclick="exportBackupData()">📥 সকল ডেটা বেকাপ (Save)</div>
+                    <div class="menu-item action-item" onclick="document.getElementById('restoreFile').click()">📤 ডেটা রিস্টোর (Load)</div>
+                    <input type="file" id="restoreFile" accept=".json" onchange="importBackupData(event)">
+                    <div style="border-top: 1px solid var(--border-color); margin: 5px 0;"></div>
+                    <div class="menu-item" onclick="event.stopPropagation();">
+                        <span>ক্যাপ্টেন মোড</span>
+                        <label class="switch"><input type="checkbox" id="toggleCaptains" checked onchange="toggleSections()"><span class="slider"></span></label>
+                    </div>
+                    <div class="menu-item" onclick="event.stopPropagation();">
+                        <span>সমকক্ষ মোড</span>
+                        <label class="switch"><input type="checkbox" id="toggleEquivalent" checked onchange="toggleSections()"><span class="slider"></span></label>
+                    </div>
+                    <div class="menu-item" onclick="event.stopPropagation();">
+                        <span>র‍্যান্ডম মোড</span>
+                        <label class="switch"><input type="checkbox" id="toggleRandom" onchange="toggleSections()"><span class="slider"></span></label>
+                    </div>
                 </div>
             </div>
         </div>
@@ -393,12 +582,18 @@
             <label>আপনি কয়টি টিম তৈরি করতে চান?</label>
             <input type="text" inputmode="numeric" id="teamCount" value="৪" oninput="enforceBengaliNum(event)">
         </div>
-        <button class="btn-primary" onclick="goToStep2()">পরবর্তী ধাপ ➡️</button>
+        <div style="display:flex; flex-direction:column; gap:10px;">
+            <button class="btn-primary" onclick="goToStep2()">পরবর্তী ধাপ ➡️</button>
+            <button class="btn-secondary" onclick="loadDemoData()" style="background:#F0FDF4; border:1px solid #BBF7D0; color:var(--secondary); font-weight:700;">⚡ ডেমো ডেটা দিয়ে দ্রুত ট্রাই করুন</button>
+        </div>
     </div>
 
     <!-- VIEW 2: Data Input & Setup -->
     <div id="view-step2" class="view">
-        <h3 style="margin-top:0;">টিমের নাম দিন (বাধ্যতামূলক)</h3>
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px;">
+            <h3 style="margin:0;">টিমের নাম দিন (বাধ্যতামূলক)</h3>
+            <button class="btn-secondary" onclick="loadDemoData()" style="padding:6px 12px; font-size:13px; width:auto; margin:0; background:#ECFDF5; color:var(--secondary); border:1px solid #A7F3D0;">⚡ ডেমো প্লেয়ার</button>
+        </div>
         <div id="teamNamesContainer" class="vertical-container"></div>
         <div id="captainsSection">
             <h3 style="margin-top:0;">টিমের ক্যাপ্টেন সিলেক্ট করুন</h3>
@@ -427,12 +622,20 @@
                 <div style="flex:1; min-width: 100%;">
                     <label>🎨 অ্যানিমেশনের ধরন:</label>
                     <select id="animationStyle">
-                        <option value="wheel" selected>নামসহ ভাগ্যের চাকা (Physics HD Wheel)</option>
-                        <option value="card">ম্যাজিক কার্ড (Ultra HD 3D)</option>
-                        <option value="slot">স্লট মেশিন (Casino Style)</option>
+                        <option value="wheel" selected>🎡 আধুনিক নিয়ন লাকি হুইল (HD LED Wheel)</option>
+                        <option value="card">🃏 ম্যাজিক কার্ড (Ultra HD 3D)</option>
+                        <option value="slot">🎰 ক্যাসিনো স্লট মেশিন (Casino Slot)</option>
                     </select>
                 </div>
-                <div style="flex:1; min-width: 100%;">
+                <div style="flex:1; min-width: calc(50% - 10px);">
+                    <label>✨ হুইলের থিম (Wheel Style):</label>
+                    <select id="wheelTheme">
+                        <option value="neon" selected>⚡ নিয়ন সাইবার (Neon Cyber)</option>
+                        <option value="gold">🏆 রয়্যাল গোল্ড (Royal Gold)</option>
+                        <option value="vibrant">🎨 স্পোর্টস ভাইব্রেন্ট (Vibrant Sports)</option>
+                    </select>
+                </div>
+                <div style="flex:1; min-width: calc(50% - 10px);">
                     <label>⏱️ স্পিড (গতি):</label>
                     <select id="animationSpeed">
                         <option value="long">দীর্ঘ (সাসপেন্সফুল)</option>
@@ -546,6 +749,67 @@
     </div>
 </div>
 
+<!-- PWA Install Banner -->
+<div id="pwaInstallBanner" class="install-banner-pwa">
+    <div style="display:flex; align-items:center; gap:12px;">
+        <img src="./icons/icon-192.png" alt="App Icon" style="width:40px; height:40px; border-radius:10px; border:1px solid rgba(255,255,255,0.2);">
+        <div>
+            <div style="font-weight:800; font-size:15px; color:#fff;">প্রো টিম জেনারেটর</div>
+            <div style="font-size:12px; color:#94A3B8;">সহজেই অফলাইনে ব্যবহারের জন্য ইনস্টল করুন</div>
+        </div>
+    </div>
+    <div style="display:flex; gap:8px;">
+        <button class="btn-install-app" onclick="triggerPWAInstall()" style="padding:8px 16px; font-size:14px;">ইনস্টল</button>
+        <button onclick="dismissInstallBanner()" style="background:transparent; color:#94A3B8; border:none; font-size:20px; cursor:pointer; padding:0 6px;">✕</button>
+    </div>
+</div>
+
+<!-- PWA Install Guide Modal -->
+<div id="pwaInstallModal" class="install-modal-backdrop" onclick="closeInstallModal(event)">
+    <div class="install-modal-content" onclick="event.stopPropagation()">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:18px;">
+            <div style="display:flex; align-items:center; gap:10px;">
+                <img src="./icons/icon-192.png" style="width:42px; height:42px; border-radius:12px;" alt="Logo">
+                <div>
+                    <h3 style="margin:0; font-size:18px; color:var(--text-main);">অ্যাপ ইনস্টল নির্দেশিকা</h3>
+                    <p style="margin:0; font-size:12px; color:var(--text-muted);">গুগল ক্রোম ও মোবাইল ডিভাইসে</p>
+                </div>
+            </div>
+            <button onclick="closeInstallModal()" style="background:#F3F4F6; border:none; border-radius:50%; width:32px; height:32px; font-size:18px; cursor:pointer; display:flex; align-items:center; justify-content:center;">✕</button>
+        </div>
+
+        <div style="background:#F8FAFC; border:1px solid #E2E8F0; border-radius:16px; padding:16px; margin-bottom:15px;">
+            <h4 style="margin:0 0 10px 0; color:var(--primary); font-size:15px;">📱 Google Chrome (Android / Desktop):</h4>
+            <div class="install-step-item">
+                <div class="install-step-num">১</div>
+                <div>ব্রাউজারের উপরের ডানপাশে <b>থ্রি-ডট মেনু (⋮)</b> বা অ্যাড্রেস বারের <b>ইনস্টল আইকনে (⊕)</b> চাপুন।</div>
+            </div>
+            <div class="install-step-item">
+                <div class="install-step-num">২</div>
+                <div><b>"Install App"</b> বা <b>"অ্যাপ ইনস্টল করুন"</b> সিলেক্ট করুন।</div>
+            </div>
+            <div class="install-step-item" style="margin-bottom:0;">
+                <div class="install-step-num">৩</div>
+                <div>ইনস্টল সম্পন্ন হলে সরাসরি হোমস্ক্রিন বা অ্যাপ মেনু থেকে অফলাইনে চালানো যাবে!</div>
+            </div>
+        </div>
+
+        <div style="background:#FFFBEB; border:1px solid #FDE68A; border-radius:16px; padding:16px;">
+            <h4 style="margin:0 0 10px 0; color:#B45309; font-size:15px;">🍏 iPhone / iPad (Safari):</h4>
+            <div class="install-step-item">
+                <div class="install-step-num">১</div>
+                <div>Safari ব্রাউজারের নিচে <b>শেয়ার আইকনে (⎋ / ↑)</b> ট্যাপ করুন।</div>
+            </div>
+            <div class="install-step-item" style="margin-bottom:0;">
+                <div class="install-step-num">২</div>
+                <div>স্ক্রোল করে <b>"Add to Home Screen"</b> এ চাপ দিন।</div>
+            </div>
+        </div>
+
+        <button class="btn-primary" onclick="triggerPWAInstall()" style="margin-top:20px;">ইনস্টল ট্রাই করুন 📲</button>
+    </div>
+</div>
+
 <script>
     let wakeLock = null;
     async function requestWakeLock() {
@@ -606,6 +870,197 @@
     let isSpinning = false;
     let animationFrameId = null;
     let wheelAngle = 0;
+
+    // AUDIO SYNTHESIZER (Native Web Audio API - Works 100% Offline)
+    let audioCtx = null;
+    let soundEnabled = true;
+
+    function initAudio() {
+        if (!audioCtx) {
+            const AudioContext = window.AudioContext || window.webkitAudioContext;
+            if (AudioContext) audioCtx = new AudioContext();
+        }
+        if (audioCtx && audioCtx.state === 'suspended') {
+            audioCtx.resume().catch(() => {});
+        }
+    }
+
+    function toggleSound() {
+        soundEnabled = !soundEnabled;
+        const btn = document.getElementById('headerSoundBtn');
+        if (btn) btn.innerHTML = soundEnabled ? '🔊' : '🔇';
+        showToast(soundEnabled ? "সাউন্ড অন করা হয়েছে 🔊" : "সাউন্ড মিউট করা হয়েছে 🔇");
+    }
+
+    function playTickSound(velocity = 1) {
+        if (!soundEnabled) return;
+        try {
+            initAudio();
+            if (!audioCtx) return;
+            const now = audioCtx.currentTime;
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            
+            osc.type = 'triangle';
+            osc.frequency.setValueAtTime(550 + Math.min(velocity * 120, 600), now);
+            osc.frequency.exponentialRampToValueAtTime(100, now + 0.035);
+
+            gain.gain.setValueAtTime(Math.min(0.22 * velocity, 0.3), now);
+            gain.gain.exponentialRampToValueAtTime(0.001, now + 0.035);
+
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+            osc.start(now);
+            osc.stop(now + 0.04);
+
+            if (navigator.vibrate) navigator.vibrate(12);
+        } catch (e) {}
+    }
+
+    function playWinFanfare() {
+        if (!soundEnabled) return;
+        try {
+            initAudio();
+            if (!audioCtx) return;
+            const chords = [523.25, 659.25, 783.99, 1046.50]; // C5, E5, G5, C6 arpeggio
+            chords.forEach((freq, idx) => {
+                const now = audioCtx.currentTime + (idx * 0.09);
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(freq, now);
+
+                gain.gain.setValueAtTime(0, now);
+                gain.gain.linearRampToValueAtTime(0.25, now + 0.02);
+                gain.gain.exponentialRampToValueAtTime(0.001, now + 0.4);
+
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+                osc.start(now);
+                osc.stop(now + 0.45);
+            });
+            if (navigator.vibrate) navigator.vibrate([50, 40, 90]);
+        } catch (e) {}
+    }
+
+    // PWA INSTALLATION SYSTEM (Google Chrome, Android, Desktop & iOS)
+    let deferredPrompt = null;
+
+    window.addEventListener('beforeinstallprompt', (e) => {
+        e.preventDefault();
+        deferredPrompt = e;
+        const banner = document.getElementById('pwaInstallBanner');
+        const headerBtn = document.getElementById('headerInstallBtn');
+        if (banner) banner.style.display = 'flex';
+        if (headerBtn) {
+            headerBtn.style.display = 'inline-flex';
+            headerBtn.classList.add('animate-pulse');
+        }
+    });
+
+    window.addEventListener('appinstalled', () => {
+        deferredPrompt = null;
+        const banner = document.getElementById('pwaInstallBanner');
+        if (banner) banner.style.display = 'none';
+        showToast("প্রো টিম জেনারেটর সফলভাবে ইনস্টল হয়েছে! 🎉");
+    });
+
+    function triggerPWAInstall() {
+        if (deferredPrompt) {
+            deferredPrompt.prompt();
+            deferredPrompt.userChoice.then((choiceResult) => {
+                if (choiceResult.outcome === 'accepted') {
+                    showToast("অ্যাপটি ইনস্টল হচ্ছে...");
+                }
+                deferredPrompt = null;
+                dismissInstallBanner();
+            });
+        } else {
+            // Check if already in standalone mode
+            const isStandalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone;
+            if (isStandalone) {
+                showToast("অ্যাপটি ইতিমধ্যে আপনার ডিভাইসে ইনস্টল করা আছে! ✔️");
+            } else {
+                openInstallModal();
+            }
+        }
+    }
+
+    function dismissInstallBanner() {
+        const banner = document.getElementById('pwaInstallBanner');
+        if (banner) banner.style.display = 'none';
+    }
+
+    function openInstallModal() {
+        const modal = document.getElementById('pwaInstallModal');
+        if (modal) modal.style.display = 'flex';
+    }
+
+    function closeInstallModal(e) {
+        if (e && e.target !== e.currentTarget && !e.target.matches('button')) return;
+        const modal = document.getElementById('pwaInstallModal');
+        if (modal) modal.style.display = 'none';
+    }
+
+    // REGISTER SERVICE WORKER (Relative path for GitHub Pages compatibility)
+    if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+            navigator.serviceWorker.register('./sw.js', { scope: './' })
+                .then(reg => {
+                    console.log('PWA ServiceWorker registered successfully with scope:', reg.scope);
+                })
+                .catch(err => {
+                    console.warn('PWA ServiceWorker registration notice:', err);
+                });
+        });
+    }
+
+    // DEMO DATA LOADER (Instant setup for test & showcase)
+    function loadDemoData() {
+        document.getElementById('tournamentNameInput').value = "বাংলাদেশ প্রিমিয়ার চ্যালেঞ্জ ২০২৬";
+        document.getElementById('teamCount').value = "৪";
+        numberOfTeams = 4;
+        
+        goToStep2(false);
+
+        const demoTeams = ["ঢাকা ডায়নামাইটস", "চিটাগং কিংস", "সিলেট স্ট্রাইকার্স", "রাজশাহী রয়্যালস"];
+        const demoCaptains = ["সাকিব আল হাসান", "তামিম ইকবাল", "মাশরাফি মর্তুজা", "মুশফিকুর রহিম"];
+        
+        for (let i = 1; i <= 4; i++) {
+            const tInp = document.getElementById(`teamName_${i}`);
+            const cInp = document.getElementById(`capName_${i}`);
+            if (tInp) tInp.value = demoTeams[i-1];
+            if (cInp) cInp.value = demoCaptains[i-1];
+        }
+
+        // Tiers
+        const eqContainer = document.getElementById('equivalentPlayersContainer');
+        eqContainer.innerHTML = '';
+        groupCounter = 1;
+        
+        const tier1 = ["লিটন দাস", "নাজমুল শান্ত", "মাহমুদুল্লাহ", "তাওহীদ হৃদয়"];
+        const tier2 = ["তাসকিন আহমেদ", "মুস্তাফিজুর রহমান", "শরিফুল ইসলাম", "মেহেদী মিরাজ"];
+        const tier3 = ["রিশাদ হোসেন", "তানজিদ তামিম", "জাকের আলী", "হাসান মাহমুদ"];
+
+        [tier1, tier2, tier3].forEach((tierArr) => {
+            addPlayerRow();
+            const rows = document.querySelectorAll('.player-row');
+            const lastRow = rows[rows.length - 1];
+            const inputs = lastRow.querySelectorAll('.eq-player-input');
+            tierArr.forEach((name, idx) => {
+                if (inputs[idx]) inputs[idx].value = name;
+            });
+        });
+
+        // Random players
+        document.getElementById('toggleRandom').checked = true;
+        randomPlayersArray = ["নাসুম আহমেদ", "তানজিম সাকিব", "সৌম্য সরকার", "আফিফ হোসেন"];
+        renderRandomPlayers();
+        toggleSections();
+
+        showToast("ডেমো টুর্নামেন্ট ও প্লেয়ার ডেটা লোড হয়েছে! 🚀");
+    }
 
     function saveAsImage(type) {
         let btn = event.currentTarget;
@@ -1065,47 +1520,140 @@
         }
     }
 
+    function getWheelColorPalette(theme, count) {
+        const palettes = {
+            neon: [
+                '#06B6D4', '#8B5CF6', '#10B981', '#F43F5E', 
+                '#F59E0B', '#3B82F6', '#EC4899', '#14B8A6', 
+                '#6366F1', '#E11D48'
+            ],
+            gold: [
+                '#D97706', '#B45309', '#F59E0B', '#78350F', 
+                '#92400E', '#EAB308', '#CA8A04', '#A16207'
+            ],
+            vibrant: [
+                '#059669', '#DC2626', '#2563EB', '#7C3AED', 
+                '#EA580C', '#0D9488', '#DB2777', '#4F46E5'
+            ]
+        };
+        const selected = palettes[theme] || palettes.neon;
+        let colors = [];
+        for (let i = 0; i < count; i++) {
+            colors.push(selected[i % selected.length]);
+        }
+        return colors;
+    }
+
     function drawCanvasWheel(canvasId, namesArray) {
         let canvas = document.getElementById(canvasId);
         if (!canvas) return;
         let ctx = canvas.getContext('2d');
         let numSlices = namesArray.length;
         if(numSlices === 0) return;
+
+        const dpr = Math.min(window.devicePixelRatio || 1, 2);
+        const displayWidth = 800;
+        const displayHeight = 800;
+        if (canvas.width !== displayWidth * dpr) {
+            canvas.width = displayWidth * dpr;
+            canvas.height = displayHeight * dpr;
+        }
+        ctx.resetTransform ? ctx.resetTransform() : ctx.setTransform(1, 0, 0, 1, 0, 0);
+        ctx.scale(dpr, dpr);
         
         let sliceAngle = (2 * Math.PI) / numSlices;
-        let centerX = canvas.width / 2;
-        let centerY = canvas.height / 2;
-        let radius = centerX;
+        let centerX = displayWidth / 2;
+        let centerY = displayHeight / 2;
+        let radius = centerX - 6;
+
+        let theme = document.getElementById('wheelTheme')?.value || 'neon';
+        let colors = getWheelColorPalette(theme, numSlices);
         
-        const colors = ['#EF4444', '#F59E0B', '#10B981', '#3B82F6', '#8B5CF6', '#EC4899', '#14B8A6', '#F43F5E', '#D946EF', '#06B6D4'];
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.clearRect(0, 0, displayWidth, displayHeight);
         
+        // 1. Draw Slices
         for (let i = 0; i < numSlices; i++) {
+            ctx.save();
             ctx.beginPath();
-            ctx.fillStyle = colors[i % colors.length];
             ctx.moveTo(centerX, centerY);
             ctx.arc(centerX, centerY, radius, i * sliceAngle, (i + 1) * sliceAngle);
-            ctx.lineTo(centerX, centerY);
+            ctx.closePath();
+
+            // Gradient per slice for ultra-modern 3D luster
+            let gradAngle = i * sliceAngle + sliceAngle / 2;
+            let gradX2 = centerX + Math.cos(gradAngle) * radius;
+            let gradY2 = centerY + Math.sin(gradAngle) * radius;
+            let grad = ctx.createLinearGradient(centerX, centerY, gradX2, gradY2);
+            grad.addColorStop(0, colors[i]);
+            grad.addColorStop(1, adjustColorBrightness(colors[i], -25));
+            ctx.fillStyle = grad;
             ctx.fill();
+
+            // Slice divider
             ctx.lineWidth = 3;
-            ctx.strokeStyle = "rgba(255,255,255,0.3)";
+            ctx.strokeStyle = "rgba(255,255,255,0.45)";
             ctx.stroke();
 
-            ctx.save();
+            // Slice Text
             ctx.translate(centerX, centerY);
-            ctx.rotate(i * sliceAngle + sliceAngle / 2);
+            ctx.rotate(gradAngle);
             ctx.textAlign = "right";
             ctx.textBaseline = "middle";
-            ctx.fillStyle = "#ffffff";
-            let fontSize = Math.max(16, Math.min(36, 400 / numSlices));
+            ctx.fillStyle = "#FFFFFF";
+
+            let fontSize = Math.max(16, Math.min(32, 420 / numSlices));
             ctx.font = `800 ${fontSize}px 'Noto Sans Bengali', sans-serif`;
-            ctx.shadowColor = "rgba(0,0,0,0.5)";
-            ctx.shadowBlur = 4;
+            ctx.shadowColor = "rgba(0,0,0,0.75)";
+            ctx.shadowBlur = 6;
             ctx.shadowOffsetX = 1;
-            ctx.shadowOffsetY = 1;
-            ctx.fillText(namesArray[i], radius - 25, 0, radius - 90);
+            ctx.shadowOffsetY = 2;
+
+            let text = namesArray[i];
+            let maxTextW = radius - 150;
+            ctx.fillText(text, radius - 40, 0, maxTextW);
             ctx.restore();
         }
+
+        // 2. Outer Rim & Brass/Gold Pegs at Sector Boundaries
+        for (let i = 0; i < numSlices; i++) {
+            let pegAngle = i * sliceAngle;
+            let pegX = centerX + Math.cos(pegAngle) * (radius - 12);
+            let pegY = centerY + Math.sin(pegAngle) * (radius - 12);
+
+            ctx.save();
+            ctx.beginPath();
+            ctx.arc(pegX, pegY, 7, 0, Math.PI * 2);
+            let pegGrad = ctx.createRadialGradient(pegX - 2, pegY - 2, 1, pegX, pegY, 7);
+            pegGrad.addColorStop(0, '#FFFFFF');
+            pegGrad.addColorStop(0.4, '#FDE047');
+            pegGrad.addColorStop(1, '#92400E');
+            ctx.fillStyle = pegGrad;
+            ctx.shadowColor = "rgba(0,0,0,0.8)";
+            ctx.shadowBlur = 5;
+            ctx.fill();
+            ctx.lineWidth = 1.5;
+            ctx.strokeStyle = "#451A03";
+            ctx.stroke();
+            ctx.restore();
+        }
+
+        // 3. Inner Vignette / Rim Shadow for Depth
+        ctx.save();
+        ctx.beginPath();
+        ctx.arc(centerX, centerY, radius, 0, Math.PI * 2);
+        ctx.lineWidth = 8;
+        ctx.strokeStyle = "rgba(255,255,255,0.6)";
+        ctx.stroke();
+        ctx.restore();
+    }
+
+    function adjustColorBrightness(hex, percent) {
+        let num = parseInt(hex.replace("#",""), 16),
+            amt = Math.round(2.55 * percent),
+            R = (num >> 16) + amt,
+            G = (num >> 8 & 0x00FF) + amt,
+            B = (num & 0x0000FF) + amt;
+        return "#" + (0x1000000 + (R<255?R<1?0:R:255)*0x10000 + (G<255?G<1?0:G:255)*0x100 + (B<255?B<1?0:B:255)).toString(16).slice(1);
     }
 
     function setupSpinView() {
@@ -1190,11 +1738,36 @@
         if (animStyle === 'wheel') {
             dynamicBox.innerHTML = `
                 <div class="canvas-wheel-container">
-                    <div class="wheel-pointer" id="wheelPointer"></div>
-                    <canvas id="canvasWheel" width="800" height="800" class="canvas-wheel"></canvas>
+                    <div class="wheel-led-ring" id="wheelLedRing"></div>
+                    <div class="wheel-pointer" id="wheelPointer">
+                        <svg viewBox="0 0 32 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <polygon points="16,48 2,12 16,4 30,12" fill="#DC2626" stroke="#FEF08A" stroke-width="2.5"/>
+                            <polygon points="16,36 8,14 16,8 24,14" fill="#EF4444"/>
+                            <circle cx="16" cy="14" r="5" fill="#FEF08A" stroke="#B45309" stroke-width="2"/>
+                        </svg>
+                    </div>
+                    <canvas id="canvasWheel" class="canvas-wheel"></canvas>
                     <div class="wheel-center-dot"></div>
                 </div>`;
             
+            // Build 24 Animated Perimeter LED Bulbs
+            let ledRing = document.getElementById('wheelLedRing');
+            if (ledRing) {
+                ledRing.innerHTML = '';
+                let numBulbs = 24;
+                for (let b = 0; b < numBulbs; b++) {
+                    let bAngle = (b / numBulbs) * 2 * Math.PI;
+                    let bulb = document.createElement('div');
+                    bulb.className = 'wheel-led-bulb' + (b % 2 === 0 ? ' alt' : '');
+                    let bx = 50 + 48 * Math.cos(bAngle);
+                    let by = 50 + 48 * Math.sin(bAngle);
+                    bulb.style.left = `${bx}%`;
+                    bulb.style.top = `${by}%`;
+                    bulb.id = `led_bulb_${b}`;
+                    ledRing.appendChild(bulb);
+                }
+            }
+
             let canvas = document.getElementById('canvasWheel');
             let pointer = document.getElementById('wheelPointer');
             
@@ -1209,9 +1782,9 @@
             let targetAngle = 270 - centerOffset;
             while (targetAngle < 0) targetAngle += 360;
             
-            let fullSpins = durationMs > 2500 ? 8 : 4;
+            let fullSpins = durationMs > 2500 ? 7 : 4;
             let finalAngle = targetAngle + (360 * fullSpins);
-            let randomVariance = (Math.random() - 0.5) * (sliceAngle * 0.8);
+            let randomVariance = (Math.random() - 0.5) * (sliceAngle * 0.7);
             finalAngle += randomVariance;
             
             let startTime = null;
@@ -1225,27 +1798,40 @@
                 let elapsed = timestamp - startTime;
                 let progress = Math.min(elapsed / durationMs, 1);
                 
-                let easeProgress = 1 - Math.pow(1 - progress, 4);
+                // Quintic easing for authentic physical deceleration
+                let easeProgress = 1 - Math.pow(1 - progress, 4.5);
                 wheelAngle = startAngle + (distance * easeProgress);
                 canvas.style.transform = `rotate(${wheelAngle}deg)`;
                 
                 let normalizedAngle = wheelAngle % 360;
                 let topCoord = (270 - normalizedAngle + 360) % 360; 
                 let currentPeg = Math.floor(topCoord / sliceAngle);
+
+                // LED Lights Chasing Pattern
+                let chaseIndex = Math.floor(elapsed / 50) % 24;
+                let bulbs = document.querySelectorAll('.wheel-led-bulb');
+                bulbs.forEach((bulb, bIdx) => {
+                    if ((bIdx + chaseIndex) % 3 === 0) {
+                        bulb.classList.remove('dim');
+                    } else {
+                        bulb.classList.add('dim');
+                    }
+                });
                 
                 if (currentPeg !== lastPegPassed) {
                     lastPegPassed = currentPeg;
                     let velocityFactor = 1 - progress; 
-                    if (velocityFactor > 0.05) {
-                        let kickAngle = -15 * velocityFactor - 5; 
-                        pointer.style.transition = 'transform 0.05s ease-out';
+                    if (velocityFactor > 0.04) {
+                        playTickSound(velocityFactor);
+                        let kickAngle = -18 * velocityFactor - 4; 
+                        pointer.style.transition = 'transform 0.04s ease-out';
                         pointer.style.transform = `translateX(-50%) rotate(${kickAngle}deg)`;
                         setTimeout(() => {
                             if (isSpinning && pointer) {
-                                pointer.style.transition = 'transform 0.1s ease-in';
+                                pointer.style.transition = 'transform 0.08s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
                                 pointer.style.transform = `translateX(-50%) rotate(0deg)`;
                             }
-                        }, 50);
+                        }, 40);
                     }
                 }
                 
@@ -1255,7 +1841,9 @@
                     isSpinning = false;
                     pointer.style.transform = `translateX(-50%) rotate(0deg)`; 
                     canvas.classList.add('wheel-glowing');
-                    showDestination(assignment, pNameStr, {pause: 1500}, index);
+                    bulbs.forEach(b => b.classList.remove('dim'));
+                    playWinFanfare();
+                    showDestination(assignment, pNameStr, {pause: 1600}, index);
                 }
             }
             setTimeout(() => { animationFrameId = requestAnimationFrame(animateWheel); }, 50);

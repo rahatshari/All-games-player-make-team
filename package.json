@@ -1,0 +1,16 @@
+{
+  "name": "pro-team-generator",
+  "version": "1.0.0",
+  "description": "Interactive team lottery and team builder with customizable spinning wheel, 3D card flips, slot animations, knockout/league match fixtures, and print/image export.",
+  "type": "module",
+  "scripts": {
+    "dev": "node server.js",
+    "start": "node server.js",
+    "build": "echo 'Static build ready'",
+    "lint": "node -c server.js"
+  },
+  "dependencies": {
+    "express": "^4.21.2",
+    "sharp": "^0.35.4"
+  }
+}

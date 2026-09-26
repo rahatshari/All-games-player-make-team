@@ -1,0 +1,7 @@
+{
+  "name": "Pro Team Generator",
+  "description": "Interactive team lottery and team builder with customizable spinning wheel, 3D card flips, slot animations, knockout/league match fixtures, and print/image export.",
+  "prompt": "This app was imported from GitHub repository rahatshari/All-games-player-make-team.",
+  "permissions": [],
+  "capabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
